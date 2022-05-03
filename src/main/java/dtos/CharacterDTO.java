@@ -2,23 +2,26 @@ package dtos;
 
 public class CharacterDTO {
 
-    private Long id;
+    private long id;
     private String name;
     private String description;
     private String imageSource;
 
-    public CharacterDTO(Long id, String name, String description, String imageSource) {
+    public CharacterDTO() {
+    }
+
+    public CharacterDTO(long id, String name, String description, String imageSource) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.imageSource = imageSource;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

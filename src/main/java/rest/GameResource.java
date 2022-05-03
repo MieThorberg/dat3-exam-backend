@@ -51,19 +51,20 @@ public class GameResource {
     }
 
     @GET
-    @Path("characters/all")
+    @Path("characters")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAll() throws IOException {
-        String data = HttpUtils.fetchData("https://miemt.me/werewolf_characters/api/characters/all");
+        String data = HttpUtils.fetchData("https://miemt.me/werewolf_characters/api/characters");
+        System.out.println(data);
         CharacterDTO[] characterDTOS = GSON.fromJson(data, CharacterDTO[].class);
         return GSON.toJson(characterDTOS);
     }
 
     @GET
-    @Path("characters/id/{id}")
+    @Path("characters/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCharacterById(@PathParam("id") long id) throws IOException {
-        String data = HttpUtils.fetchData("https://miemt.me/werewolf_characters/api/characters/id/" + id);
+        String data = HttpUtils.fetchData("https://miemt.me/werewolf_characters/api/characters/" + id);
         CharacterDTO characterDTO = GSON.fromJson(data, CharacterDTO.class);
         return GSON.toJson(characterDTO);
     }
