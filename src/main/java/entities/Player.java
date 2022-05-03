@@ -16,9 +16,8 @@ public class Player implements Serializable {
 //    @JoinColumn(name = "user")
     private User user;
 
-    @OneToOne
-//    @JoinColumn(name = "character")
-    private Character character;
+
+    private long characterId;
 
     @NotNull
     @Column(name = "isAlive")
@@ -29,11 +28,6 @@ public class Player implements Serializable {
     private Game game;
 
     public Player() {
-    }
-
-    public Player(User user, Character character) {
-        this.user = user;
-        this.character = character;
     }
 
     public Player(User user) {
@@ -56,14 +50,6 @@ public class Player implements Serializable {
         this.user = user;
     }
 
-    public Character getCharacter() {
-        return character;
-    }
-
-    public void setCharacter(Character character) {
-        this.character = character;
-    }
-
     public Boolean getAlive() {
         return isAlive;
     }
@@ -78,5 +64,13 @@ public class Player implements Serializable {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public long getCharacterId() {
+        return characterId;
+    }
+
+    public void setCharacterId(long characterId) {
+        this.characterId = characterId;
     }
 }

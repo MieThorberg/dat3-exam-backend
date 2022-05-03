@@ -1,7 +1,5 @@
 package dtos;
 
-import entities.Character;
-
 public class CharacterDTO {
 
     private Long id;
@@ -14,13 +12,6 @@ public class CharacterDTO {
         this.name = name;
         this.description = description;
         this.imageSource = imageSource;
-    }
-
-    public CharacterDTO(Character character) {
-        this.id = character.getId();
-        this.name = character.getName();
-        this.description = character.getDescription();
-        this.imageSource = character.getImageSource();
     }
 
     public Long getId() {
