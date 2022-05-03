@@ -1,6 +1,7 @@
 package rest;
 
 import com.google.gson.Gson;
+import dtos.GameDTO;
 import dtos.UserDTO;
 import entities.Game;
 import entities.Player;
@@ -33,7 +34,8 @@ public class GameResource {
         UserDTO userDTO = GSON.fromJson(data, UserDTO.class);
         User user = userDTO.toUser();
         Game game = GameFacade.getGameFacade(EMF).createGame(new Player(user));
-        return GSON.toJson(game);
+        GameDTO gameDTO = new GameDTO(game);
+        return GSON.toJson(gameDTO);
     }
 
 }

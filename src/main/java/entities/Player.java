@@ -13,11 +13,11 @@ public class Player implements Serializable {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "user")
+//    @JoinColumn(name = "user")
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "character")
+//    @JoinColumn(name = "character")
     private Character character;
 
     @NotNull

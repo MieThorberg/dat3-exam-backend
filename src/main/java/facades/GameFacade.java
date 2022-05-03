@@ -34,6 +34,7 @@ public class GameFacade {
 
         try {
             em.getTransaction().begin();
+            em.persist(host);
             em.persist(game);
             em.getTransaction().commit();
         } finally {
