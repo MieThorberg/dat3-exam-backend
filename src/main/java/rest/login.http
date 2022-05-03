@@ -1,6 +1,6 @@
 POST http://localhost:8080/ex_startcode_backend_war_exploded/api/login
 
-{"username":"user", "password":"test123"}
+{"username":"user2", "password":"test123"}
 
 ###
 POST http://localhost:8080/ex_startcode_backend_war_exploded/api/info/newuser
@@ -11,3 +11,6 @@ POST http://localhost:8080/ex_startcode_backend_war_exploded/api/info/newuser
 POST http://localhost:8080/ex_startcode_backend_war_exploded/api/game/creategame
 
 {"userName":"user", "userPass":"test123"}
+
+###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/game/id/1

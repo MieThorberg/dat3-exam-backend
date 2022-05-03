@@ -38,4 +38,13 @@ public class GameResource {
         return GSON.toJson(gameDTO);
     }
 
+    @GET
+    @Path("id/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getGameById(@PathParam("id") long id) {
+        Game game = GameFacade.getGameFacade(EMF).getGameById(id);
+        GameDTO gameDTO = new GameDTO(game);
+        return GSON.toJson(gameDTO);
+    }
+
 }

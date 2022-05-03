@@ -29,9 +29,7 @@ public class GameFacade {
 
     public Game createGame(Player host){
         Game game = new Game(host);
-
         EntityManager em = emf.createEntityManager();
-
         try {
             em.getTransaction().begin();
             em.persist(host);
@@ -40,9 +38,18 @@ public class GameFacade {
         } finally {
             em.close();
         }
-
-
         return game;
+    }
+
+    public Game getGameById(long id) {
+        EntityManager em = emf.createEntityManager();
+        Game game = em.find(Game.class, id);
+        return game;
+    }
+
+
+    public void startGame() {
+
     }
 
 }
