@@ -14,3 +14,10 @@ POST http://localhost:8080/ex_startcode_backend_war_exploded/api/game/creategame
 
 ###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/game/id/1
+
+
+###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/characters/all
+
+###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/characters/id/1
