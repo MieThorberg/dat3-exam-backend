@@ -36,6 +36,10 @@ public class Player implements Serializable {
         this.character = character;
     }
 
+    public Player(User user) {
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }
@@ -66,5 +70,13 @@ public class Player implements Serializable {
 
     public void setAlive(Boolean alive) {
         isAlive = alive;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }
