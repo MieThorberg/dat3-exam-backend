@@ -1,6 +1,7 @@
 package entities;
 
 import controller.Timer;
+import controller.VoteController;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +18,8 @@ public class NightRound extends Round implements Serializable {
     // TODO: make timer work
     @Transient
     private int nightTimer;
+    @Transient
+    VoteController voteController;
 
     public NightRound() {
     }
@@ -34,5 +37,7 @@ public class NightRound extends Round implements Serializable {
     @Override
     public void vote() {
         Timer timer = new Timer();
+        voteController.startVoting();
+
     }
 }
