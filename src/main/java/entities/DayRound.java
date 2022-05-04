@@ -11,10 +11,6 @@ import java.util.Queue;
 @Table (name = "Round")
 public class DayRound extends Round implements Serializable {
 
-//    @Id
-//    @Column(name = "id", nullable = false)
-//    private long id;
-
     public DayRound() {
     }
 
