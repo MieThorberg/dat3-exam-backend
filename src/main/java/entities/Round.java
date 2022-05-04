@@ -1,16 +1,22 @@
 package entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.Queue;
 
-@Entity
+@MappedSuperclass
 @Table(name = "round")
 public abstract class Round implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
+    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     @Column(name = "id", nullable = false)
-    private Long id;
+    private long id;
 
     @Column(name = "victim")
     private String victim;
@@ -22,6 +28,12 @@ public abstract class Round implements Serializable {
     private Queue<Player> playerQueue;
 
     public Round() {
+    }
+
+    public Round(String victim, boolean isDay, Queue<Player> playerQueue) {
+        this.victim = victim;
+        this.isDay = isDay;
+        this.playerQueue = playerQueue;
     }
 
     public Long getId() {
@@ -46,6 +58,14 @@ public abstract class Round implements Serializable {
 
     public void setPlayerQueue(Queue<Player> playerQueue) {
         this.playerQueue = playerQueue;
+    }
+
+    public boolean isDay() {
+        return isDay;
+    }
+
+    public void setDay(boolean day) {
+        isDay = day;
     }
 
     public abstract void start();

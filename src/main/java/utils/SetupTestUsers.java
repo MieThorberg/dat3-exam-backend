@@ -1,8 +1,7 @@
 package utils;
 
 
-import entities.Role;
-import entities.User;
+import entities.*;
 import facades.UserFacade;
 
 import javax.persistence.EntityManager;
@@ -24,6 +23,8 @@ public class SetupTestUsers {
     User user = new User("user", "test123");
     User admin = new User("admin", "test123");
     User both = new User("user_admin", "test123");
+    Round round = new NightRound("kurt",true,null);
+    Round round1 = new DayRound("Mie",false,null);
 
     if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
     {
@@ -34,6 +35,8 @@ public class SetupTestUsers {
     Role userRole = new Role("user");
     Role adminRole = new Role("admin");
 //    user.addRole(userRole);
+    em.persist(round);
+    em.persist(round1);
     admin.addRole(adminRole);
     both.addRole(userRole);
     both.addRole(adminRole);
