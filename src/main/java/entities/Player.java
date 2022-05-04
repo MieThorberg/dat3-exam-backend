@@ -16,7 +16,7 @@ public class Player implements Serializable {
 //    @JoinColumn(name = "user")
     private User user;
 
-
+    @Column(name = "characterId")
     private long characterId;
 
     @NotNull
