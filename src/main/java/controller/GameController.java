@@ -2,7 +2,14 @@ package controller;
 
 import entities.*;
 
+import java.util.Queue;
+
 public class GameController {
+
+    private PlayerQueue queue;
+    private int debateTime;
+    private int votingTime;
+    private int nightTime;
 
     public void createGame(){
 

@@ -18,8 +18,9 @@ public abstract class Round implements Serializable {
     @Column(name = "id", nullable = false)
     private long id;
 
-    @Column(name = "victim")
-    private String victim;
+    @JoinColumn(name = "victim")
+    @OneToOne
+    private Player victim;
 
     @Column(name = "isDay")
     private boolean isDay;
@@ -30,7 +31,7 @@ public abstract class Round implements Serializable {
     public Round() {
     }
 
-    public Round(String victim, boolean isDay, Queue<Player> playerQueue) {
+    public Round(Player victim, boolean isDay, Queue<Player> playerQueue) {
         this.victim = victim;
         this.isDay = isDay;
         this.playerQueue = playerQueue;
@@ -44,11 +45,11 @@ public abstract class Round implements Serializable {
         this.id = id;
     }
 
-    public String getVictim() {
+    public Player getVictim() {
         return victim;
     }
 
-    public void setVictim(String victim) {
+    public void setVictim(Player victim) {
         this.victim = victim;
     }
 

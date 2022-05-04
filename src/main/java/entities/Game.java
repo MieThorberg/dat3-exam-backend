@@ -19,6 +19,14 @@ public class Game implements Serializable {
     @NotNull
     private User host;
 
+    @JoinColumn(name = "Rounds")
+    @OneToMany (mappedBy = "game")
+    private List<NightRound> nightRounds;
+
+    @JoinColumn(name = "Rounds")
+    @OneToMany (mappedBy = "game")
+    private List<DayRound> dayRounds;
+
     @NotNull
     @JoinColumn(name = "players")
     @OneToMany(mappedBy = "game")
@@ -47,6 +55,18 @@ public class Game implements Serializable {
 
     public Game(User host) {
         this.host = host;
+    }
+
+    public void start(){
+
+    }
+
+    public void killPlayer(Player player){
+
+    }
+
+    public void addDay(){
+
     }
 
     public User getHost() {

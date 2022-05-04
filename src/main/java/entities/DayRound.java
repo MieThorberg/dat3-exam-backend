@@ -1,9 +1,6 @@
 package entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Queue;
 
@@ -11,11 +8,22 @@ import java.util.Queue;
 @Table (name = "Round")
 public class DayRound extends Round implements Serializable {
 
+    @JoinColumn(name = "gameid")
+    @ManyToOne
+    private Game game;
+
+    // TODO: make timer work
+    @Transient
+    private int debateTimer;
+    @Transient
+    private int votingTimer;
+
     public DayRound() {
     }
 
-    public DayRound(String victim,  Queue<Player> playerQueue) {
+    public DayRound(Game game, Player victim,  Queue<Player> playerQueue) {
         super(victim, true, playerQueue);
+        this.game = game;
     }
 
     @Override
