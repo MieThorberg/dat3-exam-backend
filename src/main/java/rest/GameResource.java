@@ -36,7 +36,7 @@ public class GameResource {
     public String createGame(String data) {
         UserDTO userDTO = GSON.fromJson(data, UserDTO.class);
         User user = userDTO.toUser();
-        Game game = GameFacade.getGameFacade(EMF).createGame(new Player(user));
+        Game game = GameFacade.getGameFacade(EMF).createGame(user);
         GameDTO gameDTO = new GameDTO(game);
         return GSON.toJson(gameDTO);
     }

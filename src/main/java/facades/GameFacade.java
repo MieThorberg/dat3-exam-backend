@@ -2,6 +2,7 @@ package facades;
 
 import entities.Game;
 import entities.Player;
+import entities.User;
 
 import javax.persistence.*;
 import java.util.*;
@@ -27,12 +28,11 @@ public class GameFacade {
         return instance;
     }
 
-    public Game createGame(Player host){
+    public Game createGame(User host){
         Game game = new Game(host);
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(host);
             em.persist(game);
             em.getTransaction().commit();
         } finally {

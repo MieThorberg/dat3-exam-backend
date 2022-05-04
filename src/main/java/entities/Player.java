@@ -10,10 +10,10 @@ public class Player implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
     @OneToOne
-//    @JoinColumn(name = "user")
     private User user;
 
     @Column(name = "characterId")
@@ -26,6 +26,9 @@ public class Player implements Serializable {
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
+
+    @Transient
+    private Player vote;
 
     public Player() {
     }
@@ -72,5 +75,13 @@ public class Player implements Serializable {
 
     public void setCharacterId(long characterId) {
         this.characterId = characterId;
+    }
+
+    public Player getVote() {
+        return vote;
+    }
+
+    public void setVote(Player vote) {
+        this.vote = vote;
     }
 }

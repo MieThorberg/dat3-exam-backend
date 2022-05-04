@@ -14,8 +14,8 @@ public class DayRound extends Round implements Serializable {
     public DayRound() {
     }
 
-    public DayRound(String victim, boolean isDay, Queue<Player> playerQueue) {
-        super(victim, isDay, playerQueue);
+    public DayRound(String victim,  Queue<Player> playerQueue) {
+        super(victim, true, playerQueue);
     }
 
     @Override

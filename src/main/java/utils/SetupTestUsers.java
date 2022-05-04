@@ -1,11 +1,14 @@
 package utils;
 
 
+import java.util.List;
 import entities.*;
 import facades.UserFacade;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.validation.constraints.Max;
+import java.util.ArrayList;
 
 public class SetupTestUsers {
 
@@ -23,8 +26,18 @@ public class SetupTestUsers {
     User user = new User("user", "test123");
     User admin = new User("admin", "test123");
     User both = new User("user_admin", "test123");
-    Round round = new NightRound("kurt",true,null);
-    Round round1 = new DayRound("Mie",false,null);
+    Round round = new NightRound("kurt",null);
+    Round round1 = new DayRound("Mie",null);
+    Player player = new Player(user);
+    Player player1 = new Player(admin);
+    Player player2 = new Player(both);
+
+    List<Player> players = new ArrayList<>();
+    players.add(player);
+    players.add(player1);
+    players.add(player2);
+
+    Game game = new Game(user, players, players, 3 );
 
     if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
     {
@@ -34,6 +47,10 @@ public class SetupTestUsers {
     em.getTransaction().begin();
     Role userRole = new Role("user");
     Role adminRole = new Role("admin");
+//    em.persist(player);
+//    em.persist(player1);
+//    em.persist(player2);
+//    em.persist(game);
 //    user.addRole(userRole);
     em.persist(round);
     em.persist(round1);

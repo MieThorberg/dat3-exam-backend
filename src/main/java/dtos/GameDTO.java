@@ -20,9 +20,8 @@ public class GameDTO {
     }
 
     public GameDTO(Game game) {
-        this.hostName = game.getHost().getUser().getUserName();
+        this.hostName = game.getHost().getUserName();
         this.playerNames = getPlayers(game.getPlayers());
-        this.hasEnded = game.isHasEnded();
     }
 
     public List<String> getPlayers(List<Player> players){

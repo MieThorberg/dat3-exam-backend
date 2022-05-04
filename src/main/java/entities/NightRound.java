@@ -14,8 +14,8 @@ public class NightRound extends Round implements Serializable {
     public NightRound() {
     }
 
-    public NightRound(String victim, boolean isDay, Queue<Player> playerQueue) {
-        super(victim, isDay, playerQueue);
+    public NightRound(String victim, Queue<Player> playerQueue) {
+        super(victim, false, playerQueue);
     }
 
     @Override

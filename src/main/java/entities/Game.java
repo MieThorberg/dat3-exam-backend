@@ -12,31 +12,48 @@ public class Game implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "ID")
     private Long id;
 
     @OneToOne
     @NotNull
-    @JoinColumn(name = "host")
-    private Player host;
+    private User host;
 
     @NotNull
     @JoinColumn(name = "players")
     @OneToMany(mappedBy = "game")
     private List<Player> players = new ArrayList<>();
 
+    @JoinTable(name = "game_player", joinColumns = {@JoinColumn(name = "gameid", referencedColumnName = "ID")},
+            inverseJoinColumns={ @JoinColumn(name="playerid", referencedColumnName="ID", unique=true) }
+    )
+    @JoinColumn(name = "victims")
+    @OneToMany(mappedBy = "game")
+    private List<Player> victims = new ArrayList<>();
+
     @NotNull
-    @Column(name = "hasEnded")
-    private boolean hasEnded;
+    @Column(name = "days")
+    private int days;
 
     public Game() {
     }
 
-    public Game(Player host, List<Player> players) {
+    public Game(User host, List<Player> players, List<Player> victims, int days) {
         this.host = host;
         this.players = players;
+        this.victims = victims;
+        this.days = days;
     }
 
-    public Game(Player host) {
+    public Game(User host) {
+        this.host = host;
+    }
+
+    public User getHost() {
+        return host;
+    }
+
+    public void setHost(User host) {
         this.host = host;
     }
 
@@ -48,27 +65,11 @@ public class Game implements Serializable {
         this.id = id;
     }
 
-    public Player getHost() {
-        return host;
-    }
-
-    public void setHost(Player host) {
-        this.host = host;
-    }
-
     public List<Player> getPlayers() {
         return players;
     }
 
     public void setPlayers(List<Player> players) {
         this.players = players;
-    }
-
-    public boolean isHasEnded() {
-        return hasEnded;
-    }
-
-    public void setHasEnded(boolean hasEnded) {
-        this.hasEnded = hasEnded;
     }
 }
