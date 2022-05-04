@@ -36,10 +36,10 @@ public class SetupTestUsers {
     players.add(player1);
     players.add(player2);
 
-    Game game = new Game(admin, players, players, 3 );
+    Game game = new Game(admin, players);
 
-    Round round = new NightRound(game, player1,null);
-    Round round1 = new DayRound(game, player2,null);
+    Round round = new NightRound(game, null);
+    Round round1 = new DayRound(game, null);
 
     if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
     {

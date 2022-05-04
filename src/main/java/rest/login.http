@@ -23,4 +23,4 @@ GET http://localhost:8080/ex_startcode_backend_war_exploded/api/characters
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/characters/1
 
 ###
-GET https://miemt.me/werewolf_characters/api/characters/all
+GET https://miemt.me/werewolf_characters/api/characters

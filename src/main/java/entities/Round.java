@@ -26,13 +26,12 @@ public abstract class Round implements Serializable {
     private boolean isDay;
 
     @Transient
-    private Queue<Player> playerQueue;
+    private PlayerQueue playerQueue;
 
     public Round() {
     }
 
-    public Round(Player victim, boolean isDay, Queue<Player> playerQueue) {
-        this.victim = victim;
+    public Round(boolean isDay, PlayerQueue playerQueue) {
         this.isDay = isDay;
         this.playerQueue = playerQueue;
     }
@@ -53,11 +52,11 @@ public abstract class Round implements Serializable {
         this.victim = victim;
     }
 
-    public Queue<Player> getPlayerQueue() {
+    public PlayerQueue getPlayerQueue() {
         return playerQueue;
     }
 
-    public void setPlayerQueue(Queue<Player> playerQueue) {
+    public void setPlayerQueue(PlayerQueue playerQueue) {
         this.playerQueue = playerQueue;
     }
 

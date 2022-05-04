@@ -41,16 +41,14 @@ public class Game implements Serializable {
 
     @NotNull
     @Column(name = "days")
-    private int days;
+    private int days = 0;
 
     public Game() {
     }
 
-    public Game(User host, List<Player> players, List<Player> victims, int days) {
+    public Game(User host, List<Player> players) {
         this.host = host;
         this.players = players;
-        this.victims = victims;
-        this.days = days;
     }
 
     public Game(User host) {
@@ -62,11 +60,12 @@ public class Game implements Serializable {
     }
 
     public void killPlayer(Player player){
-
+        players.remove(player);
+        victims.add(player);
     }
 
     public void addDay(){
-
+        days++;
     }
 
     public User getHost() {
@@ -92,4 +91,34 @@ public class Game implements Serializable {
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
+
+    public List<NightRound> getNightRounds() {
+        return nightRounds;
+    }
+
+    public void setNightRounds(List<NightRound> nightRounds) {
+        this.nightRounds = nightRounds;
+    }
+
+    public List<DayRound> getDayRounds() {
+        return dayRounds;
+    }
+
+    public void setDayRounds(List<DayRound> dayRounds) {
+        this.dayRounds = dayRounds;
+    }
+
+    public int getWerewolves() {
+        int werewolfId = 1;
+        int werewolves = 0;
+
+        for (Player player : players) {
+            if(player.getCharacterId() == werewolfId){
+                werewolves++;
+            }
+        }
+
+        return werewolves;
+    }
+
 }

@@ -1,5 +1,7 @@
 package entities;
 
+import controller.Timer;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Queue;
@@ -14,22 +16,23 @@ public class NightRound extends Round implements Serializable {
 
     // TODO: make timer work
     @Transient
-    private int NightTimer;
+    private int nightTimer;
 
     public NightRound() {
     }
-    public NightRound(Game game, Player victim, Queue<Player> playerQueue) {
-        super(victim, false, playerQueue);
+    public NightRound(Game game, PlayerQueue playerQueue, int nightTimer) {
+        super( false, playerQueue);
         this.game = game;
+        this.nightTimer = nightTimer;
     }
 
     @Override
     public void start() {
-
+        vote();
     }
 
     @Override
     public void vote() {
-
+        Timer timer = new Timer();
     }
 }
