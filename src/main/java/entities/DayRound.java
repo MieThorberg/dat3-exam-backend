@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Queue;
 import controller.Timer;
+import controller.VoteController;
 
 @Entity
 @Table (name = "Round")
@@ -18,6 +19,8 @@ public class DayRound extends Round implements Serializable {
     private int debateTimer;
     @Transient
     private int votingTimer;
+    @Transient
+    private VoteController voteController;
 
     public DayRound() {
     }
@@ -38,11 +41,12 @@ public class DayRound extends Round implements Serializable {
     private void debate(){
         Timer timer = new Timer();
 
+
     }
 
     @Override
     public void vote() {
         Timer timer = new Timer();
-
+        voteController.startVoting(game);
     }
 }

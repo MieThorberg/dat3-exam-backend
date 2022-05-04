@@ -18,7 +18,7 @@ public class GameController {
         return game;
     }
 
-    public Game startGame(ArrayList<Player> players){
+    public void startGame(ArrayList<Player> players){
         game.setPlayers(players);
         characterAssigning();
 
@@ -27,7 +27,7 @@ public class GameController {
             createRound();
         }
 
-        return game;
+
     }
 
     public void createRound(){
