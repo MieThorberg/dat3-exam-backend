@@ -37,7 +37,7 @@ public class NightRound extends Round implements Serializable {
     @Override
     public void vote() {
         Timer timer = new Timer();
-        voteController.startVoting();
+        voteController.startVoting(game);
 
     }
 }

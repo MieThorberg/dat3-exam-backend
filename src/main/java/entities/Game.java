@@ -108,6 +108,22 @@ public class Game implements Serializable {
         this.dayRounds = dayRounds;
     }
 
+    public List<Player> getVictims() {
+        return victims;
+    }
+
+    public void setVictims(List<Player> victims) {
+        this.victims = victims;
+    }
+
+    public int getDays() {
+        return days;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
+    }
+
     public int getWerewolves() {
         int werewolfId = 1;
         int werewolves = 0;
