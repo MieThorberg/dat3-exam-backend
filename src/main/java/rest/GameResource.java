@@ -74,6 +74,20 @@ public class GameResource {
         return GSON.toJson(playerList);
     }
 
+    @GET
+    @Path("{id}/players")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPlayersByGameId(@PathParam("id") long id) {
+        List<Player> players = GameFacade.getGameFacade(EMF).getAllPlayersByGameId(id);
+        System.out.println(players.get(0).getGame());
+
+        List<PlayerDTO> playerDTOS = PlayerDTO.getPlayerDTOs(players);
+
+        return GSON.toJson(playerDTOS);
+    }
+
+
+
 
 
     @GET
