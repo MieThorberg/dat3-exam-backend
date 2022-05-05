@@ -52,6 +52,8 @@ class GameControllerTest {
 
     @Test
     void startGame() {
+        // todo: test not working properly
+
         User host = new User("host", "test");
         User user = new User("user", "test");
         User user1 = new User("user1", "test");
@@ -68,7 +70,12 @@ class GameControllerTest {
         players.add(player1);
         players.add(player2);
 
-       // gc.startGame(players);
+        playerHost.setVote(player1);
+        player.setVote(player1);
+        player2.setVote(player1);
+        player1.setVote(player2);
+
+        gc.startGame(players);
 
 
     }

@@ -11,6 +11,9 @@ public class VoteController {
     // private HashMap<Player, Player> voting = new HashMap<>();
     private HashMap<Player, Integer> votes = new HashMap<>();
 
+    // todo: handle blanc votes
+    // todo: edit startVoting
+
     public void startVoting(Game game){
         for (Player player : game.getPlayers()) {
             votes.put(player,0);

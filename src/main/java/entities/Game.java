@@ -21,11 +21,11 @@ public class Game implements Serializable {
 
     @JoinColumn(name = "Rounds")
     @OneToMany (mappedBy = "game")
-    private List<NightRound> nightRounds;
+    private List<NightRound> nightRounds = new ArrayList<>();
 
     @JoinColumn(name = "Rounds")
     @OneToMany (mappedBy = "game")
-    private List<DayRound> dayRounds;
+    private List<DayRound> dayRounds = new ArrayList<>();
 
     @NotNull
     @JoinColumn(name = "players")

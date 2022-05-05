@@ -19,7 +19,7 @@ public class NightRound extends Round implements Serializable {
     @Transient
     private int nightTimer;
     @Transient
-    VoteController voteController;
+    VoteController voteController = new VoteController();
 
     public NightRound() {
     }
@@ -32,12 +32,14 @@ public class NightRound extends Round implements Serializable {
     @Override
     public void start() {
         vote();
+
     }
 
     @Override
     public void vote() {
         Timer timer = new Timer();
         voteController.startVoting(game);
-
+        Player victim = voteController.findResult();
+        setVictim(victim);
     }
 }

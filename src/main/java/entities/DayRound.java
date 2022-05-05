@@ -20,7 +20,7 @@ public class DayRound extends Round implements Serializable {
     @Transient
     private int votingTimer;
     @Transient
-    private VoteController voteController;
+    private VoteController voteController = new VoteController();
 
     public DayRound() {
     }
@@ -48,5 +48,7 @@ public class DayRound extends Round implements Serializable {
     public void vote() {
         Timer timer = new Timer();
         voteController.startVoting(game);
+        Player victim = voteController.findResult();
+        setVictim(victim);
     }
 }
