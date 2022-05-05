@@ -1,6 +1,7 @@
 package rest;
 
 import com.google.gson.Gson;
+import controller.GameController;
 import dtos.CharacterDTO;
 import dtos.GameDTO;
 import dtos.UserDTO;
@@ -15,18 +16,21 @@ import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.util.List;
 
 @Path("game")
 public class GameResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     Gson GSON = new Gson();
-
+    GameController GC;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getInfoForAll() {
-        return "{\"msg\":\"Hello anonymous\"}";
+        List<Game> games = GameFacade.getGameFacade(EMF).getAllGames();
+        List<GameDTO> gameDTO = GameDTO.getGameDTOs(games);
+        return GSON.toJson(gameDTO);
     }
 
     @POST

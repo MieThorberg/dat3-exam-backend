@@ -7,7 +7,7 @@ import controller.Timer;
 import controller.VoteController;
 
 @Entity
-@Table (name = "Round")
+@Table (name = "DayRound")
 public class DayRound extends Round implements Serializable {
 
     @JoinColumn(name = "gameid")
