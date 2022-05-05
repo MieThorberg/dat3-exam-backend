@@ -1,8 +1,38 @@
-POST http://localhost:8080/devops_starter_war_exploded/api/login
+POST http://localhost:8080/ex_startcode_backend_war_exploded/api/login
 
-{"username":"user", "password":"test123"}
+{"username":"user2", "password":"test123"}
 
 ###
-POST http://localhost:8080/ca2_startcode_backend_war_exploded/api/info/newuser
+POST http://localhost:8080/ex_startcode_backend_war_exploded/api/info/newuser
 
 {"userName":"user2", "userPass":"test123"}
+
+###
+POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/creategame
+
+{"userName":"user", "userPass":"test123"}
+
+###
+POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/createplayers
+
+[
+{"userName":"user", "userPass":"test123"},
+{"userName":"admin", "userPass":"test123"},
+{"userName":"user_admin", "userPass":"test123"}
+]
+
+###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1
+
+###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games
+
+
+###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/characters
+
+###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/characters/1
+
+###
+GET https://miemt.me/werewolf_characters/api/characters

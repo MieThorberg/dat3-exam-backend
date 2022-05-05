@@ -1,12 +1,14 @@
 package utils;
 
 
-import entities.Role;
-import entities.User;
+import java.util.List;
+import entities.*;
 import facades.UserFacade;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.validation.constraints.Max;
+import java.util.ArrayList;
 
 public class SetupTestUsers {
 
@@ -24,6 +26,23 @@ public class SetupTestUsers {
     User user = new User("user", "test123");
     User admin = new User("admin", "test123");
     User both = new User("user_admin", "test123");
+    // Player player = new Player(user);
+    Player player1 = new Player(admin);
+    Player player2 = new Player(both);
+
+
+    List<Player> players = new ArrayList<>();
+    //players.add(player);
+    players.add(player1);
+    players.add(player2);
+
+    Game game = new Game(admin, players);
+
+    NightRound round = new NightRound(game, null, 60);
+    DayRound round1 = new DayRound(game, null, 300, 60);
+
+    game.getNightRounds().add(round);
+    game.getDayRounds().add(round1);
 
     if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
     {
@@ -33,7 +52,6 @@ public class SetupTestUsers {
     em.getTransaction().begin();
     Role userRole = new Role("user");
     Role adminRole = new Role("admin");
-//    user.addRole(userRole);
     admin.addRole(adminRole);
     both.addRole(userRole);
     both.addRole(adminRole);
@@ -42,6 +60,13 @@ public class SetupTestUsers {
 //    em.persist(user);
     em.persist(admin);
     em.persist(both);
+
+    em.persist(player1);
+    em.persist(player2);
+    em.persist(game);
+//    user.addRole(userRole);
+    em.persist(round);
+    em.persist(round1);
     em.getTransaction().commit();
     UserFacade.getUserFacade(emf).registerNewUser(user);
     System.out.println("PW: " + user.getUserPass());
