@@ -106,7 +106,7 @@ public class GameController {
 
         // assign the rest of the player list as villagers
         for (int i = 0; i < game.getPlayers().size(); i++) {
-            game.getPlayers().get(i).setCharacterId(0);
+            game.getPlayers().get(i).setCharacterId(villagerCharacterId);
         }
 
 
