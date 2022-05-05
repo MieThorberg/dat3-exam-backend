@@ -33,8 +33,7 @@ public class GameFacade {
     public List<Game> getAllGames(){
         EntityManager em = emf.createEntityManager();
 
-        TypedQuery<Game> query;
-        query = em.createQuery("SELECT g FROM Game g", Game.class);
+        TypedQuery<Game> query = em.createQuery("SELECT g FROM Game g", Game.class);
 
         return query.getResultList();
     }
@@ -91,6 +90,15 @@ public class GameFacade {
         em.getTransaction().commit();
 
         return players;
+    }
+
+    public List<Player> getAllPlayersFromGame(long gameId){
+        EntityManager em = emf.createEntityManager();
+
+        TypedQuery<Player> query = em.createQuery("SELECT p FROM Player p WHERE p.game.id = :gameId", Player.class);
+        query.setParameter("gameId",gameId);
+
+        return query.getResultList();
     }
 
 
