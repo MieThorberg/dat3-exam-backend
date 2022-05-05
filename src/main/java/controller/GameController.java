@@ -30,7 +30,7 @@ public class GameController {
 
     }
 
-    public void createRound(){
+    private void createRound(){
         //TODO: chance Night and Day Constructors
 
         // nightRound
@@ -54,16 +54,13 @@ public class GameController {
         game.getDayRounds().add(dayRound);
     }
 
-    public Player getVictim(){
 
-        return null;
-    }
 
-    public void kill(Player player){
+    private void kill(Player player){
         game.killPlayer(player);
     }
 
-    public void characterAssigning(int amountOfWolves){
+    private void characterAssigning(int amountOfWolves){
         // amount of player
         // check if the amount of werewolves makes sense, if not calculate a max amount of werewolves
 
@@ -87,6 +84,10 @@ public class GameController {
 
     }
 
+    private boolean hasEnded(){
+        return game.getWerewolves() > game.getPlayers().size() || game.getWerewolves() == 0;
+    }
+
     public Player getLatestVictim() {
         return latestVictim;
     }
@@ -94,8 +95,8 @@ public class GameController {
     public void setLatestVictim(Player latestVictim) {
         this.latestVictim = latestVictim;
     }
+    public Player getVictim(){
 
-    public boolean hasEnded(){
-        return game.getWerewolves() > game.getPlayers().size() || game.getWerewolves() == 0;
+        return null;
     }
 }

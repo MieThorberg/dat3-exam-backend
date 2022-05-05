@@ -40,8 +40,6 @@ public class DayRound extends Round implements Serializable {
 
     private void debate(){
         Timer timer = new Timer();
-
-
     }
 
     @Override
