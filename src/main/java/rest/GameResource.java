@@ -107,4 +107,14 @@ public class GameResource {
         PlayerDTO victimDTO = new PlayerDTO(victim);
         return GSON.toJson(victimDTO);
     }
+
+    @GET
+    @Path("{id}/days")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getDays(@PathParam("id") long id) {
+        int days = GameFacade.getGameFacade(EMF).getDays(id);
+
+        return GSON.toJson(days);
+    }
+
 }

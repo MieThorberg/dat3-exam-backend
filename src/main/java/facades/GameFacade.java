@@ -118,4 +118,12 @@ public class GameFacade {
         Player player = query.getSingleResult();
         return player;
     }
+
+    public int getDays(long gameId){
+        EntityManager em = emf.createEntityManager();
+
+        Game game = em.find(Game.class, gameId);
+
+        return game.getDays();
+    }
 }
