@@ -2,7 +2,9 @@ package controller;
 
 import entities.*;
 
+import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameController {
 
@@ -61,33 +63,59 @@ public class GameController {
     }
 
 
-
     private void kill(Player player){
         game.killPlayer(player);
     }
 
     private void characterAssigning(int amountOfWolves){
         // amount of player
-        // check if the amount of werewolves makes sense, if not calculate a max amount of werewolves
+        int amountOfPlayer = game.getPlayers().size();
 
+        // check if the amount of werewolves makes sense, if not calculate a max amount of werewolves
+        if (amountOfWolves > amountOfPlayer) {
+            // todo: make better calculator for amount of werewolves
+            amountOfWolves = ((amountOfPlayer/2) -1);
+        }
 
         // amount of characters
         // how many characters are in game the game
 
-
         // assigning roles
-        // assign werewolves
         // make a Characters assign list
-        // remove players from the player list, an assign them there role, and then put them in the assign list;
+        List<Player> assignedPlayers = new ArrayList<>();
+
+        // assign werewolves
+        Random random = new Random();
+        int wereWolfCharacterId = 1;
+        for (int i = 0; i < amountOfWolves; i++) {
+            int randomPicker = random.nextInt(game.getPlayers().size());
+
+            // remove players from the player list, an assign them there role, and then put them in the assign list;
+            Player pickPlayer = game.getPlayers().get(randomPicker);
+            game.getPlayers().remove(randomPicker);
+
+            pickPlayer.setCharacterId(wereWolfCharacterId);
+            assignedPlayers.add(pickPlayer);
+        }
 
         // assign other characters
         // remove players from the player list, an assign them there role, and then put them in the assign list;
 
         // assign villagers
+        int villagerCharacterId = 0;
+
         // assign the rest of the player list as villagers
+        for (int i = 0; i < game.getPlayers().size(); i++) {
+            game.getPlayers().get(i).setCharacterId(0);
+        }
+
 
         // merge the assign list into the player list
+        game.getPlayers().addAll(assignedPlayers);
 
+        for (Player player : game.getPlayers()) {
+            System.out.println(player.getUser().getUserName() + " : " + player.getCharacterId());
+        }
     }
 
     private boolean hasEnded(){
