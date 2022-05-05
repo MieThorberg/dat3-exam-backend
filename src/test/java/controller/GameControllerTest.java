@@ -77,7 +77,7 @@ class GameControllerTest {
 
         player1.setCharacterId(1);
 
-        gc.startGame(players, 1);
+       // gc.startGame(players, 1);
 
 
     }
