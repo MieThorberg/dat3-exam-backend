@@ -29,6 +29,15 @@ public class GameFacade {
         return instance;
     }
 
+    public List<Game> getAllGames(){
+        EntityManager em = emf.createEntityManager();
+
+        TypedQuery<Game> query;
+        query = em.createQuery("SELECT g FROM Game g", Game.class);
+
+        return query.getResultList();
+    }
+
     public Game createGame(User host){
         Game game = new Game(host);
         EntityManager em = emf.createEntityManager();

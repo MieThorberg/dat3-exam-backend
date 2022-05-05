@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Queue;
 
 @Entity
-@Table (name = "Round")
+@Table (name = "NightRound")
 public class NightRound extends Round implements Serializable {
 
     @JoinColumn(name = "gameid")
