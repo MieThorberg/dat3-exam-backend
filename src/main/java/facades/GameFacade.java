@@ -1,9 +1,7 @@
 package facades;
 
 import dtos.PlayerDTO;
-import entities.Game;
-import entities.Player;
-import entities.User;
+import entities.*;
 
 import javax.persistence.*;
 import java.util.*;
@@ -125,5 +123,22 @@ public class GameFacade {
         Game game = em.find(Game.class, gameId);
 
         return game.getDays();
+    }
+
+    public List<NightRound> getNightRounds(long gameId){
+        EntityManager em = emf.createEntityManager();
+
+        TypedQuery<NightRound> query = em.createQuery("SELECT n FROM NightRound n WHERE n.game.id = :id", NightRound.class);
+        query.setParameter("id", gameId);
+
+        return query.getResultList();
+    }
+    public List<DayRound> getDayRounds(long gameId){
+        EntityManager em = emf.createEntityManager();
+
+        TypedQuery<DayRound> query = em.createQuery("SELECT d FROM DayRound d WHERE d.game.id = :id", DayRound.class);
+        query.setParameter("id", gameId);
+
+        return query.getResultList();
     }
 }

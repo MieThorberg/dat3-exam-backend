@@ -48,4 +48,8 @@ public class DayRound extends Round implements Serializable {
         Player victim =  voteController.startVoting(game);
         setVictim(victim);
     }
+
+    public Game getGame() {
+        return game;
+    }
 }

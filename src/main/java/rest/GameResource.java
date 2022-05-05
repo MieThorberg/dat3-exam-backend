@@ -2,13 +2,8 @@ package rest;
 
 import com.google.gson.Gson;
 import controller.GameController;
-import dtos.CharacterDTO;
-import dtos.GameDTO;
-import dtos.PlayerDTO;
-import dtos.UserDTO;
-import entities.Game;
-import entities.Player;
-import entities.User;
+import dtos.*;
+import entities.*;
 import facades.GameFacade;
 import utils.EMF_Creator;
 import utils.HttpUtils;
@@ -115,6 +110,19 @@ public class GameResource {
         int days = GameFacade.getGameFacade(EMF).getDays(id);
 
         return GSON.toJson(days);
+    }
+
+    @GET
+    @Path("{id}/rounds")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getRounds(@PathParam("id") long id) {
+        List<NightRound> nightRounds = GameFacade.getGameFacade(EMF).getNightRounds(id);
+        List<DayRound> dayRounds = GameFacade.getGameFacade(EMF).getDayRounds(id);
+
+        List<GameRoundDTO> gameRoundDTOS = GameRoundDTO.getGameNightRoundDTO(nightRounds);
+        gameRoundDTOS.addAll(GameRoundDTO.getGameDayRoundDTO(dayRounds));
+
+        return GSON.toJson(gameRoundDTOS);
     }
 
 }
