@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -47,6 +48,12 @@ public class Game implements Serializable {
     @NotNull
     @Column(name = "days")
     private int days = 0;
+
+
+    //hav et felt til at holde styr på character og antallet af characters
+//    @Transient
+//    //key: characterid , value: amount
+//    private HashMap<Integer, Integer> characters;
 
     public Game() {
     }
@@ -145,4 +152,16 @@ public class Game implements Serializable {
     public void setLatestVictim(Player latestVictim) {
         this.latestVictim = latestVictim;
     }
+
+//    public HashMap<Integer, Integer> getCharacters() {
+//        return characters;
+//    }
+//
+//    public void setCharacters(HashMap<Integer, Integer> characters) {
+//        this.characters = characters;
+//    }
+//
+//    public void addCharacter(int characterId, int amount) {
+//         characters.put(characterId, amount);
+//    }
 }

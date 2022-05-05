@@ -3,6 +3,9 @@ package controller;
 import entities.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 public class GameController {
 
@@ -88,7 +91,38 @@ public class GameController {
 
         // merge the assign list into the player list
 
+
+
+
+
+//        List<Player> playersLeft = game.getPlayers();
+//        HashMap<Integer, Integer> characters = game.getCharacters();
+
+        //random assign players
+
+        //gennemgå alle characterids
+//        for (Integer key : characters.keySet()) {
+//            int characterId = key;
+//            int amount = characters.get(characterId);
+//            int size = playersLeft.size();
+//
+            //for hver character har den en amount
+            // vi assign tilfældige players i et loop indtil vi når amount værdien
+//            for(int i = 0; i < amount; i++) {
+//                int randomIndex = getRandomIndex(size);
+//                playersLeft.get(randomIndex).setCharacterId(characterId);
+//                playersLeft.remove(randomIndex);
+//            }
+//        }
+
+        //merge liste til game player
+
     }
+
+//    public int getRandomIndex(int size) {
+//        Random random = new Random();
+//        return random.nextInt(size);
+//    }
 
     private boolean hasEnded(){
         return game.getWerewolves() > game.getPlayers().size() || game.getWerewolves() == 0;
