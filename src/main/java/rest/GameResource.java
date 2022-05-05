@@ -77,8 +77,8 @@ public class GameResource {
     @GET
     @Path("{id}/players")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPlayersFromGame(@PathParam("id") long id) {
-        List<Player> players = GameFacade.getGameFacade(EMF).getAllPlayersFromGame(id);
+    public String getPlayersByGameId(@PathParam("id") long id) {
+        List<Player> players = GameFacade.getGameFacade(EMF).getAllPlayersByGameId(id);
         System.out.println(players.get(0).getGame());
 
         List<PlayerDTO> playerDTOS = PlayerDTO.getPlayerDTOs(players);
