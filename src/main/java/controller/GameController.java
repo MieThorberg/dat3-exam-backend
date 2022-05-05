@@ -16,14 +16,14 @@ public class GameController {
     public GameController() {
     }
 
-    public GameController(Game game, Player latestVictim) {
+    public GameController(Game game) {
         this.game = game;
-        this.latestVictim = latestVictim;
+        this.latestVictim = game.getLatestVictim();
     }
 
     public Game createGame(User user){
         this.game = new Game(user);
-        return game;
+        return this.game;
     }
 
     public void startGame(ArrayList<Player> players, int amountOfWolves){
@@ -34,8 +34,6 @@ public class GameController {
         while (!hasEnded()){
             createRound();
         }
-
-
     }
 
     private void createRound(){

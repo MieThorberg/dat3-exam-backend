@@ -12,6 +12,7 @@ public class GameFacade {
 
     private static EntityManagerFactory emf;
     private static GameFacade instance;
+    private GameController gc;
 
     public GameFacade() {
     }
@@ -38,9 +39,17 @@ public class GameFacade {
         return query.getResultList();
     }
 
-    public Game createGame(User host){
-        Game game = new Game(host);
+    public Game getGameById(long id) {
         EntityManager em = emf.createEntityManager();
+        return em.find(Game.class, id);
+    }
+
+    public Game createGame(User host){
+        EntityManager em = emf.createEntityManager();
+
+        gc = new GameController();
+        Game game = gc.createGame(host);
+
         try {
             em.getTransaction().begin();
             em.persist(game);
@@ -48,18 +57,41 @@ public class GameFacade {
         } finally {
             em.close();
         }
+
         return game;
     }
 
-    public Game getGameById(long id) {
+    public Game startGame(Game game){
         EntityManager em = emf.createEntityManager();
-        Game game = em.find(Game.class, id);
+
+        gc = new GameController(game);
+//        Game startGame = gc.startGame();
+
+        try {
+            em.getTransaction().begin();
+            em.persist(game);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
         return game;
     }
 
+    public List<Player> createPlayers(long gameId,List<Player> players){
+        EntityManager em = emf.createEntityManager();
 
-    public void startGame() {
+        em.getTransaction().begin();
+        Game game = em.find(Game.class, gameId);
 
+        for (Player player : players) {
+            player.setGame(game);
+            em.persist(player);
+        }
+        em.getTransaction().commit();
+
+        return players;
     }
+
 
 }

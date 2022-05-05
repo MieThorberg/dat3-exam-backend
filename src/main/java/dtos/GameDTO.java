@@ -8,6 +8,7 @@ import java.util.List;
 
 public class GameDTO {
 
+    private long id;
     private String hostName;
     private List<String> playerNames;
     private List<Long> nightRoundsID;
@@ -17,7 +18,8 @@ public class GameDTO {
     private int days;
 
 
-    public GameDTO(String hostName, List<String> playerNames, List<Long> nightRoundsID, List<Long> dayRoundsID, List<String> victimsNames, String latestVictimName, int days) {
+    public GameDTO(long id, String hostName, List<String> playerNames, List<Long> nightRoundsID, List<Long> dayRoundsID, List<String> victimsNames, String latestVictimName, int days) {
+        this.id = id;
         this.hostName = hostName;
         this.playerNames = playerNames;
         this.nightRoundsID = nightRoundsID;
@@ -28,6 +30,7 @@ public class GameDTO {
     }
 
     public GameDTO(Game game) {
+        this.id = game.getId();
         this.hostName = game.getHost().getUserName();
         this.playerNames = getPlayers(game.getPlayers());
         this.nightRoundsID = getNightRoundsIDS(game.getNightRounds());
@@ -100,5 +103,13 @@ public class GameDTO {
 
     public int getDays() {
         return days;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
