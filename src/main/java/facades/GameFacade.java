@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.PlayerDTO;
 import entities.Game;
 import entities.Player;
 import entities.User;
@@ -102,4 +103,19 @@ public class GameFacade {
     }
 
 
+    public List<Player> getAllVictims(long id) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Player> query = em.createQuery("SELECT g.victims FROM Game g WHERE g.id = :id", Player.class);
+        query.setParameter("id", id);
+        List<Player> victims = query.getResultList();
+        return victims;
+    }
+
+    public Player getLatestVictim(long id) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Player> query = em.createQuery("SELECT g.latestVictim FROM Game g WHERE g.id = :id", Player.class);
+        query.setParameter("id", id);
+        Player player = query.getSingleResult();
+        return player;
+    }
 }

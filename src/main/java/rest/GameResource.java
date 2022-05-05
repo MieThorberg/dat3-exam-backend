@@ -90,5 +90,21 @@ public class GameResource {
 
 
 
+    @GET
+    @Path("{id}/victims")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllVictims(@PathParam("id") long id) {
+        List<Player> victims = GameFacade.getGameFacade(EMF).getAllVictims(id);
+        List<PlayerDTO> victimsDTOs = PlayerDTO.getPlayerDTOs(victims);
+        return GSON.toJson(victimsDTOs);
+    }
 
+    @GET
+    @Path("{id}/victims/latest")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getLatestVictims(@PathParam("id") long id) {
+        Player victim = GameFacade.getGameFacade(EMF).getLatestVictim(id);
+        PlayerDTO victimDTO = new PlayerDTO(victim);
+        return GSON.toJson(victimDTO);
+    }
 }
