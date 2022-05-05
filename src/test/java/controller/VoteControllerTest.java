@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,18 +41,25 @@ class VoteControllerTest {
         Game game = new Game(host, players);
         vc.startVoting(game);
 
-        vc.getVotes().forEach((vPlayer, vote) -> {
-            System.out.println(vPlayer.getUser().getUserName() + " : " + vote);
-        });
+//        vc.getVotes().forEach((vPlayer, vote) -> {
+//            System.out.println(vPlayer.getUser().getUserName() + " : " + vote);
+//        });
     }
 
     @Test
     void startVoting() {
+        int maxValueInMap=(Collections.max(vc.getVotes().values()));
 
+        assertEquals(3, maxValueInMap);
+
+        assertEquals(2, vc.getVotes().size());
     }
 
     @Test
     void addVote() {
+        vc.addVote(new Player(new User("user5","test")));
+
+        assertEquals(3, vc.getVotes().size());
     }
 
     @Test

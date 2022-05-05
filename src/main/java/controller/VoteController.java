@@ -12,24 +12,27 @@ public class VoteController {
     private HashMap<Player, Integer> votes = new HashMap<>();
 
     // todo: handle blanc votes
-    // todo: edit startVoting
 
-    public void startVoting(Game game){
-        for (Player player : game.getPlayers()) {
-            votes.put(player,0);
-        }
+    public Player startVoting(Game game){
 
         for (Player player : game.getPlayers()) {
             Player playerVote = player.getVote();
-
-            int vote = votes.get(playerVote);
-            vote++;
-            votes.replace(playerVote, vote);
+            addVote(playerVote);
         }
+
+        // TODO: check for multiple players with highest votes
+
+        return findResult();
     }
 
     public void addVote(Player player){
-
+        if(votes.containsKey(player)) {
+            int vote = votes.get(player);
+            vote++;
+            votes.put(player, vote);
+        } else {
+            votes.put(player, 1);
+        }
     }
 
     public Player findResult(){
@@ -43,6 +46,9 @@ public class VoteController {
         });
 
         // TODO: check for multiple players with highest votes
+//        if(players.size() > 1){
+//            return
+//        }
 
 
         return players.get(0);

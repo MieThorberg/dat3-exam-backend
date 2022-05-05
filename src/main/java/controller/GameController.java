@@ -18,12 +18,12 @@ public class GameController {
         return game;
     }
 
-    public void startGame(ArrayList<Player> players){
+    public void startGame(ArrayList<Player> players, int amountOfWolves){
         game.setPlayers(players);
-        characterAssigning();
+        characterAssigning(amountOfWolves);
 
 
-        while (hasEnded()){
+        while (!hasEnded()){
             createRound();
         }
 
@@ -63,7 +63,27 @@ public class GameController {
         game.killPlayer(player);
     }
 
-    public void characterAssigning(){
+    public void characterAssigning(int amountOfWolves){
+        // amount of player
+        // check if the amount of werewolves makes sense, if not calculate a max amount of werewolves
+
+
+        // amount of characters
+        // how many characters are in game the game
+
+
+        // assigning roles
+        // assign werewolves
+        // make a Characters assign list
+        // remove players from the player list, an assign them there role, and then put them in the assign list;
+
+        // assign other characters
+        // remove players from the player list, an assign them there role, and then put them in the assign list;
+
+        // assign villagers
+        // assign the rest of the player list as villagers
+
+        // merge the assign list into the player list
 
     }
 

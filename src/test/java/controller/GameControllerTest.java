@@ -75,7 +75,9 @@ class GameControllerTest {
         player2.setVote(player1);
         player1.setVote(player2);
 
-        gc.startGame(players);
+        player1.setCharacterId(1);
+
+        gc.startGame(players, 1);
 
 
     }
