@@ -60,19 +60,19 @@ public class GameFacade {
         return game;
     }
 
-    public Game startGame(Game game){
+    public Game startGame(Game game, ArrayList<Player> players){
         EntityManager em = emf.createEntityManager();
 
         gc = new GameController(game);
-//        Game startGame = gc.startGame();
+        gc.startGame(players,1);
 
-        try {
-            em.getTransaction().begin();
-            em.persist(game);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
+//        try {
+//            em.getTransaction().begin();
+//            em.persist(game);
+//            em.getTransaction().commit();
+//        } finally {
+//            em.close();
+//        }
 
         return game;
     }
