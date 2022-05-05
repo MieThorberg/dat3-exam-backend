@@ -6,6 +6,7 @@ import entities.User;
 
 import javax.persistence.*;
 import java.util.*;
+import controller.GameController;
 
 public class GameFacade {
 

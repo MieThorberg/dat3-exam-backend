@@ -39,6 +39,11 @@ public class Game implements Serializable {
     @OneToMany(mappedBy = "game")
     private List<Player> victims = new ArrayList<>();
 
+    @OneToOne
+    @NotNull
+    @JoinColumn(name = "latestVictim")
+    private Player latestVictim;
+
     @NotNull
     @Column(name = "days")
     private int days = 0;
@@ -55,10 +60,6 @@ public class Game implements Serializable {
         this.host = host;
     }
 
-    public void start(){
-
-    }
-
     public void killPlayer(Player player){
         players.remove(player);
         victims.add(player);
@@ -66,6 +67,19 @@ public class Game implements Serializable {
 
     public void addDay(){
         days++;
+    }
+
+    public int getWerewolves() {
+        int werewolfId = 1;
+        int werewolves = 0;
+
+        for (Player player : players) {
+            if(player.getCharacterId() == werewolfId){
+                werewolves++;
+            }
+        }
+
+        return werewolves;
     }
 
     public User getHost() {
@@ -124,17 +138,11 @@ public class Game implements Serializable {
         this.days = days;
     }
 
-    public int getWerewolves() {
-        int werewolfId = 1;
-        int werewolves = 0;
-
-        for (Player player : players) {
-            if(player.getCharacterId() == werewolfId){
-                werewolves++;
-            }
-        }
-
-        return werewolves;
+    public Player getLatestVictim() {
+        return latestVictim;
     }
 
+    public void setLatestVictim(Player latestVictim) {
+        this.latestVictim = latestVictim;
+    }
 }

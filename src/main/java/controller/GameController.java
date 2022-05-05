@@ -13,6 +13,14 @@ public class GameController {
     private Game game;
     private Player latestVictim;
 
+    public GameController() {
+    }
+
+    public GameController(Game game, Player latestVictim) {
+        this.game = game;
+        this.latestVictim = latestVictim;
+    }
+
     public Game createGame(User user){
         this.game = new Game(user);
         return game;
@@ -44,7 +52,7 @@ public class GameController {
 
         // who is dead
         // TODO: show latestVictim
-        latestVictim = nightRound.getVictim();
+        game.setLatestVictim(latestVictim = nightRound.getVictim());
 
         // dayRound
         DayRound dayRound = new DayRound(game, playerQueue, debateTime, votingTime);
