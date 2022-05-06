@@ -158,5 +158,17 @@ public class GameResource {
         return GSON.toJson(playerDTO);
     }
 
+    @PUT
+    @Path("{id}/assigncharacters")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String killPlayer(@PathParam("id") long id) {
 
+        List<Player> players = GameFacade.getGameFacade(EMF).assignCharacters(id, 1);
+        List<PlayerDTO> playerDTOS = PlayerDTO.getPlayerDTOs(players);
+
+        return GSON.toJson(playerDTOS);
+    }
 }
+
+

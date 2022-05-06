@@ -185,4 +185,19 @@ public class GameFacade {
 
         return playerToKill;
     }
+
+    public List<Player> assignCharacters(long gameId, int amountOfWerewolves){
+        EntityManager em = emf.createEntityManager();
+
+        Game game = em.find(Game.class, gameId);
+        gc = new GameController(game);
+
+        gc.characterAssigning(amountOfWerewolves);
+
+        em.getTransaction().begin();
+        em.merge(game);
+        em.getTransaction().commit();
+
+        return game.getPlayers();
+    }
 }

@@ -81,7 +81,6 @@ public class GameController {
             // todo: make better calculator for amount of werewolves
             amountOfWolves = ((amountOfPlayer/2) -1);
         }
-
         // amount of characters
         // how many characters are in game the game
 
