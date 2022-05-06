@@ -69,6 +69,18 @@ public class GameResource {
         return GSON.toJson(playerList);
     }
 
+    @POST
+    @Path("{id}/createplayer")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String createPlayer(@PathParam("id") long id, String data){
+        UserDTO userDTO = GSON.fromJson(data, UserDTO.class);
+        User user = userDTO.toUser();
+        Player player = new Player(user);
+        Player newPlayer = GameFacade.getGameFacade(EMF).createPlayer(id,player);
+        return GSON.toJson(newPlayer);
+    }
+
     @GET
     @Path("{id}/players")
     @Produces(MediaType.APPLICATION_JSON)
