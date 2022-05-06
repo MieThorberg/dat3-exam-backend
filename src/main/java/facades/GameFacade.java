@@ -150,7 +150,7 @@ public class GameFacade {
         return player;
     }
 
-    public List<Player> getAllLivingPlayers(long id) {
+    public List<Player> getAllAlivePlayers(long id) {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Player> query = em.createQuery("SELECT g.players FROM Game g WHERE g.id = :id", Player.class);
         query.setParameter("id", id);

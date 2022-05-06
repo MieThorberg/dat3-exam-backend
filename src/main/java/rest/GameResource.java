@@ -6,12 +6,10 @@ import dtos.*;
 import entities.*;
 import facades.GameFacade;
 import utils.EMF_Creator;
-import utils.HttpUtils;
 
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,10 +132,10 @@ public class GameResource {
     }
 
     @GET
-    @Path("{id}/livingplayers")
+    @Path("{id}/aliveplayers")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getLivingPlayersByGameId(@PathParam("id") long id) {
-        List<Player> players = GameFacade.getGameFacade(EMF).getAllLivingPlayers(id);
+    public String getAlivePlayersByGameId(@PathParam("id") long id) {
+        List<Player> players = GameFacade.getGameFacade(EMF).getAllAlivePlayers(id);
         List<PlayerDTO> playerDTOS = PlayerDTO.getPlayerDTOs(players);
 
         return GSON.toJson(playerDTOS);
