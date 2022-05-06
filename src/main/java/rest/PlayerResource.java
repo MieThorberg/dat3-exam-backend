@@ -51,9 +51,9 @@ public class PlayerResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{id}/character")
-    public String getCharacterId(@PathParam("id") long id) {
-        int characterId = facade.getCharacterId(id);
+    @Path("{name}/character")
+    public String getCharacterName(@PathParam("name") String name) {
+        int characterId = facade.getCharacterName(name);
         return GSON.toJson(characterId);
     }
 

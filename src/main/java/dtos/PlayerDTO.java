@@ -11,15 +11,15 @@ public class PlayerDTO {
 
     private long id;
     private String username;
-    private Long characterId;
-    private Boolean isAlive;
-    private Long gameId;
+    private String characterName;
+    private boolean isAlive;
+    private long gameId;
     private String latestVote;
 
-    public PlayerDTO(long id, User user, long characterId, Boolean isAlive, Game game, String latestVote) {
+    public PlayerDTO(long id, User user, String characterName, Boolean isAlive, Game game, String latestVote) {
         this.id = id;
         this.username = user.getUserName();
-        this.characterId = characterId;
+        this.characterName = characterName;
         this.isAlive = isAlive;
         this.gameId = game.getId();
         this.latestVote = latestVote;
@@ -28,7 +28,7 @@ public class PlayerDTO {
     public PlayerDTO(Player player) {
         this.id = player.getId();
         this.username = player.getUser().getUserName();
-        this.characterId = player.getCharacterId();
+        this.characterName = player.getCharacterName();
         this.isAlive = player.getAlive();
         this.gameId = player.getGame().getId();
 
@@ -53,27 +53,27 @@ public class PlayerDTO {
         this.username = username;
     }
 
-    public Long getCharacterId() {
-        return characterId;
+    public String getCharacterName() {
+        return characterName;
     }
 
-    public void setCharacterId(Long characterId) {
-        this.characterId = characterId;
+    public void setCharacterName(String characterId) {
+        this.characterName = characterId;
     }
 
-    public Boolean getAlive() {
+    public boolean getAlive() {
         return isAlive;
     }
 
-    public void setAlive(Boolean alive) {
+    public void setAlive(boolean alive) {
         isAlive = alive;
     }
 
-    public Long getGameId() {
+    public long getGameId() {
         return gameId;
     }
 
-    public void setGameId(Long gameId) {
+    public void setGameId(long gameId) {
         this.gameId = gameId;
     }
 

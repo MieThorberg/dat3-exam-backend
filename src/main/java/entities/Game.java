@@ -4,7 +4,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -78,11 +77,10 @@ public class Game implements Serializable {
     }
 
     public int getWerewolves() {
-        int werewolfId = 1;
         int werewolves = 0;
 
         for (Player player : players) {
-            if(player.getCharacterId() == werewolfId){
+            if(player.getCharacterName().equals("werewolf")){
                 werewolves++;
             }
         }

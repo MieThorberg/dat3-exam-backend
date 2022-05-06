@@ -41,9 +41,9 @@ public class PlayerFacade {
         return player;
     }
 
-    public int getCharacterId(long id) {
+    public int getCharacterName(String name) {
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Integer> query = em.createQuery("SELECT p.characterId FROM Player p WHERE p.id = :id", Integer.class);
+        TypedQuery<Integer> query = em.createQuery("SELECT p.characterName FROM Player p WHERE p.characterName = :name", Integer.class);
         return 0;
     }
 

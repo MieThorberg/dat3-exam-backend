@@ -2,7 +2,6 @@ package dtos;
 
 public class CharacterDTO {
 
-    private long id;
     private String name;
     private String description;
     private String imageSource;
@@ -20,14 +19,6 @@ public class CharacterDTO {
         this.minPlayers = minPlayers;
         this.max = max;
         this.ability = ability;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {

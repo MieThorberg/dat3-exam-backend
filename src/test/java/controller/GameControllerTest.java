@@ -74,7 +74,7 @@ class GameControllerTest {
         player2.setLatestVote(player1);
         player1.setLatestVote(player2);
 
-        player1.setCharacterId(1);
+        player1.setCharacterName("werewolf");
 
        // gc.startGame(players, 1);
 

@@ -4,9 +4,6 @@ import entities.*;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 import java.util.Random;
 
 public class GameController {
@@ -90,7 +87,7 @@ public class GameController {
 
         // assign werewolves
         Random random = new Random();
-        int wereWolfCharacterId = 1;
+        String werewolfCharacter = "werewolf";
         for (int i = 0; i < amountOfWolves; i++) {
             int randomPicker = random.nextInt(game.getPlayers().size());
 
@@ -98,7 +95,7 @@ public class GameController {
             Player pickPlayer = game.getPlayers().get(randomPicker);
             game.getPlayers().remove(randomPicker);
 
-            pickPlayer.setCharacterId(wereWolfCharacterId);
+            pickPlayer.setCharacterName(werewolfCharacter);
             assignedPlayers.add(pickPlayer);
         }
 
@@ -106,11 +103,11 @@ public class GameController {
         // remove players from the player list, an assign them there role, and then put them in the assign list;
 
         // assign villagers
-        int villagerCharacterId = 0;
+        String villagerName = "villager";
 
         // assign the rest of the player list as villagers
         for (int i = 0; i < game.getPlayers().size(); i++) {
-            game.getPlayers().get(i).setCharacterId(villagerCharacterId);
+            game.getPlayers().get(i).setCharacterName(villagerName);
         }
 
 
@@ -118,7 +115,7 @@ public class GameController {
         game.getPlayers().addAll(assignedPlayers);
 
         for (Player player : game.getPlayers()) {
-            System.out.println(player.getUser().getUserName() + " : " + player.getCharacterId());
+            System.out.println(player.getUser().getUserName() + " : " + player.getCharacterName());
         }
 
 

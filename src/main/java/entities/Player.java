@@ -16,8 +16,8 @@ public class Player implements Serializable {
     @OneToOne
     private User user;
 
-    @Column(name = "characterId")
-    private long characterId;
+    @Column(name = "characterName")
+    private String characterName;
 
     @NotNull
     @Column(name = "isAlive")
@@ -69,12 +69,12 @@ public class Player implements Serializable {
         this.game = game;
     }
 
-    public long getCharacterId() {
-        return characterId;
+    public String getCharacterName() {
+        return characterName;
     }
 
-    public void setCharacterId(long characterId) {
-        this.characterId = characterId;
+    public void setCharacterName(String characterId) {
+        this.characterName = characterId;
     }
 
     public Player getLatestVote() {

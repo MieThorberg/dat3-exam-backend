@@ -36,6 +36,7 @@ public class VoteController {
     }
 
     protected Player findResult(){
+        System.out.println(votes);
         int maxValueInMap=(Collections.max(votes.values()));
         ArrayList<Player> players = new ArrayList<>();
 

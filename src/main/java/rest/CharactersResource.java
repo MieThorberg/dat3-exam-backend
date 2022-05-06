@@ -29,10 +29,10 @@ public class CharactersResource {
     }
 
     @GET
-    @Path("{id}")
+    @Path("{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getCharacterById(@PathParam("id") long id) throws IOException {
-        String data = HttpUtils.fetchData("https://miemt.me/werewolf_characters/api/characters/" + id);
+    public String getCharacterByName(@PathParam("name") String name) throws IOException {
+        String data = HttpUtils.fetchData("https://miemt.me/werewolf_characters/api/characters/" + name);
         CharacterDTO characterDTO = GSON.fromJson(data, CharacterDTO.class);
         return GSON.toJson(characterDTO);
     }
