@@ -40,4 +40,9 @@ GET https://miemt.me/werewolf_characters/api/characters
 ###
 PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/3/vote
 
-{"id":"4", "user":"user_admin","characterId":"0","isAlive":"1","game":"1","latestVote":"null"}
+{"id":"4", "user":"user_admin","characterId":"0","isAlive":"1","game":"1","latestVote":"3"}
+
+###
+PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/killplayer
+
+{"id":"4", "user":"user_admin","characterId":"0","isAlive":"1","game":"1","latestVote":"3"}

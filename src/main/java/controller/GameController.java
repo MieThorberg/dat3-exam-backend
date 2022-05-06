@@ -31,6 +31,8 @@ public class GameController {
         return this.game;
     }
 
+
+    // todo: make startGame work in frontend instead og backend
     public void startGame(ArrayList<Player> players, int amountOfWolves){
         game.setPlayers(players);
         characterAssigning(amountOfWolves);
@@ -41,7 +43,7 @@ public class GameController {
         }
     }
 
-    private void createRound(){
+    public void createRound(){
         //TODO: chance Night and Day Constructors
 
         // nightRound
@@ -66,11 +68,11 @@ public class GameController {
     }
 
 
-    private void kill(Player player){
+    public void kill(Player player){
         game.killPlayer(player);
     }
 
-    private void characterAssigning(int amountOfWolves){
+    public void characterAssigning(int amountOfWolves){
         // amount of player
         int amountOfPlayer = game.getPlayers().size();
 

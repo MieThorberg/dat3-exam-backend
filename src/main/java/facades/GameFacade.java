@@ -170,4 +170,19 @@ public class GameFacade {
 
         return vc.startVotingCalculator(game);
     }
+
+    public Player killPlayer(long gameId, PlayerDTO playerDTO){
+        EntityManager em = emf.createEntityManager();
+        Game game = em.find(Game.class, gameId);
+        Player playerToKill = em.find(Player.class, playerDTO.getId());
+
+        gc = new GameController(game);
+        gc.kill(playerToKill);
+
+        em.getTransaction().begin();
+        em.merge(game);
+        em.getTransaction().commit();
+
+        return playerToKill;
+    }
 }

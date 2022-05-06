@@ -69,6 +69,7 @@ public class Game implements Serializable {
 
     public void killPlayer(Player player){
         players.remove(player);
+        player.setAlive(false);
         victims.add(player);
     }
 

@@ -146,5 +146,17 @@ public class GameResource {
         return GSON.toJson(playerDTO);
     }
 
+    @PUT
+    @Path("{id}/killplayer")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String killPlayer(@PathParam("id") long id, String data) {
+        PlayerDTO playerDTO = GSON.fromJson(data, PlayerDTO.class);
+        Player player = GameFacade.getGameFacade(EMF).killPlayer(id, playerDTO);
+        playerDTO = new PlayerDTO(player);
+
+        return GSON.toJson(playerDTO);
+    }
+
 
 }
