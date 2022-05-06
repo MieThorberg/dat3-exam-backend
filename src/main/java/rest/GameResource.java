@@ -55,7 +55,7 @@ public class GameResource {
     @Path("{id}/createplayers")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String createPlayers(@PathParam("id") long id, String data){
+    public String createPlayers(@PathParam("id") long id, String data) {
         UserDTO[] userDTO = GSON.fromJson(data, UserDTO[].class);
         List<Player> players = new ArrayList<>();
 
@@ -64,7 +64,7 @@ public class GameResource {
             players.add(new Player(user));
         }
 
-        List<PlayerDTO> playerList = PlayerDTO.getPlayerDTOs(GameFacade.getGameFacade(EMF).createPlayers(id,players));
+        List<PlayerDTO> playerList = PlayerDTO.getPlayerDTOs(GameFacade.getGameFacade(EMF).createPlayers(id, players));
 
         return GSON.toJson(playerList);
     }
@@ -130,11 +130,30 @@ public class GameResource {
         return GSON.toJson(gameRoundDTOS);
     }
 
+    @GET
+    @Path("{id}/rounds/{roundId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getRounds(@PathParam("id") long id, @PathParam("roundId") long roundId) {
+        NightRound nightRound = GameFacade.getGameFacade(EMF).getNightRoundsByID(id, roundId);
+        DayRound dayRound = GameFacade.getGameFacade(EMF).getDayRoundsByID(id, roundId);
+
+
+        GameRoundDTO gameRoundDTO;
+        if (nightRound != null) {
+            gameRoundDTO = new GameRoundDTO(nightRound);
+        } else {
+            gameRoundDTO = new GameRoundDTO(dayRound);
+        }
+
+        return GSON.toJson(gameRoundDTO);
+    }
+
+
     @PUT
     @Path("{id}/{playerId}/vote")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String setPlayerVote(@PathParam("id") long id, @PathParam("playerId") long playerId, String data){
+    public String setPlayerVote(@PathParam("id") long id, @PathParam("playerId") long playerId, String data) {
         PlayerDTO playerDTO = GSON.fromJson(data, PlayerDTO.class);
 
         Player player = GameFacade.getGameFacade(EMF).setPlayerVote(playerId, playerDTO);
@@ -146,7 +165,7 @@ public class GameResource {
     @GET
     @Path("{id}/voteresult")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getVoteResult(@PathParam("id") long id){
+    public String getVoteResult(@PathParam("id") long id) {
         Player votedPlayer = GameFacade.getGameFacade(EMF).getVoteResult(id);
         PlayerDTO playerDTO = new PlayerDTO(votedPlayer);
 

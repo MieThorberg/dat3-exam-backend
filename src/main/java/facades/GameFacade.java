@@ -153,6 +153,35 @@ public class GameFacade {
         return query.getResultList();
     }
 
+    public NightRound getNightRoundsByID(long gameId, long roundId){
+        EntityManager em = emf.createEntityManager();
+
+        TypedQuery<NightRound> query = em.createQuery("SELECT n FROM NightRound n WHERE n.game.id = :id AND n.id = :roundId", NightRound.class);
+        query.setParameter("id", gameId);
+        query.setParameter("roundId", roundId);
+
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    public DayRound getDayRoundsByID(long gameId, long roundId){
+        EntityManager em = emf.createEntityManager();
+
+        TypedQuery<DayRound> query = em.createQuery("SELECT d FROM DayRound d WHERE d.game.id = :id AND d.id = :roundId", DayRound.class);
+        query.setParameter("id", gameId);
+        query.setParameter("roundId", roundId);
+
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+
+
     public Player setPlayerVote(long playerId, PlayerDTO playerDTO){
         EntityManager em = emf.createEntityManager();
 

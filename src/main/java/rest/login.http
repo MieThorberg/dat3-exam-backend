@@ -68,3 +68,6 @@ PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/assignch
 
 ###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/rounds
+
+###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/rounds/1
