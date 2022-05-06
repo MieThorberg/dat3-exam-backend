@@ -202,9 +202,20 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getVoteResult(@PathParam("id") long id) {
         Player votedPlayer = GameFacade.getGameFacade(EMF).getVoteResult(id);
-        PlayerDTO playerDTO = new PlayerDTO(votedPlayer);
 
+        if (votedPlayer == null){
+            return GSON.toJson("no result");
+        }
+
+        PlayerDTO playerDTO = new PlayerDTO(votedPlayer);
         return GSON.toJson(playerDTO);
+    }
+
+    @PUT
+    @Path("{id}/cleanvotes")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void cleanVotes(@PathParam("id") long id){
+        GameFacade.getGameFacade(EMF).cleanVotes(id);
     }
 
     @PUT

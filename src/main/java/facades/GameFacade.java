@@ -239,6 +239,19 @@ public class GameFacade {
         return vc.startVotingCalculator(game);
     }
 
+    public void cleanVotes(long id) {
+        EntityManager em = emf.createEntityManager();
+        Game game = em.find(Game.class, id);
+
+        for (Player player : game.getPlayers()) {
+            player.setLatestVote(null);
+        }
+
+        em.getTransaction().begin();
+        em.merge(game);
+        em.getTransaction().commit();
+    }
+
     public Player killPlayer(long gameId, PlayerDTO playerDTO) {
         EntityManager em = emf.createEntityManager();
         Game game = em.find(Game.class, gameId);

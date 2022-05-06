@@ -21,6 +21,9 @@ public class VoteController {
         }
 
         // TODO: check for multiple players with highest votes
+        if (votes.size() == 0) {
+            return null;
+        }
         return findResult();
     }
 
