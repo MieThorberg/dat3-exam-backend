@@ -26,7 +26,7 @@ public class DayRound extends Round implements Serializable {
     }
 
     public DayRound(Game game,  PlayerQueue playerQueue, int debateTimer, int votingTimer) {
-        super( true, playerQueue);
+        super(game.getDays(), true, playerQueue);
         this.game = game;
         this.debateTimer = debateTimer;
         this.votingTimer = votingTimer;

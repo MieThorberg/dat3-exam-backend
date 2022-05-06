@@ -25,13 +25,17 @@ public abstract class Round implements Serializable {
     @Column(name = "isDay")
     private boolean isDay;
 
+    @Column(name = "day")
+    private int day;
+
     @Transient
     private PlayerQueue playerQueue;
 
     public Round() {
     }
 
-    public Round(boolean isDay, PlayerQueue playerQueue) {
+    public Round(int day, boolean isDay, PlayerQueue playerQueue) {
+        this.day = day;
         this.isDay = isDay;
         this.playerQueue = playerQueue;
     }
@@ -64,8 +68,20 @@ public abstract class Round implements Serializable {
         return isDay;
     }
 
-    public void setDay(boolean day) {
-        isDay = day;
+    public void setIsDay(boolean isDay) {
+        this.isDay = isDay;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setIsDay(int day) {
+        this.day = day;
     }
 
     public abstract void start();

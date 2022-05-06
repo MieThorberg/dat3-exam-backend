@@ -23,7 +23,7 @@ public class NightRound extends Round implements Serializable {
     public NightRound() {
     }
     public NightRound(Game game, PlayerQueue playerQueue, int nightTimer) {
-        super( false, playerQueue);
+        super(game.getDays(), false, playerQueue);
         this.game = game;
         this.nightTimer = nightTimer;
     }
