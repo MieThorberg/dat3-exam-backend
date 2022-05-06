@@ -93,6 +93,20 @@ public class GameFacade {
         return players;
     }
 
+    public Player createPlayer(long gameId, Player player){
+        EntityManager em = emf.createEntityManager();
+
+        em.getTransaction().begin();
+        Game game = em.find(Game.class, gameId);
+
+            player.setGame(game);
+            em.persist(player);
+
+        em.getTransaction().commit();
+
+        return player;
+    }
+
     public List<Player> getAllPlayersByGameId(long gameId){
         EntityManager em = emf.createEntityManager();
 

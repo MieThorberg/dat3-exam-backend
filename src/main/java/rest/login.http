@@ -24,6 +24,13 @@ POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/createp
 ]
 
 ###
+POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/createplayer
+
+{"userName":"admin", "userPass":"test123"}
+
+
+
+###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1
 
 ###
