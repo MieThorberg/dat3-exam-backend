@@ -69,6 +69,7 @@ public class Game implements Serializable {
     public void killPlayer(Player player){
         players.remove(player);
         player.setAlive(false);
+        setLatestVictim(player);
         victims.add(player);
     }
 
@@ -163,4 +164,6 @@ public class Game implements Serializable {
 //    public void addCharacter(int characterId, int amount) {
 //         characters.put(characterId, amount);
 //    }
+
+
 }

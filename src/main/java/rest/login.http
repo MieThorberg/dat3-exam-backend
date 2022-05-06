@@ -47,6 +47,12 @@ PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/3/vote
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/voteresult
 
 ###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/victims/latest
+
+###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/victims
+
+###
 PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/killplayer
 
 {"id":"4", "user":"user_admin","characterName":"villager","isAlive":"1","game":"1","latestVote":"3"}
