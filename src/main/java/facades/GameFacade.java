@@ -158,6 +158,14 @@ public class GameFacade {
         return livingPlayers;
     }
 
+    public List<Player> getWerewolves(long id) {
+        EntityManager em = emf.createEntityManager();
+
+        Game game = em.find(Game.class, id);
+
+        return game.getWerewolves();
+    }
+
     public int getDay(long gameId) {
         EntityManager em = emf.createEntityManager();
 

@@ -64,6 +64,9 @@ PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/cleanvot
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/players
 
 ###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/getwerewolves
+
+###
 PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/killplayer
 
 {"id":"4", "user":"user_admin","characterName":"villager","isAlive":"1","game":"1","latestVote":"3"}
@@ -91,3 +94,6 @@ POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/createn
 
 ###
 POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/createdayround
+
+###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/hasended

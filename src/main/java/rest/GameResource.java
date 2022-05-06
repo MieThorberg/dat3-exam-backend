@@ -144,6 +144,18 @@ public class GameResource {
     }
 
     @GET
+    @Path("{id}/getwerewolves")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getWerewolves(@PathParam("id") long id) {
+        List<Player> werewolves = GameFacade.getGameFacade(EMF).getWerewolves(id);
+        List<PlayerDTO> playerDTOs = PlayerDTO.getPlayerDTOs(werewolves);
+
+        return GSON.toJson(playerDTOs);
+    }
+
+
+
+    @GET
     @Path("{id}/day")
     @Produces(MediaType.APPLICATION_JSON)
     public String getDays(@PathParam("id") long id) {

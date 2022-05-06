@@ -145,7 +145,7 @@ public class GameController {
 //    }
 
     public boolean hasEnded() {
-        return game.getWerewolves() > game.getPlayers().size() || game.getWerewolves() == 0;
+        return game.getAmountOfWerewolves() > game.getPlayers().size() || game.getAmountOfWerewolves() == 0;
     }
 
     public Player getVictim() {

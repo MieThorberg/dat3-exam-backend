@@ -78,12 +78,24 @@ public class Game implements Serializable {
         days++;
     }
 
-    public int getWerewolves() {
+    public int getAmountOfWerewolves() {
         int werewolves = 0;
 
         for (Player player : players) {
             if(player.getCharacterName().equals("werewolf")){
                 werewolves++;
+            }
+        }
+
+        return werewolves;
+    }
+
+    public List<Player> getWerewolves() {
+        List<Player> werewolves = new ArrayList<>();
+
+        for (Player player : players) {
+            if(player.getCharacterName().equals("werewolf")){
+                werewolves.add(player);
             }
         }
 
