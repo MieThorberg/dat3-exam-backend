@@ -24,7 +24,7 @@ public class GameResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getInfoForAll() {
+    public String getAllGames() {
         List<Game> games = GameFacade.getGameFacade(EMF).getAllGames();
         List<GameDTO> gameDTO = GameDTO.getGameDTOs(games);
         return GSON.toJson(gameDTO);
@@ -74,6 +74,20 @@ public class GameResource {
     }
 
     @POST
+    @Path("{id}/createplayer")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String createPlayer(@PathParam("id") long id, String data){
+        UserDTO userDTO = GSON.fromJson(data, UserDTO.class);
+        User user = userDTO.toUser();
+        Player player = new Player(user);
+        Player newPlayer = GameFacade.getGameFacade(EMF).createPlayer(id,player);
+        PlayerDTO playerDTO = new PlayerDTO(newPlayer);
+
+        return GSON.toJson(playerDTO);
+    }
+
+    @POST
     @Path("{id}/createplayers")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -91,20 +105,6 @@ public class GameResource {
         return GSON.toJson(playerList);
     }
 
-    @POST
-    @Path("{id}/createplayer")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public String createPlayer(@PathParam("id") long id, String data){
-        UserDTO userDTO = GSON.fromJson(data, UserDTO.class);
-        User user = userDTO.toUser();
-        Player player = new Player(user);
-        Player newPlayer = GameFacade.getGameFacade(EMF).createPlayer(id,player);
-        PlayerDTO playerDTO = new PlayerDTO(newPlayer);
-
-        return GSON.toJson(playerDTO);
-    }
-
     @GET
     @Path("{id}/players")
     @Produces(MediaType.APPLICATION_JSON)
@@ -114,17 +114,6 @@ public class GameResource {
 
         return GSON.toJson(playerDTOS);
     }
-
-    // todo: virker ikke... fejl 500;
-//    @GET
-//    @Path("{id}/livingplayers")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getLivingPlayersByGameId(@PathParam("id") long id) {
-//        List<Player> players = GameFacade.getGameFacade(EMF).getAllLivingPlayers(id);
-//        List<PlayerDTO> playerDTOS = PlayerDTO.getPlayerDTOs(players);
-//
-//        return GSON.toJson(playerDTOS);
-//    }
 
     @GET
     @Path("{id}/victims")
@@ -224,7 +213,7 @@ public class GameResource {
     @Path("{id}/assigncharacters")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String killPlayer(@PathParam("id") long id) {
+    public String assignCharacters(@PathParam("id") long id) {
 
         List<Player> players = GameFacade.getGameFacade(EMF).assignCharacters(id, 1);
         List<PlayerDTO> playerDTOS = PlayerDTO.getPlayerDTOs(players);
@@ -239,6 +228,17 @@ public class GameResource {
         boolean hasEnded = GameFacade.getGameFacade(EMF).hasEnded(id);
         return GSON.toJson(hasEnded);
     }
+
+    // todo: virker ikke... fejl 500;
+//    @GET
+//    @Path("{id}/livingplayers")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String getLivingPlayersByGameId(@PathParam("id") long id) {
+//        List<Player> players = GameFacade.getGameFacade(EMF).getAllLivingPlayers(id);
+//        List<PlayerDTO> playerDTOS = PlayerDTO.getPlayerDTOs(players);
+//
+//        return GSON.toJson(playerDTOS);
+//    }
 }
 
 

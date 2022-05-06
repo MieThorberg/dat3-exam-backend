@@ -10,18 +10,13 @@ import java.io.Serializable;
 @Table (name = "NightRound")
 public class NightRound extends Round implements Serializable {
 
-    @JoinColumn(name = "gameid")
-    @ManyToOne
-    private Game game;
-
     @Transient
     VoteController voteController = new VoteController();
 
     public NightRound() {
     }
     public NightRound(Game game) {
-        super(game.getDays(), false, null);
-        this.game = game;
+        super(game.getDays(), game, false, null);
         game.getNightRounds().add(this);
     }
 
@@ -32,12 +27,7 @@ public class NightRound extends Round implements Serializable {
 
     @Override
     public void vote() {
-        Timer timer = new Timer();
-        Player victim =  voteController.startVotingCalculator(game);
+        Player victim =  voteController.startVotingCalculator(getGame());
         setVictim(victim);
-    }
-
-    public Game getGame() {
-        return game;
     }
 }

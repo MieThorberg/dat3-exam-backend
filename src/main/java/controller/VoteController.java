@@ -8,20 +8,16 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class VoteController {
-    // private HashMap<Player, Player> voting = new HashMap<>();
     private HashMap<Player, Integer> votes = new HashMap<>();
 
     // todo: handle blanc votes
-
     public Player startVotingCalculator(Game game){
-
         for (Player player : game.getPlayers()) {
             Player playerVote = player.getLatestVote();
             addVote(playerVote);
         }
 
         // TODO: check for multiple players with highest votes
-
         return findResult();
     }
 
@@ -36,7 +32,6 @@ public class VoteController {
     }
 
     protected Player findResult(){
-        System.out.println(votes);
         int maxValueInMap=(Collections.max(votes.values()));
         ArrayList<Player> players = new ArrayList<>();
 
@@ -50,7 +45,6 @@ public class VoteController {
 //        if(players.size() > 1){
 //            return
 //        }
-
 
         return players.get(0);
     }

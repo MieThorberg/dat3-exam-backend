@@ -10,9 +10,7 @@ import controller.VoteController;
 @Table (name = "DayRound")
 public class DayRound extends Round implements Serializable {
 
-    @JoinColumn(name = "gameid")
-    @ManyToOne
-    private Game game;
+
 
     @Transient
     private VoteController voteController = new VoteController();
@@ -21,8 +19,7 @@ public class DayRound extends Round implements Serializable {
     }
 
     public DayRound(Game game) {
-        super(game.getDays(), true, null);
-        this.game = game;
+        super(game.getDays(), game, true, null);
         game.getDayRounds().add(this);
     }
 
@@ -38,12 +35,7 @@ public class DayRound extends Round implements Serializable {
 
     @Override
     public void vote() {
-        Timer timer = new Timer();
-        Player victim =  voteController.startVotingCalculator(game);
+        Player victim =  voteController.startVotingCalculator(getGame());
         setVictim(victim);
-    }
-
-    public Game getGame() {
-        return game;
     }
 }

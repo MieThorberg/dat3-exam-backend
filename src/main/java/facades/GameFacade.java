@@ -95,23 +95,18 @@ public class GameFacade {
         return dayRound;
     }
 
-
-
-    public Game startGame(Game game, ArrayList<Player> players) {
+    public Player createPlayer(long gameId, Player player) {
         EntityManager em = emf.createEntityManager();
 
-        gc = new GameController(game);
-        gc.startGame(players, 1);
+        em.getTransaction().begin();
+        Game game = em.find(Game.class, gameId);
 
-//        try {
-//            em.getTransaction().begin();
-//            em.persist(game);
-//            em.getTransaction().commit();
-//        } finally {
-//            em.close();
-//        }
+        player.setGame(game);
+        em.persist(player);
 
-        return game;
+        em.getTransaction().commit();
+
+        return player;
     }
 
     public List<Player> createPlayers(long gameId, List<Player> players) {
@@ -127,20 +122,6 @@ public class GameFacade {
         em.getTransaction().commit();
 
         return players;
-    }
-
-    public Player createPlayer(long gameId, Player player) {
-        EntityManager em = emf.createEntityManager();
-
-        em.getTransaction().begin();
-        Game game = em.find(Game.class, gameId);
-
-        player.setGame(game);
-        em.persist(player);
-
-        em.getTransaction().commit();
-
-        return player;
     }
 
     public List<Player> getAllPlayersByGameId(long gameId) {
@@ -160,15 +141,6 @@ public class GameFacade {
         List<Player> victims = query.getResultList();
         return victims;
     }
-
-    // todo: virker ikke... fejl 500;
-//    public List<Player> getAllLivingPlayers(long id) {
-//        EntityManager em = emf.createEntityManager();
-//        TypedQuery<Player> query = em.createQuery("SELECT g.players FROM Game g WHERE g.id = :id", Player.class);
-//        query.setParameter("id", id);
-//        List<Player> livingPlayers = query.getResultList();
-//        return livingPlayers;
-//    }
 
     public Player getLatestVictim(long id) {
         EntityManager em = emf.createEntityManager();
@@ -298,4 +270,13 @@ public class GameFacade {
 
         return gc.hasEnded();
     }
+
+    // todo: virker ikke... fejl 500;
+//    public List<Player> getAllLivingPlayers(long id) {
+//        EntityManager em = emf.createEntityManager();
+//        TypedQuery<Player> query = em.createQuery("SELECT g.players FROM Game g WHERE g.id = :id", Player.class);
+//        query.setParameter("id", id);
+//        List<Player> livingPlayers = query.getResultList();
+//        return livingPlayers;
+//    }
 }

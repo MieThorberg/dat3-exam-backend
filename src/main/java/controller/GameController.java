@@ -9,34 +9,33 @@ import java.util.Random;
 public class GameController {
 
     private Game game;
-    private Player latestVictim;
 
     public GameController() {
     }
 
     public GameController(Game game) {
         this.game = game;
-        this.latestVictim = game.getLatestVictim();
     }
 
-    public Game createGame(User user){
+    public Game createGame(User user) {
         this.game = new Game(user);
         return this.game;
     }
 
 
     // todo: make startGame work in frontend instead og backend
-    public void startGame(ArrayList<Player> players, int amountOfWolves){
+    public void startGame(ArrayList<Player> players, int amountOfWolves) {
         game.setPlayers(players);
         characterAssigning(amountOfWolves);
 
 
-        while (!hasEnded()){
+        while (!hasEnded()) {
             createRound();
         }
     }
 
-    public void createRound(){
+    // TODO: make api's to control data
+    public void createRound() {
         //TODO: chance Night and Day Constructors
 
         // nightRound
@@ -45,12 +44,11 @@ public class GameController {
         kill(nightRound.getVictim());
 
         game.getNightRounds().add(nightRound);
-
         game.addDay();
 
         // who is dead
         // TODO: show latestVictim
-        game.setLatestVictim(latestVictim = nightRound.getVictim());
+        game.setLatestVictim(nightRound.getVictim());
 
         // dayRound
         DayRound dayRound = new DayRound(game);
@@ -60,20 +58,21 @@ public class GameController {
         game.getDayRounds().add(dayRound);
     }
 
-
-    public void kill(Player player){
+    public void kill(Player player) {
         game.killPlayer(player);
     }
 
-    public void characterAssigning(int amountOfWolves){
+    public void characterAssigning(int amountOfWolves) {
         // amount of player
         int amountOfPlayer = game.getPlayers().size();
 
         // check if the amount of werewolves makes sense, if not calculate a max amount of werewolves
         if (amountOfWolves > amountOfPlayer) {
             // todo: make better calculator for amount of werewolves
-            amountOfWolves = ((amountOfPlayer/2) -1);
+            amountOfWolves = ((amountOfPlayer / 2) - 1);
         }
+
+        //TODO:
         // amount of characters
         // how many characters are in game the game
 
@@ -95,13 +94,13 @@ public class GameController {
             assignedPlayers.add(pickPlayer);
         }
 
+        //TODO:
         // assign other characters
         // remove players from the player list, an assign them there role, and then put them in the assign list;
 
         // assign villagers
-        String villagerName = "villager";
-
         // assign the rest of the player list as villagers
+        String villagerName = "villager";
         for (int i = 0; i < game.getPlayers().size(); i++) {
             game.getPlayers().get(i).setCharacterName(villagerName);
         }
@@ -114,8 +113,7 @@ public class GameController {
             System.out.println(player.getUser().getUserName() + " : " + player.getCharacterName());
         }
 
-
-
+        /* end og method **/
 
 //        List<Player> playersLeft = game.getPlayers();
 //        HashMap<Integer, Integer> characters = game.getCharacters();
@@ -128,8 +126,8 @@ public class GameController {
 //            int amount = characters.get(characterId);
 //            int size = playersLeft.size();
 //
-            //for hver character har den en amount
-            // vi assign tilfældige players i et loop indtil vi når amount værdien
+        //for hver character har den en amount
+        // vi assign tilfældige players i et loop indtil vi når amount værdien
 //            for(int i = 0; i < amount; i++) {
 //                int randomIndex = getRandomIndex(size);
 //                playersLeft.get(randomIndex).setCharacterId(characterId);
@@ -146,19 +144,11 @@ public class GameController {
 //        return random.nextInt(size);
 //    }
 
-    public boolean hasEnded(){
+    public boolean hasEnded() {
         return game.getWerewolves() > game.getPlayers().size() || game.getWerewolves() == 0;
     }
 
-    public Player getLatestVictim() {
-        return latestVictim;
-    }
-
-    public void setLatestVictim(Player latestVictim) {
-        this.latestVictim = latestVictim;
-    }
-    public Player getVictim(){
-
+    public Player getVictim() {
         return null;
     }
 }

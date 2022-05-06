@@ -18,6 +18,10 @@ public abstract class Round implements Serializable {
     @Column(name = "id", nullable = false)
     private long id;
 
+    @JoinColumn(name = "gameid")
+    @ManyToOne
+    private Game game;
+
     @JoinColumn(name = "victim")
     @OneToOne
     private Player victim;
@@ -34,10 +38,11 @@ public abstract class Round implements Serializable {
     public Round() {
     }
 
-    public Round(int day, boolean isDay, PlayerQueue playerQueue) {
+    public Round(int day,Game game, boolean isDay, PlayerQueue playerQueue) {
         this.day = day;
         this.isDay = isDay;
         this.playerQueue = playerQueue;
+        this.game = game;
     }
 
     public Long getId() {
@@ -87,6 +92,11 @@ public abstract class Round implements Serializable {
     public abstract void start();
     public abstract void vote();
 
+    public Game getGame() {
+        return game;
+    }
 
-
+    public void setGame(Game game) {
+        this.game = game;
+    }
 }
