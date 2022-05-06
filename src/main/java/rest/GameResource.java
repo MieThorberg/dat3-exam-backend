@@ -144,11 +144,19 @@ public class GameResource {
     }
 
     @GET
-    @Path("{id}/days")
+    @Path("{id}/day")
     @Produces(MediaType.APPLICATION_JSON)
     public String getDays(@PathParam("id") long id) {
-        int days = GameFacade.getGameFacade(EMF).getDays(id);
+        int days = GameFacade.getGameFacade(EMF).getDay(id);
 
+        return GSON.toJson(days);
+    }
+
+    @PUT
+    @Path("{id}/addday")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String addDay(@PathParam("id") long id) {
+        int days = GameFacade.getGameFacade(EMF).addDays(id);
         return GSON.toJson(days);
     }
 

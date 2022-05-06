@@ -158,10 +158,24 @@ public class GameFacade {
         return livingPlayers;
     }
 
-    public int getDays(long gameId) {
+    public int getDay(long gameId) {
         EntityManager em = emf.createEntityManager();
 
         Game game = em.find(Game.class, gameId);
+
+        return game.getDays();
+    }
+
+    public int addDays(long gameId) {
+        EntityManager em = emf.createEntityManager();
+
+        Game game = em.find(Game.class, gameId);
+        game.addDay();
+
+        em.getTransaction().begin();
+        em.merge(game);
+        em.getTransaction().commit();
+
 
         return game.getDays();
     }

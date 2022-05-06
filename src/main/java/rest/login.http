@@ -44,6 +44,12 @@ GET http://localhost:8080/ex_startcode_backend_war_exploded/api/characters/1
 GET https://miemt.me/werewolf_characters/api/characters
 
 ###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/day
+
+###
+PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/addday
+
+###
 PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/3/vote
 
 {"id":"4", "user":"admin","characterName":"null","isAlive":"1","game":"1","latestVote":"3"}
