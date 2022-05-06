@@ -8,10 +8,6 @@ import java.util.Random;
 
 public class GameController {
 
-    private PlayerQueue playerQueue;
-    private int debateTime;
-    private int votingTime;
-    private int nightTime;
     private Game game;
     private Player latestVictim;
 
@@ -44,7 +40,7 @@ public class GameController {
         //TODO: chance Night and Day Constructors
 
         // nightRound
-        NightRound nightRound = new NightRound(game,playerQueue, nightTime);
+        NightRound nightRound = new NightRound(game);
         nightRound.start();
         kill(nightRound.getVictim());
 
@@ -57,7 +53,7 @@ public class GameController {
         game.setLatestVictim(latestVictim = nightRound.getVictim());
 
         // dayRound
-        DayRound dayRound = new DayRound(game, playerQueue, debateTime, votingTime);
+        DayRound dayRound = new DayRound(game);
         dayRound.start();
         kill(dayRound.getVictim());
 

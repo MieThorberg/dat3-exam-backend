@@ -46,7 +46,6 @@ public class GameFacade {
 
     public Game createGame(User host) {
         EntityManager em = emf.createEntityManager();
-
         gc = new GameController();
         Game game = gc.createGame(host);
 
@@ -57,9 +56,46 @@ public class GameFacade {
         } finally {
             em.close();
         }
-
         return game;
     }
+
+    public NightRound createNightRound(long gameId) {
+        EntityManager em = emf.createEntityManager();
+
+        Game game = em.find(Game.class, gameId);
+
+        NightRound nightRound = new NightRound(game);
+
+        try {
+            em.getTransaction().begin();
+            em.merge(game);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
+        return nightRound;
+    }
+
+    public DayRound createDayRound(long gameId) {
+        EntityManager em = emf.createEntityManager();
+
+        Game game = em.find(Game.class, gameId);
+
+        DayRound dayRound = new DayRound(game);
+
+        try {
+            em.getTransaction().begin();
+            em.merge(game);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
+        return dayRound;
+    }
+
+
 
     public Game startGame(Game game, ArrayList<Player> players) {
         EntityManager em = emf.createEntityManager();

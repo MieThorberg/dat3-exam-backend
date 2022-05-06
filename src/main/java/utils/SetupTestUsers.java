@@ -38,8 +38,8 @@ public class SetupTestUsers {
 
     Game game = new Game(admin, players);
 
-    NightRound round = new NightRound(game, null, 60);
-    DayRound round1 = new DayRound(game, null, 300, 60);
+    NightRound round = new NightRound(game);
+    DayRound round1 = new DayRound(game);
 
     game.getNightRounds().add(round);
     game.getDayRounds().add(round1);

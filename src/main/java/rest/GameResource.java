@@ -52,6 +52,28 @@ public class GameResource {
     }
 
     @POST
+    @Path("{id}/createnightround")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String createNightRound(@PathParam("id") long id) {
+        NightRound nightRound = GameFacade.getGameFacade(EMF).createNightRound(id);
+        GameRoundDTO gameRoundDTO = new GameRoundDTO(nightRound);
+
+        return GSON.toJson(gameRoundDTO);
+    }
+
+    @POST
+    @Path("{id}/createdayround")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String createDayRound(@PathParam("id") long id) {
+        DayRound dayRound = GameFacade.getGameFacade(EMF).createDayRound(id);
+        GameRoundDTO gameRoundDTO = new GameRoundDTO(dayRound);
+
+        return GSON.toJson(gameRoundDTO);
+    }
+
+    @POST
     @Path("{id}/createplayers")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

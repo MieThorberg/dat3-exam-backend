@@ -14,22 +14,16 @@ public class DayRound extends Round implements Serializable {
     @ManyToOne
     private Game game;
 
-    // TODO: make timer work
-    @Transient
-    private int debateTimer;
-    @Transient
-    private int votingTimer;
     @Transient
     private VoteController voteController = new VoteController();
 
     public DayRound() {
     }
 
-    public DayRound(Game game,  PlayerQueue playerQueue, int debateTimer, int votingTimer) {
-        super(game.getDays(), true, playerQueue);
+    public DayRound(Game game) {
+        super(game.getDays(), true, null);
         this.game = game;
-        this.debateTimer = debateTimer;
-        this.votingTimer = votingTimer;
+        game.getDayRounds().add(this);
     }
 
     @Override

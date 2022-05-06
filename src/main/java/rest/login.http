@@ -78,3 +78,9 @@ GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/rounds
 
 ###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/rounds/1
+
+###
+POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/createnightround
+
+###
+POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/createdayround

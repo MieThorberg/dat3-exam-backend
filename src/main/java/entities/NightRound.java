@@ -14,24 +14,20 @@ public class NightRound extends Round implements Serializable {
     @ManyToOne
     private Game game;
 
-    // TODO: make timer work
-    @Transient
-    private int nightTimer;
     @Transient
     VoteController voteController = new VoteController();
 
     public NightRound() {
     }
-    public NightRound(Game game, PlayerQueue playerQueue, int nightTimer) {
-        super(game.getDays(), false, playerQueue);
+    public NightRound(Game game) {
+        super(game.getDays(), false, null);
         this.game = game;
-        this.nightTimer = nightTimer;
+        game.getNightRounds().add(this);
     }
 
     @Override
     public void start() {
         vote();
-
     }
 
     @Override
