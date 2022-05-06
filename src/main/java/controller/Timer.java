@@ -3,6 +3,7 @@ package controller;
 
 import java.util.TimerTask;
 
+//TODO: slet?
 public class Timer {
 
     java.util.Timer timer;

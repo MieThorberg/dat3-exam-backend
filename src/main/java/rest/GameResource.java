@@ -151,8 +151,6 @@ public class GameResource {
         return GSON.toJson(playerDTOs);
     }
 
-
-
     @GET
     @Path("{id}/day")
     @Produces(MediaType.APPLICATION_JSON)

@@ -148,7 +148,4 @@ public class GameController {
         return game.getAmountOfWerewolves() > game.getPlayers().size() || game.getAmountOfWerewolves() == 0;
     }
 
-    public Player getVictim() {
-        return null;
-    }
 }

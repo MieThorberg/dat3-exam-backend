@@ -2,7 +2,6 @@ package dtos;
 
 import entities.DayRound;
 import entities.NightRound;
-import entities.Player;
 
 import java.util.ArrayList;
 import java.util.List;

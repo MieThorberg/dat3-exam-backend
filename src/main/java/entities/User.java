@@ -30,6 +30,8 @@ public class User implements Serializable {
   @Size(min = 1, max = 255)
   @Column(name = "user_pass")
   private String userPass;
+
+  //TODO:
 //  @Basic(optional = false)
 //  @Column(name = "image")
 //  private String imageSource;

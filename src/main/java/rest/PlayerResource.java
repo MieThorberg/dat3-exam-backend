@@ -2,20 +2,12 @@ package rest;
 
 import com.google.gson.Gson;
 import dtos.PlayerDTO;
-import dtos.UserDTO;
 import entities.Player;
-import entities.User;
 import facades.PlayerFacade;
 import utils.EMF_Creator;
 
-import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;

@@ -12,7 +12,7 @@ public class Game implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "ID")
+    @Column(name = "ID")
     private Long id;
 
     @OneToOne
@@ -20,11 +20,11 @@ public class Game implements Serializable {
     private User host;
 
     @JoinColumn(name = "Rounds")
-    @OneToMany (mappedBy = "game")
+    @OneToMany(mappedBy = "game")
     private List<NightRound> nightRounds = new ArrayList<>();
 
     @JoinColumn(name = "Rounds")
-    @OneToMany (mappedBy = "game")
+    @OneToMany(mappedBy = "game")
     private List<DayRound> dayRounds = new ArrayList<>();
 
     @NotNull
@@ -49,7 +49,7 @@ public class Game implements Serializable {
     @Column(name = "days")
     private int days = 0;
 
-
+//TODO:
     //hav et felt til at holde styr på character og antallet af characters
 //    @Transient
 //    //key: characterid , value: amount
@@ -67,14 +67,14 @@ public class Game implements Serializable {
         this.host = host;
     }
 
-    public void killPlayer(Player player){
+    public void killPlayer(Player player) {
         players.remove(player);
         player.setAlive(false);
         setLatestVictim(player);
         victims.add(player);
     }
 
-    public void addDay(){
+    public void addDay() {
         days++;
     }
 
@@ -82,7 +82,7 @@ public class Game implements Serializable {
         int werewolves = 0;
 
         for (Player player : players) {
-            if(player.getCharacterName().equals("werewolf")){
+            if (player.getCharacterName().equals("werewolf")) {
                 werewolves++;
             }
         }
@@ -94,7 +94,7 @@ public class Game implements Serializable {
         List<Player> werewolves = new ArrayList<>();
 
         for (Player player : players) {
-            if(player.getCharacterName().equals("werewolf")){
+            if (player.getCharacterName().equals("werewolf")) {
                 werewolves.add(player);
             }
         }
@@ -166,7 +166,8 @@ public class Game implements Serializable {
         this.latestVictim = latestVictim;
     }
 
-//    public HashMap<Integer, Integer> getCharacters() {
+    // TODO:
+//        public HashMap<Integer, Integer> getCharacters() {
 //        return characters;
 //    }
 //

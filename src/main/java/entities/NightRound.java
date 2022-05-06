@@ -1,6 +1,5 @@
 package entities;
 
-import controller.Timer;
 import controller.VoteController;
 
 import javax.persistence.*;

@@ -138,24 +138,21 @@ public class GameFacade {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Player> query = em.createQuery("SELECT g.victims FROM Game g WHERE g.id = :id", Player.class);
         query.setParameter("id", id);
-        List<Player> victims = query.getResultList();
-        return victims;
+        return query.getResultList();
     }
 
     public Player getLatestVictim(long id) {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Player> query = em.createQuery("SELECT g.latestVictim FROM Game g WHERE g.id = :id", Player.class);
         query.setParameter("id", id);
-        Player player = query.getSingleResult();
-        return player;
+        return query.getSingleResult();
     }
 
     public List<Player> getAllAlivePlayers(long id) {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Player> query = em.createQuery("SELECT g.players FROM Game g WHERE g.id = :id", Player.class);
         query.setParameter("id", id);
-        List<Player> livingPlayers = query.getResultList();
-        return livingPlayers;
+        return query.getResultList();
     }
 
     public List<Player> getWerewolves(long id) {

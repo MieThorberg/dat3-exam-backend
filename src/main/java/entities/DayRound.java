@@ -3,7 +3,6 @@ package entities;
 import javax.persistence.*;
 import java.io.Serializable;
 
-import controller.Timer;
 import controller.VoteController;
 
 @Entity
@@ -30,7 +29,6 @@ public class DayRound extends Round implements Serializable {
     }
 
     private void debate(){
-        Timer timer = new Timer();
     }
 
     @Override
