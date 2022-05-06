@@ -38,7 +38,7 @@ class VoteControllerTest {
         players.add(player2);
 
         Game game = new Game(host, players);
-        vc.startVoting(game);
+        vc.startVotingCalculator(game);
 
 //        vc.getVotes().forEach((vPlayer, vote) -> {
 //            System.out.println(vPlayer.getUser().getUserName() + " : " + vote);

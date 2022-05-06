@@ -2,7 +2,7 @@ package entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Queue;
+
 import controller.Timer;
 import controller.VoteController;
 
@@ -45,7 +45,7 @@ public class DayRound extends Round implements Serializable {
     @Override
     public void vote() {
         Timer timer = new Timer();
-        Player victim =  voteController.startVoting(game);
+        Player victim =  voteController.startVotingCalculator(game);
         setVictim(victim);
     }
 

@@ -135,4 +135,16 @@ public class GameResource {
 
         return GSON.toJson(playerDTO);
     }
+
+    @GET
+    @Path("{id}/voteresult")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getVoteResult(@PathParam("id") long id){
+        Player votedPlayer = GameFacade.getGameFacade(EMF).getVoteResult(id);
+        PlayerDTO playerDTO = new PlayerDTO(votedPlayer);
+
+        return GSON.toJson(playerDTO);
+    }
+
+
 }

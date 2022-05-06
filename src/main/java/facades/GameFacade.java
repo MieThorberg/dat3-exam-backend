@@ -1,5 +1,6 @@
 package facades;
 
+import controller.VoteController;
 import dtos.PlayerDTO;
 import entities.*;
 
@@ -12,6 +13,7 @@ public class GameFacade {
     private static EntityManagerFactory emf;
     private static GameFacade instance;
     private GameController gc;
+    private VoteController vc;
 
     public GameFacade() {
     }
@@ -158,5 +160,14 @@ public class GameFacade {
         }
 
         return player;
+    }
+
+    public Player getVoteResult(long gameId){
+        EntityManager em = emf.createEntityManager();
+        vc = new VoteController();
+
+        Game game = em.find(Game.class, gameId);
+
+        return vc.startVotingCalculator(game);
     }
 }

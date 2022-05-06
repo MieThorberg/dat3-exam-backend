@@ -13,7 +13,7 @@ public class VoteController {
 
     // todo: handle blanc votes
 
-    public Player startVoting(Game game){
+    public Player startVotingCalculator(Game game){
 
         for (Player player : game.getPlayers()) {
             Player playerVote = player.getLatestVote();
@@ -25,7 +25,7 @@ public class VoteController {
         return findResult();
     }
 
-    public void addVote(Player player){
+    protected void addVote(Player player){
         if(votes.containsKey(player)) {
             int vote = votes.get(player);
             vote++;
@@ -35,7 +35,7 @@ public class VoteController {
         }
     }
 
-    public Player findResult(){
+    protected Player findResult(){
         int maxValueInMap=(Collections.max(votes.values()));
         ArrayList<Player> players = new ArrayList<>();
 
