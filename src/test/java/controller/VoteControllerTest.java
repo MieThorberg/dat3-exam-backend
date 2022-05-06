@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,10 +26,10 @@ class VoteControllerTest {
         Player player1 = new Player(user1);
         Player player2 = new Player(user2);
 
-        playerHost.setVote(player2);
-        player.setVote(player2);
-        player1.setVote(player2);
-        player2.setVote(player1);
+        playerHost.setLatestVote(player2);
+        player.setLatestVote(player2);
+        player1.setLatestVote(player2);
+        player2.setLatestVote(player1);
 
         ArrayList<Player> players = new ArrayList<>();
         players.add(playerHost);

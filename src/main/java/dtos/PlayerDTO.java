@@ -9,23 +9,32 @@ import java.util.List;
 
 public class PlayerDTO {
 
+    private long id;
     private String username;
     private Long characterId;
     private Boolean isAlive;
     private Long gameId;
+    private String latestVote;
 
-    public PlayerDTO(User user, long characterId, Boolean isAlive, Game game) {
+    public PlayerDTO(long id, User user, long characterId, Boolean isAlive, Game game, String latestVote) {
+        this.id = id;
         this.username = user.getUserName();
         this.characterId = characterId;
         this.isAlive = isAlive;
         this.gameId = game.getId();
+        this.latestVote = latestVote;
     }
 
     public PlayerDTO(Player player) {
+        this.id = player.getId();
         this.username = player.getUser().getUserName();
         this.characterId = player.getCharacterId();
         this.isAlive = player.getAlive();
         this.gameId = player.getGame().getId();
+
+        if (player.getLatestVote() != null){
+            this.latestVote = player.getLatestVote().getUser().getUserName();
+        }
     }
 
     public static List<PlayerDTO> getPlayerDTOs(List<Player> players) {
@@ -66,5 +75,21 @@ public class PlayerDTO {
 
     public void setGameId(Long gameId) {
         this.gameId = gameId;
+    }
+
+    public String getLatestVote() {
+        return latestVote;
+    }
+
+    public void setLatestVote(String latestVote) {
+        this.latestVote = latestVote;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

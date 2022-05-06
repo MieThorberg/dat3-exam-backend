@@ -74,8 +74,6 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getPlayersByGameId(@PathParam("id") long id) {
         List<Player> players = GameFacade.getGameFacade(EMF).getAllPlayersByGameId(id);
-        System.out.println(players.get(0).getGame());
-
         List<PlayerDTO> playerDTOS = PlayerDTO.getPlayerDTOs(players);
 
         return GSON.toJson(playerDTOS);
@@ -125,4 +123,16 @@ public class GameResource {
         return GSON.toJson(gameRoundDTOS);
     }
 
+    @PUT
+    @Path("{id}/{playerId}/vote")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String setPlayerVote(@PathParam("id") long id, @PathParam("playerId") long playerId, String data){
+        PlayerDTO playerDTO = GSON.fromJson(data, PlayerDTO.class);
+
+        Player player = GameFacade.getGameFacade(EMF).setPlayerVote(playerId, playerDTO);
+        playerDTO = new PlayerDTO(player);
+
+        return GSON.toJson(playerDTO);
+    }
 }

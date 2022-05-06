@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.List;
 import entities.Game;
 import entities.Player;
 import entities.User;
@@ -70,10 +69,10 @@ class GameControllerTest {
         players.add(player1);
         players.add(player2);
 
-        playerHost.setVote(player1);
-        player.setVote(player1);
-        player2.setVote(player1);
-        player1.setVote(player2);
+        playerHost.setLatestVote(player1);
+        player.setLatestVote(player1);
+        player2.setLatestVote(player1);
+        player1.setLatestVote(player2);
 
         player1.setCharacterId(1);
 

@@ -141,4 +141,22 @@ public class GameFacade {
 
         return query.getResultList();
     }
+
+    public Player setPlayerVote(long playerId, PlayerDTO playerDTO){
+        EntityManager em = emf.createEntityManager();
+
+        Player player = em.find(Player.class, playerId);
+        Player vote = em.find(Player.class, playerDTO.getId());
+        player.setLatestVote(vote);
+
+        try {
+            em.getTransaction().begin();
+            em.merge(player);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
+        return player;
+    }
 }

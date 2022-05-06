@@ -27,8 +27,8 @@ public class Player implements Serializable {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @Transient
-    private Player vote;
+    @OneToOne
+    private Player latestVote;
 
     public Player() {
     }
@@ -77,11 +77,11 @@ public class Player implements Serializable {
         this.characterId = characterId;
     }
 
-    public Player getVote() {
-        return vote;
+    public Player getLatestVote() {
+        return latestVote;
     }
 
-    public void setVote(Player vote) {
-        this.vote = vote;
+    public void setLatestVote(Player vote) {
+        this.latestVote = vote;
     }
 }

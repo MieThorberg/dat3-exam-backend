@@ -16,7 +16,7 @@ public class VoteController {
     public Player startVoting(Game game){
 
         for (Player player : game.getPlayers()) {
-            Player playerVote = player.getVote();
+            Player playerVote = player.getLatestVote();
             addVote(playerVote);
         }
 
