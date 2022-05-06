@@ -95,20 +95,6 @@ public class GameFacade {
         return dayRound;
     }
 
-    public Player createPlayer(long gameId, Player player) {
-        EntityManager em = emf.createEntityManager();
-
-        em.getTransaction().begin();
-        Game game = em.find(Game.class, gameId);
-
-        player.setGame(game);
-        em.persist(player);
-
-        em.getTransaction().commit();
-
-        return player;
-    }
-
     public List<Player> createPlayers(long gameId, List<Player> players) {
         EntityManager em = emf.createEntityManager();
 
@@ -122,6 +108,20 @@ public class GameFacade {
         em.getTransaction().commit();
 
         return players;
+    }
+
+    public Player createPlayer(long gameId, Player player) {
+        EntityManager em = emf.createEntityManager();
+
+        em.getTransaction().begin();
+        Game game = em.find(Game.class, gameId);
+
+        player.setGame(game);
+        em.persist(player);
+
+        em.getTransaction().commit();
+
+        return player;
     }
 
     public List<Player> getAllPlayersByGameId(long gameId) {
@@ -148,6 +148,14 @@ public class GameFacade {
         query.setParameter("id", id);
         Player player = query.getSingleResult();
         return player;
+    }
+
+    public List<Player> getAllLivingPlayers(long id) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Player> query = em.createQuery("SELECT g.players FROM Game g WHERE g.id = :id", Player.class);
+        query.setParameter("id", id);
+        List<Player> livingPlayers = query.getResultList();
+        return livingPlayers;
     }
 
     public int getDays(long gameId) {
@@ -203,7 +211,6 @@ public class GameFacade {
             return null;
         }
     }
-
 
     public Player setPlayerVote(long playerId, PlayerDTO playerDTO) {
         EntityManager em = emf.createEntityManager();
@@ -270,13 +277,4 @@ public class GameFacade {
 
         return gc.hasEnded();
     }
-
-    // todo: virker ikke... fejl 500;
-//    public List<Player> getAllLivingPlayers(long id) {
-//        EntityManager em = emf.createEntityManager();
-//        TypedQuery<Player> query = em.createQuery("SELECT g.players FROM Game g WHERE g.id = :id", Player.class);
-//        query.setParameter("id", id);
-//        List<Player> livingPlayers = query.getResultList();
-//        return livingPlayers;
-//    }
 }

@@ -134,6 +134,16 @@ public class GameResource {
     }
 
     @GET
+    @Path("{id}/livingplayers")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getLivingPlayersByGameId(@PathParam("id") long id) {
+        List<Player> players = GameFacade.getGameFacade(EMF).getAllLivingPlayers(id);
+        List<PlayerDTO> playerDTOS = PlayerDTO.getPlayerDTOs(players);
+
+        return GSON.toJson(playerDTOS);
+    }
+
+    @GET
     @Path("{id}/days")
     @Produces(MediaType.APPLICATION_JSON)
     public String getDays(@PathParam("id") long id) {
@@ -229,16 +239,6 @@ public class GameResource {
         return GSON.toJson(hasEnded);
     }
 
-    // todo: virker ikke... fejl 500;
-//    @GET
-//    @Path("{id}/livingplayers")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getLivingPlayersByGameId(@PathParam("id") long id) {
-//        List<Player> players = GameFacade.getGameFacade(EMF).getAllLivingPlayers(id);
-//        List<PlayerDTO> playerDTOS = PlayerDTO.getPlayerDTOs(players);
-//
-//        return GSON.toJson(playerDTOS);
-//    }
 }
 
 

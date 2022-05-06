@@ -67,6 +67,7 @@ public class Player implements Serializable {
 
     public void setGame(Game game) {
         this.game = game;
+        game.getPlayers().add(this);
     }
 
     public String getCharacterName() {

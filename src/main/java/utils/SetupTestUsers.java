@@ -31,12 +31,10 @@ public class SetupTestUsers {
     Player player2 = new Player(both);
 
 
-    List<Player> players = new ArrayList<>();
-    //players.add(player);
-    players.add(player1);
-    players.add(player2);
+    Game game = new Game(admin);
+    player1.setGame(game);
+    player2.setGame(game);
 
-    Game game = new Game(admin, players);
 
     NightRound round = new NightRound(game);
     DayRound round1 = new DayRound(game);
