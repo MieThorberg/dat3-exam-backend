@@ -6,6 +6,7 @@ import entities.*;
 
 import javax.persistence.*;
 import java.util.*;
+
 import controller.GameController;
 
 public class GameFacade {
@@ -19,7 +20,6 @@ public class GameFacade {
     }
 
     /**
-     *
      * @param _emf
      * @return the instance of this facade.
      */
@@ -31,7 +31,7 @@ public class GameFacade {
         return instance;
     }
 
-    public List<Game> getAllGames(){
+    public List<Game> getAllGames() {
         EntityManager em = emf.createEntityManager();
 
         TypedQuery<Game> query = em.createQuery("SELECT g FROM Game g", Game.class);
@@ -44,7 +44,7 @@ public class GameFacade {
         return em.find(Game.class, id);
     }
 
-    public Game createGame(User host){
+    public Game createGame(User host) {
         EntityManager em = emf.createEntityManager();
 
         gc = new GameController();
@@ -61,11 +61,11 @@ public class GameFacade {
         return game;
     }
 
-    public Game startGame(Game game, ArrayList<Player> players){
+    public Game startGame(Game game, ArrayList<Player> players) {
         EntityManager em = emf.createEntityManager();
 
         gc = new GameController(game);
-        gc.startGame(players,1);
+        gc.startGame(players, 1);
 
 //        try {
 //            em.getTransaction().begin();
@@ -78,7 +78,7 @@ public class GameFacade {
         return game;
     }
 
-    public List<Player> createPlayers(long gameId,List<Player> players){
+    public List<Player> createPlayers(long gameId, List<Player> players) {
         EntityManager em = emf.createEntityManager();
 
         em.getTransaction().begin();
@@ -93,25 +93,25 @@ public class GameFacade {
         return players;
     }
 
-    public Player createPlayer(long gameId, Player player){
+    public Player createPlayer(long gameId, Player player) {
         EntityManager em = emf.createEntityManager();
 
         em.getTransaction().begin();
         Game game = em.find(Game.class, gameId);
 
-            player.setGame(game);
-            em.persist(player);
+        player.setGame(game);
+        em.persist(player);
 
         em.getTransaction().commit();
 
         return player;
     }
 
-    public List<Player> getAllPlayersByGameId(long gameId){
+    public List<Player> getAllPlayersByGameId(long gameId) {
         EntityManager em = emf.createEntityManager();
 
         TypedQuery<Player> query = em.createQuery("SELECT p FROM Player p WHERE p.game.id = :gameId", Player.class);
-        query.setParameter("gameId",gameId);
+        query.setParameter("gameId", gameId);
 
         return query.getResultList();
     }
@@ -142,7 +142,7 @@ public class GameFacade {
         return player;
     }
 
-    public int getDays(long gameId){
+    public int getDays(long gameId) {
         EntityManager em = emf.createEntityManager();
 
         Game game = em.find(Game.class, gameId);
@@ -150,7 +150,7 @@ public class GameFacade {
         return game.getDays();
     }
 
-    public List<NightRound> getNightRounds(long gameId){
+    public List<NightRound> getNightRounds(long gameId) {
         EntityManager em = emf.createEntityManager();
 
         TypedQuery<NightRound> query = em.createQuery("SELECT n FROM NightRound n WHERE n.game.id = :id", NightRound.class);
@@ -158,7 +158,8 @@ public class GameFacade {
 
         return query.getResultList();
     }
-    public List<DayRound> getDayRounds(long gameId){
+
+    public List<DayRound> getDayRounds(long gameId) {
         EntityManager em = emf.createEntityManager();
 
         TypedQuery<DayRound> query = em.createQuery("SELECT d FROM DayRound d WHERE d.game.id = :id", DayRound.class);
@@ -167,7 +168,7 @@ public class GameFacade {
         return query.getResultList();
     }
 
-    public NightRound getNightRoundsByID(long gameId, long roundId){
+    public NightRound getNightRoundsByID(long gameId, long roundId) {
         EntityManager em = emf.createEntityManager();
 
         TypedQuery<NightRound> query = em.createQuery("SELECT n FROM NightRound n WHERE n.game.id = :id AND n.id = :roundId", NightRound.class);
@@ -180,7 +181,8 @@ public class GameFacade {
             return null;
         }
     }
-    public DayRound getDayRoundsByID(long gameId, long roundId){
+
+    public DayRound getDayRoundsByID(long gameId, long roundId) {
         EntityManager em = emf.createEntityManager();
 
         TypedQuery<DayRound> query = em.createQuery("SELECT d FROM DayRound d WHERE d.game.id = :id AND d.id = :roundId", DayRound.class);
@@ -195,8 +197,7 @@ public class GameFacade {
     }
 
 
-
-    public Player setPlayerVote(long playerId, PlayerDTO playerDTO){
+    public Player setPlayerVote(long playerId, PlayerDTO playerDTO) {
         EntityManager em = emf.createEntityManager();
 
         Player player = em.find(Player.class, playerId);
@@ -214,7 +215,7 @@ public class GameFacade {
         return player;
     }
 
-    public Player getVoteResult(long gameId){
+    public Player getVoteResult(long gameId) {
         EntityManager em = emf.createEntityManager();
         vc = new VoteController();
 
@@ -223,7 +224,7 @@ public class GameFacade {
         return vc.startVotingCalculator(game);
     }
 
-    public Player killPlayer(long gameId, PlayerDTO playerDTO){
+    public Player killPlayer(long gameId, PlayerDTO playerDTO) {
         EntityManager em = emf.createEntityManager();
         Game game = em.find(Game.class, gameId);
         Player playerToKill = em.find(Player.class, playerDTO.getId());
@@ -238,7 +239,7 @@ public class GameFacade {
         return playerToKill;
     }
 
-    public List<Player> assignCharacters(long gameId, int amountOfWerewolves){
+    public List<Player> assignCharacters(long gameId, int amountOfWerewolves) {
         EntityManager em = emf.createEntityManager();
 
         Game game = em.find(Game.class, gameId);
@@ -253,7 +254,7 @@ public class GameFacade {
         return game.getPlayers();
     }
 
-    public Boolean hasEnded(long gameId){
+    public Boolean hasEnded(long gameId) {
         EntityManager em = emf.createEntityManager();
 
         Game game = em.find(Game.class, gameId);

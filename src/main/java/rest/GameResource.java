@@ -78,7 +78,9 @@ public class GameResource {
         User user = userDTO.toUser();
         Player player = new Player(user);
         Player newPlayer = GameFacade.getGameFacade(EMF).createPlayer(id,player);
-        return GSON.toJson(newPlayer);
+        PlayerDTO playerDTO = new PlayerDTO(newPlayer);
+
+        return GSON.toJson(playerDTO);
     }
 
     @GET
