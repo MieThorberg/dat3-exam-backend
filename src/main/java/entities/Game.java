@@ -29,14 +29,15 @@ public class Game implements Serializable {
 
     @NotNull
     @JoinColumn(name = "players")
-    @OneToMany(mappedBy = "game")
+    @OneToMany
     private List<Player> players = new ArrayList<>();
 
-    @JoinTable(name = "game_player", joinColumns = {@JoinColumn(name = "gameid", referencedColumnName = "ID")},
-            inverseJoinColumns={ @JoinColumn(name="playerid", referencedColumnName="ID", unique=true) }
-    )
+//    @JoinTable(name = "game_player", joinColumns = {@JoinColumn(name = "gameid", referencedColumnName = "ID")},
+//            inverseJoinColumns={ @JoinColumn(name="playerid", referencedColumnName="ID", unique=true) }
+//    )
+
     @JoinColumn(name = "victims")
-    @OneToMany(mappedBy = "game")
+    @OneToMany
     private List<Player> victims = new ArrayList<>();
 
     @OneToOne
