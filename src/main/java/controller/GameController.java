@@ -153,7 +153,7 @@ public class GameController {
 //        return random.nextInt(size);
 //    }
 
-    private boolean hasEnded(){
+    public boolean hasEnded(){
         return game.getWerewolves() > game.getPlayers().size() || game.getWerewolves() == 0;
     }
 

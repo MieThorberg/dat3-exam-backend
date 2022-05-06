@@ -169,6 +169,14 @@ public class GameResource {
 
         return GSON.toJson(playerDTOS);
     }
+
+    @GET
+    @Path("{id}/hasended")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String hasEnded(@PathParam("id") long id) {
+        boolean hasEnded = GameFacade.getGameFacade(EMF).hasEnded(id);
+        return GSON.toJson(hasEnded);
+    }
 }
 
 

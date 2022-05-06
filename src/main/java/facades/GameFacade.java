@@ -200,4 +200,13 @@ public class GameFacade {
 
         return game.getPlayers();
     }
+
+    public Boolean hasEnded(long gameId){
+        EntityManager em = emf.createEntityManager();
+
+        Game game = em.find(Game.class, gameId);
+        gc = new GameController(game);
+
+        return gc.hasEnded();
+    }
 }
