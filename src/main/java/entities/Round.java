@@ -28,6 +28,7 @@ public abstract class Round implements Serializable {
     @Column(name = "isDay")
     private boolean isDay;
 
+    @NotNull
     @Column(name = "day")
     private int day;
 

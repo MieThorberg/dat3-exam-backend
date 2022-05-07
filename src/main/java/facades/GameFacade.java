@@ -203,6 +203,26 @@ public class GameFacade {
         return query.getResultList();
     }
 
+    public DayRound getDayRoundsByDay(long gameId, int day) {
+        EntityManager em = emf.createEntityManager();
+
+        TypedQuery<DayRound> query = em.createQuery("SELECT d FROM DayRound d WHERE d.game.id = :id AND d.day = :day", DayRound.class);
+        query.setParameter("id", gameId);
+        query.setParameter("day", day);
+
+        return query.getSingleResult();
+    }
+
+    public NightRound getNightRoundsByDay(long gameId, int day) {
+        EntityManager em = emf.createEntityManager();
+
+        TypedQuery<NightRound> query = em.createQuery("SELECT n FROM NightRound n WHERE n.game.id = :id AND n.day = :day", NightRound.class);
+        query.setParameter("id", gameId);
+        query.setParameter("day", day);
+
+        return query.getSingleResult();
+    }
+
     public NightRound getNightRoundsByID(long gameId, long roundId) {
         EntityManager em = emf.createEntityManager();
 

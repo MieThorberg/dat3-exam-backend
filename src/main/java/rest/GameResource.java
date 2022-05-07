@@ -199,6 +199,28 @@ public class GameResource {
         return GSON.toJson(gameRoundDTO);
     }
 
+    @GET
+    @Path("{id}/rounds/{day}/getnightround")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getNightRoundsByDay(@PathParam("id") long id, @PathParam("day") int day) {
+        NightRound nightRound = GameFacade.getGameFacade(EMF).getNightRoundsByDay(id, day);
+
+        GameRoundDTO gameRoundDTO = new GameRoundDTO(nightRound);
+
+
+        return GSON.toJson(gameRoundDTO);
+    }
+
+    @GET
+    @Path("{id}/rounds/{day}/getdayround")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getDayRoundsByDay(@PathParam("id") long id, @PathParam("day") int day) {
+        DayRound dayRound = GameFacade.getGameFacade(EMF).getDayRoundsByDay(id, day);
+        GameRoundDTO gameRoundDTO = new GameRoundDTO(dayRound);
+
+        return GSON.toJson(gameRoundDTO);
+    }
+
 
     @PUT
     @Path("{id}/{playerId}/vote")
@@ -251,7 +273,7 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String assignCharacters(@PathParam("id") long id) {
-
+        // TODO: receive a list with character roles and amount
         List<Player> players = GameFacade.getGameFacade(EMF).assignCharacters(id, 1);
         List<PlayerDTO> playerDTOS = PlayerDTO.getPlayerDTOs(players);
 

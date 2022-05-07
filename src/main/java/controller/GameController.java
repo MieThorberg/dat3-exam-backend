@@ -145,6 +145,7 @@ public class GameController {
 //    }
 
     public boolean hasEnded() {
+        // TODO: if werewolf are more then the villagers, then kille the last living villagers
         return game.getAmountOfWerewolves() > game.getPlayers().size() || game.getAmountOfWerewolves() == 0;
     }
 
