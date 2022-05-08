@@ -90,7 +90,7 @@ public abstract class Round implements Serializable {
     }
 
     public abstract void start();
-    public abstract void vote();
+    public abstract void voteResult();
 
     public Game getGame() {
         return game;

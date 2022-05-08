@@ -251,6 +251,34 @@ public class GameFacade {
         }
     }
 
+    public NightRound nightRoundResult(long gameId){
+        EntityManager em = emf.createEntityManager();
+
+        Game game = em.find(Game.class, gameId);
+        NightRound nightRound = getCurrentNightRound(gameId);
+        nightRound.start();
+
+        em.getTransaction().begin();
+        em.merge(game);
+        em.getTransaction().commit();
+
+        return nightRound;
+    }
+
+    public DayRound dayRoundResult(long gameId){
+        EntityManager em = emf.createEntityManager();
+
+        Game game = em.find(Game.class, gameId);
+        DayRound dayRound = getCurrentDayRound(gameId);
+        dayRound.start();
+
+        em.getTransaction().begin();
+        em.merge(game);
+        em.getTransaction().commit();
+
+        return dayRound;
+    }
+
     public Player setPlayerVote(long playerId, PlayerDTO playerDTO) {
         EntityManager em = emf.createEntityManager();
 
@@ -328,5 +356,31 @@ public class GameFacade {
         gc = new GameController(game);
 
         return gc.hasEnded();
+    }
+
+    public NightRound getCurrentNightRound(long gameId) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+        TypedQuery<Integer> query = em.createQuery("SELECT MAX(n.id) FROM NightRound n WHERE n.game.id = :id", Integer.class);
+        query.setParameter("id", gameId);
+
+            return em.find(NightRound.class, query.getSingleResult());
+        } catch (NoResultException | IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    public DayRound getCurrentDayRound(long gameId) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            TypedQuery<Integer> query = em.createQuery("SELECT MAX(d.id) FROM DayRound d WHERE d.game.id = :id", Integer.class);
+            query.setParameter("id", gameId);
+
+            return em.find(DayRound.class, query.getSingleResult());
+        } catch ( NoResultException | IllegalArgumentException e) {
+            return null;
+        }
     }
 }

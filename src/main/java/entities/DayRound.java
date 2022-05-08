@@ -24,15 +24,12 @@ public class DayRound extends Round implements Serializable {
 
     @Override
     public void start() {
-        debate();
-        vote();
-    }
-
-    private void debate(){
+        voteResult();
+        getGame().killPlayer(getVictim());
     }
 
     @Override
-    public void vote() {
+    public void voteResult() {
         Player victim =  voteController.startVotingCalculator(getGame());
         setVictim(victim);
     }

@@ -75,11 +75,11 @@ public class GameResource {
     @Path("{id}/createplayer")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String createPlayer(@PathParam("id") long id, String data){
+    public String createPlayer(@PathParam("id") long id, String data) {
         UserDTO userDTO = GSON.fromJson(data, UserDTO.class);
         User user = userDTO.toUser();
         Player player = new Player(user);
-        Player newPlayer = GameFacade.getGameFacade(EMF).createPlayer(id,player);
+        Player newPlayer = GameFacade.getGameFacade(EMF).createPlayer(id, player);
         PlayerDTO playerDTO = new PlayerDTO(newPlayer);
 
         return GSON.toJson(playerDTO);
@@ -221,6 +221,53 @@ public class GameResource {
         return GSON.toJson(gameRoundDTO);
     }
 
+    @PUT
+    @Path("{id}/rounds/nightroundresult")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String nightRoundResult(@PathParam("id") long id) {
+        NightRound nightRound = GameFacade.getGameFacade(EMF).nightRoundResult(id);
+
+        return GSON.toJson(new GameRoundDTO(nightRound));
+    }
+
+    @PUT
+    @Path("{id}/rounds/dayroundresult")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String dayRoundResult(@PathParam("id") long id) {
+        DayRound dayRound = GameFacade.getGameFacade(EMF).dayRoundResult(id);
+
+        return GSON.toJson(new GameRoundDTO(dayRound));
+    }
+
+    @GET
+    @Path("{id}/rounds/current")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCurrentRound(@PathParam("id") long id) {
+        NightRound nightRound = GameFacade.getGameFacade(EMF).getCurrentNightRound(id);
+        DayRound dayRound = GameFacade.getGameFacade(EMF).getCurrentDayRound(id);
+
+        GameRoundDTO gameRoundDTO;
+        if (dayRound == null || nightRound == null) {
+            if (dayRound == null && nightRound == null) {
+                return null;
+            } else if (dayRound == null) {
+                gameRoundDTO = new GameRoundDTO(nightRound);
+            } else {
+                gameRoundDTO = new GameRoundDTO(dayRound);
+            }
+        } else {
+            if (nightRound.getId() > dayRound.getId()) {
+                gameRoundDTO = new GameRoundDTO(nightRound);
+            } else {
+                gameRoundDTO = new GameRoundDTO(dayRound);
+            }
+        }
+
+        return GSON.toJson(gameRoundDTO);
+    }
+
 
     @PUT
     @Path("{id}/{playerId}/vote")
@@ -241,7 +288,7 @@ public class GameResource {
     public String getVoteResult(@PathParam("id") long id) {
         Player votedPlayer = GameFacade.getGameFacade(EMF).getVoteResult(id);
 
-        if (votedPlayer == null){
+        if (votedPlayer == null) {
             return GSON.toJson("no result");
         }
 
@@ -252,7 +299,7 @@ public class GameResource {
     @PUT
     @Path("{id}/cleanvotes")
     @Produces(MediaType.APPLICATION_JSON)
-    public void cleanVotes(@PathParam("id") long id){
+    public void cleanVotes(@PathParam("id") long id) {
         GameFacade.getGameFacade(EMF).cleanVotes(id);
     }
 

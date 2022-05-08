@@ -56,4 +56,8 @@ public class GameRoundDTO {
         }
         return gameRoundDTOS;
     }
+
+    public long getId() {
+        return id;
+    }
 }

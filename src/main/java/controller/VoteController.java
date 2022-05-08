@@ -14,6 +14,7 @@ public class VoteController {
     public Player startVotingCalculator(Game game){
 
         for (Player player : game.getPlayers()) {
+            System.out.println(player.getUser().getUserName());
             Player playerVote = player.getLatestVote();
             if (playerVote != null){
                 addVote(playerVote);
@@ -38,9 +39,6 @@ public class VoteController {
     }
 
     protected Player findResult(){
-
-        System.out.println(votes.size());
-
         int maxValueInMap=(Collections.max(votes.values()));
         ArrayList<Player> players = new ArrayList<>();
 
@@ -54,7 +52,6 @@ public class VoteController {
 //        if(players.size() > 1){
 //            return
 //        }
-
         return players.get(0);
     }
 

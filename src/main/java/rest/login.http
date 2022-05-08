@@ -15,7 +15,7 @@ POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/creategam
 {"userName":"user", "userPass":"test123"}
 
 ###
-POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/createplayers
+POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/createplayers
 
 [
 {"userName":"user", "userPass":"test123"},
@@ -55,15 +55,24 @@ PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/3/vote
 {"id":"4", "user":"admin","characterName":"null","isAlive":"1","game":"1","latestVote":"3"}
 
 ###
-PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/3/vote
+PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/7/vote
 
-{"id":"4"}
+{"id":"8"}
 
 ###
-GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/voteresult
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/voteresult
 
 ###
 PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/cleanvotes
+
+###
+PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/rounds/nightroundresult
+
+###
+PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/rounds/dayroundresult
+
+###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/rounds/current
 
 ###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/players
@@ -86,7 +95,7 @@ GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/victims
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/aliveplayers
 
 ###
-PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/assigncharacters
+PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/assigncharacters
 
 ###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/rounds
@@ -101,10 +110,10 @@ GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/rounds/0
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/rounds/0/getdayround
 
 ###
-POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/createnightround
+POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/createnightround
 
 ###
-POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/createdayround
+POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/createdayround
 
 ###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/2/hasended
