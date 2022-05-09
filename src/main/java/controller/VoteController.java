@@ -14,7 +14,6 @@ public class VoteController {
     public Player startVotingCalculator(Game game){
 
         for (Player player : game.getPlayers()) {
-            System.out.println(player.getUser().getUserName());
             Player playerVote = player.getLatestVote();
             if (playerVote != null){
                 addVote(playerVote);

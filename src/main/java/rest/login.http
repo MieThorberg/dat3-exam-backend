@@ -55,7 +55,7 @@ PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/3/vote
 {"id":"4", "user":"admin","characterName":"null","isAlive":"1","game":"1","latestVote":"3"}
 
 ###
-PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/7/vote
+PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/9/vote
 
 {"id":"8"}
 
@@ -86,7 +86,7 @@ PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/killplay
 {"id":"6"}
 
 ###
-GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/victims/latest
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/victims/latest
 
 ###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/victims

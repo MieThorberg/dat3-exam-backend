@@ -254,12 +254,12 @@ public class GameFacade {
     public NightRound nightRoundResult(long gameId){
         EntityManager em = emf.createEntityManager();
 
-        Game game = em.find(Game.class, gameId);
         NightRound nightRound = getCurrentNightRound(gameId);
         nightRound.start();
 
         em.getTransaction().begin();
-        em.merge(game);
+        em.merge(nightRound);
+        em.merge(nightRound.getGame());
         em.getTransaction().commit();
 
         return nightRound;
@@ -268,12 +268,12 @@ public class GameFacade {
     public DayRound dayRoundResult(long gameId){
         EntityManager em = emf.createEntityManager();
 
-        Game game = em.find(Game.class, gameId);
         DayRound dayRound = getCurrentDayRound(gameId);
         dayRound.start();
 
         em.getTransaction().begin();
-        em.merge(game);
+        em.merge(dayRound);
+        em.merge(dayRound.getGame());
         em.getTransaction().commit();
 
         return dayRound;
