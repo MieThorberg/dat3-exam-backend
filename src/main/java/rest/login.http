@@ -72,7 +72,7 @@ PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/rounds/n
 PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/rounds/dayroundresult
 
 ###
-GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/rounds/current
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/6/rounds/current
 
 ###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/players

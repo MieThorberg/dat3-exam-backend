@@ -48,9 +48,11 @@ public class GameFacade {
         EntityManager em = emf.createEntityManager();
         gc = new GameController();
         Game game = gc.createGame(host);
+        NightRound nightRound = new NightRound(game);
 
         try {
             em.getTransaction().begin();
+            em.persist(nightRound);
             em.persist(game);
             em.getTransaction().commit();
         } finally {
