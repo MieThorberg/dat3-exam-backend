@@ -1,6 +1,7 @@
 package facades;
 
 import controller.VoteController;
+import dtos.GameDTO;
 import dtos.PlayerDTO;
 import entities.*;
 
@@ -44,10 +45,11 @@ public class GameFacade {
         return em.find(Game.class, id);
     }
 
-    public Game createGame(User host) {
+    public Game createGame(String host, GameDTO gameDTO) {
         EntityManager em = emf.createEntityManager();
+        User user = em.find(User.class, host);
         gc = new GameController();
-        Game game = gc.createGame(host);
+        Game game = gc.createGame(user, gameDTO.getGamePin());
         NightRound nightRound = new NightRound(game);
 
         try {
@@ -381,6 +383,19 @@ public class GameFacade {
             query.setParameter("id", gameId);
 
             return em.find(DayRound.class, query.getSingleResult());
+        } catch ( NoResultException | IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    public Game getGameByPin(long pin) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            TypedQuery<Game> query = em.createQuery("SELECT g FROM Game g WHERE g.gamePin = :pin", Game.class);
+            query.setParameter("pin", pin);
+
+            return query.getSingleResult();
         } catch ( NoResultException | IllegalArgumentException e) {
             return null;
         }

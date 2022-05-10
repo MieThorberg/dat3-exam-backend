@@ -31,7 +31,7 @@ public class SetupTestUsers {
     Player player2 = new Player(both);
 
 
-    Game game = new Game(admin);
+    Game game = new Game(admin, 1234);
     player1.setGame(game);
     player2.setGame(game);
 

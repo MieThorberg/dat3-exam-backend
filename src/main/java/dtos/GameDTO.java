@@ -10,6 +10,7 @@ public class GameDTO {
 
     private long id;
     private String hostName;
+    private long gamePin;
     private List<String> playerNames;
     private List<Long> nightRoundsID;
     private List<Long> dayRoundsID;
@@ -18,9 +19,10 @@ public class GameDTO {
     private int days;
 
 
-    public GameDTO(long id, String hostName, List<String> playerNames, List<Long> nightRoundsID, List<Long> dayRoundsID, List<String> victimsNames, String latestVictimName, int days) {
+    public GameDTO(long id, String hostName, long gamePin, List<String> playerNames, List<Long> nightRoundsID, List<Long> dayRoundsID, List<String> victimsNames, String latestVictimName, int days) {
         this.id = id;
         this.hostName = hostName;
+        this.gamePin = gamePin;
         this.playerNames = playerNames;
         this.nightRoundsID = nightRoundsID;
         this.dayRoundsID = dayRoundsID;
@@ -31,6 +33,7 @@ public class GameDTO {
 
     public GameDTO(Game game) {
         this.id = game.getId();
+        this.gamePin = game.getGamePin();
         this.hostName = game.getHost().getUserName();
         this.playerNames = getPlayers(game.getPlayers());
         this.nightRoundsID = getNightRoundsIDS(game.getNightRounds());
@@ -111,5 +114,13 @@ public class GameDTO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getGamePin() {
+        return gamePin;
+    }
+
+    public void setGamePin(long gamePin) {
+        this.gamePin = gamePin;
     }
 }

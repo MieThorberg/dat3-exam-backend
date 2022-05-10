@@ -38,15 +38,14 @@ public class GameResource {
     }
 
     @POST
-    @Path("creategame")
+    @Path("creategame/{host}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String createGame(String data) {
-        UserDTO userDTO = GSON.fromJson(data, UserDTO.class);
-        User user = userDTO.toUser();
-        Game game = GameFacade.getGameFacade(EMF).createGame(user);
-        GameDTO gameDTO = new GameDTO(game);
-        return GSON.toJson(gameDTO);
+    public String createGame(@PathParam("host") String host, String data) {
+        GameDTO gameDTO = GSON.fromJson(data, GameDTO.class);
+        Game game = GameFacade.getGameFacade(EMF).createGame(host, gameDTO);
+        System.out.println(gameDTO.getGamePin());
+        return GSON.toJson(new GameDTO(game));
     }
 
     @POST
@@ -334,6 +333,16 @@ public class GameResource {
         boolean hasEnded = GameFacade.getGameFacade(EMF).hasEnded(id);
         return GSON.toJson(hasEnded);
     }
+
+    @GET
+    @Path("gamepin/{pin}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getGameByPin(@PathParam("pin") long pin) {
+        Game game = GameFacade.getGameFacade(EMF).getGameByPin(pin);
+        GameDTO gameDTO = new GameDTO(game);
+        return GSON.toJson(gameDTO);
+    }
+
 
 }
 

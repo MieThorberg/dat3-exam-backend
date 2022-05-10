@@ -32,7 +32,7 @@ class GameControllerTest {
         players.add(player1);
         players.add(player2);
 
-        Game game = gc.createGame(host);
+        Game game = gc.createGame(host, 1234);
        // gc.startGame(players);
 
 
@@ -41,7 +41,7 @@ class GameControllerTest {
     @Test
     void createGame() {
         User user =new User("user", "test");
-        Game game = gc.createGame(user);
+        Game game = gc.createGame(user,1234);
 
         assertEquals(user, game.getHost());
         assertEquals(new ArrayList<>(), game.getPlayers());

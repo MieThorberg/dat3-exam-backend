@@ -17,8 +17,8 @@ public class GameController {
         this.game = game;
     }
 
-    public Game createGame(User user) {
-        this.game = new Game(user);
+    public Game createGame(User user, long gamePin) {
+        this.game = new Game(user, gamePin);
         return this.game;
     }
 

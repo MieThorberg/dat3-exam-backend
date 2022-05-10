@@ -19,6 +19,8 @@ public class Game implements Serializable {
     @NotNull
     private User host;
 
+    private long gamePin;
+
     @JoinColumn(name = "Rounds")
     @OneToMany(mappedBy = "game")
     private List<NightRound> nightRounds = new ArrayList<>();
@@ -63,8 +65,9 @@ public class Game implements Serializable {
         this.players = players;
     }
 
-    public Game(User host) {
+    public Game(User host, long gamePin) {
         this.host = host;
+        this.gamePin = gamePin;
     }
 
     public void killPlayer(Player player) {
@@ -166,7 +169,15 @@ public class Game implements Serializable {
         this.latestVictim = latestVictim;
     }
 
-    // TODO:
+    public long getGamePin() {
+        return gamePin;
+    }
+
+    public void setGamePin(long gamePin) {
+        this.gamePin = gamePin;
+    }
+
+// TODO:
 //        public HashMap<Integer, Integer> getCharacters() {
 //        return characters;
 //    }
