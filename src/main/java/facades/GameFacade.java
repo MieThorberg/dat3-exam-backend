@@ -385,4 +385,12 @@ public class GameFacade {
             return null;
         }
     }
+
+    public List<Rules> getAllRules() {
+        EntityManager em = emf.createEntityManager();
+
+        TypedQuery<Rules> query = em.createQuery("SELECT r FROM Rules r", Rules.class);
+
+        return query.getResultList();
+    }
 }
