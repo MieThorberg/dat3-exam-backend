@@ -117,12 +117,17 @@ public class GameFacade {
     public Player createPlayer(long gameId, Player player) {
         EntityManager em = emf.createEntityManager();
 
-        em.getTransaction().begin();
         Game game = em.find(Game.class, gameId);
 
+        for (Player gamePlayer : game.getPlayers()) {
+            if(player.getUser().getUserName().equals(gamePlayer.getUser().getUserName())){
+                return em.find(Player.class, gamePlayer.getId());
+            }
+        }
+
+        em.getTransaction().begin();
         player.setGame(game);
         em.persist(player);
-
         em.getTransaction().commit();
 
         return player;
