@@ -119,9 +119,14 @@ public class GameFacade {
 
         Game game = em.find(Game.class, gameId);
 
-        for (Player gamePlayer : game.getPlayers()) {
+        for (Player gamePlayer: game.getPlayers()) {
             if(player.getUser().getUserName().equals(gamePlayer.getUser().getUserName())){
                 return em.find(Player.class, gamePlayer.getId());
+            }
+        }
+        for (Player victim : game.getVictims()) {
+            if(player.getUser().getUserName().equals(victim.getUser().getUserName())){
+                return em.find(Player.class, victim.getId());
             }
         }
 
