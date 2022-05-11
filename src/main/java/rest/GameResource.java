@@ -1,7 +1,7 @@
 package rest;
 
 import com.google.gson.Gson;
-import controller.GameController;
+import controller.CharacterController;
 import dtos.*;
 import entities.*;
 import facades.GameFacade;
@@ -18,7 +18,7 @@ public class GameResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     Gson GSON = new Gson();
-    GameController GC;
+    CharacterController GC;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

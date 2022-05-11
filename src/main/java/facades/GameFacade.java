@@ -8,14 +8,12 @@ import entities.*;
 import javax.persistence.*;
 import java.util.*;
 
-import controller.GameController;
+import controller.CharacterController;
 
 public class GameFacade {
 
     private static EntityManagerFactory emf;
     private static GameFacade instance;
-    private GameController gc;
-    private VoteController vc;
 
     public GameFacade() {
     }
@@ -48,8 +46,7 @@ public class GameFacade {
     public Game createGame(String host, GameDTO gameDTO) {
         EntityManager em = emf.createEntityManager();
         User user = em.find(User.class, host);
-        gc = new GameController();
-        Game game = gc.createGame(user, gameDTO.getGamePin());
+        Game game = new Game(user, gameDTO.getGamePin());
         NightRound nightRound = new NightRound(game);
 
         try {
@@ -313,7 +310,7 @@ public class GameFacade {
 
     public Player getVoteResult(long gameId) {
         EntityManager em = emf.createEntityManager();
-        vc = new VoteController();
+        VoteController vc = new VoteController();
 
         Game game = em.find(Game.class, gameId);
 
@@ -338,8 +335,7 @@ public class GameFacade {
         Game game = em.find(Game.class, gameId);
         Player playerToKill = em.find(Player.class, playerDTO.getId());
 
-        gc = new GameController(game);
-        gc.kill(playerToKill);
+        game.killPlayer(playerToKill);
 
         em.getTransaction().begin();
         em.merge(game);
@@ -352,7 +348,7 @@ public class GameFacade {
         EntityManager em = emf.createEntityManager();
 
         Game game = em.find(Game.class, gameId);
-        gc = new GameController(game);
+        CharacterController gc = new CharacterController(game);
 
         gc.characterAssigning(amountOfWerewolves);
 
@@ -365,11 +361,8 @@ public class GameFacade {
 
     public Boolean hasEnded(long gameId) {
         EntityManager em = emf.createEntityManager();
-
         Game game = em.find(Game.class, gameId);
-        gc = new GameController(game);
-
-        return gc.hasEnded();
+        return game.hasEnded();
     }
 
     public NightRound getCurrentNightRound(long gameId) {

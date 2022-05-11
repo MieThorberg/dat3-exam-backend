@@ -105,6 +105,11 @@ public class Game implements Serializable {
         return werewolves;
     }
 
+    public boolean hasEnded() {
+        // TODO: if werewolf are more then the villagers, then kill the last living villagers
+        return getAmountOfWerewolves() > getPlayers().size() || getAmountOfWerewolves() == 0;
+    }
+
     public User getHost() {
         return host;
     }

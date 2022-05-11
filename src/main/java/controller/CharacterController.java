@@ -6,60 +6,12 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GameController {
+public class CharacterController {
 
     private Game game;
 
-    public GameController() {
-    }
-
-    public GameController(Game game) {
+    public CharacterController(Game game) {
         this.game = game;
-    }
-
-    public Game createGame(User user, long gamePin) {
-        this.game = new Game(user, gamePin);
-        return this.game;
-    }
-
-
-    // todo: make startGame work in frontend instead og backend
-    public void startGame(ArrayList<Player> players, int amountOfWolves) {
-        game.setPlayers(players);
-        characterAssigning(amountOfWolves);
-
-
-        while (!hasEnded()) {
-            createRound();
-        }
-    }
-
-    // TODO: make api's to control data
-    public void createRound() {
-        //TODO: chance Night and Day Constructors
-
-        // nightRound
-        NightRound nightRound = new NightRound(game);
-        nightRound.start();
-        kill(nightRound.getVictim());
-
-        game.getNightRounds().add(nightRound);
-        game.addDay();
-
-        // who is dead
-        // TODO: show latestVictim
-        game.setLatestVictim(nightRound.getVictim());
-
-        // dayRound
-        DayRound dayRound = new DayRound(game);
-        dayRound.start();
-        kill(dayRound.getVictim());
-
-        game.getDayRounds().add(dayRound);
-    }
-
-    public void kill(Player player) {
-        game.killPlayer(player);
     }
 
     public void characterAssigning(int amountOfWolves) {
@@ -143,10 +95,5 @@ public class GameController {
 //        Random random = new Random();
 //        return random.nextInt(size);
 //    }
-
-    public boolean hasEnded() {
-        // TODO: if werewolf are more then the villagers, then kille the last living villagers
-        return game.getAmountOfWerewolves() > game.getPlayers().size() || game.getAmountOfWerewolves() == 0;
-    }
 
 }

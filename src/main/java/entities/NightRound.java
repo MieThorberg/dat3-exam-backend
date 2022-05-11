@@ -1,6 +1,5 @@
 package entities;
 
-import controller.GameController;
 import controller.VoteController;
 
 import javax.persistence.*;
