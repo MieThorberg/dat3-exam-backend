@@ -343,6 +343,17 @@ public class GameResource {
         return GSON.toJson(gameDTO);
     }
 
+    @PUT
+    @Path("{id}/setplayerhost")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String setPlayerHost(@PathParam("id") long id, String data){
+        PlayerDTO playerDTO = GSON.fromJson(data, PlayerDTO.class);
+        Player player = GameFacade.getGameFacade(EMF).setPlayerHost(playerDTO);
+
+        return GSON.toJson(new PlayerDTO(player));
+    }
+
 
 }
 

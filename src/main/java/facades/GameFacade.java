@@ -403,4 +403,17 @@ public class GameFacade {
             return null;
         }
     }
+
+    public Player setPlayerHost(PlayerDTO playerDTO) {
+        EntityManager em = emf.createEntityManager();
+
+        Player player = em.find(Player.class, playerDTO.getId());
+        player.setHost(true);
+
+        em.getTransaction().begin();
+        em.merge(player);
+        em.getTransaction().commit();
+
+        return player;
+    }
 }
