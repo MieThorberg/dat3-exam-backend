@@ -30,9 +30,9 @@ public class SetupTestUsers {
     // Player player = new Player(user);
     Player player1 = new Player(admin);
     Player player2 = new Player(both);
+    player1.setHost(true);
 
-
-    Game game = new Game(admin);
+    Game game = new Game(admin, 1234);
     player1.setGame(game);
     player2.setGame(game);
 

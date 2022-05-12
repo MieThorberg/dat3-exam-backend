@@ -68,13 +68,13 @@ public class CharactersResourceTest {
         }
     }
 
-    @Test
-    public void testFetchAllCharacters() throws Exception {
-        given()
-                .contentType("application/json")
-                .get("/characters/").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode());
-    }
+//    @Test
+//    public void testFetchAllCharacters() throws Exception {
+//        given()
+//                .contentType("application/json")
+//                .get("/characters/").then()
+//                .assertThat()
+//                .statusCode(HttpStatus.OK_200.getStatusCode());
+//    }
 
 }

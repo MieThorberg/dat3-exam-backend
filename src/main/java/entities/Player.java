@@ -13,6 +13,9 @@ public class Player implements Serializable {
     @Column(name = "ID")
     private Long id;
 
+    @Column(name = "isHost")
+    private boolean isHost = false;
+
     @OneToOne
     private User user;
 
@@ -84,5 +87,13 @@ public class Player implements Serializable {
 
     public void setLatestVote(Player vote) {
         this.latestVote = vote;
+    }
+
+    public boolean isHost() {
+        return isHost;
+    }
+
+    public void setHost(boolean host) {
+        isHost = host;
     }
 }

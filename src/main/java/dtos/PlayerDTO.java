@@ -15,14 +15,16 @@ public class PlayerDTO {
     private boolean isAlive;
     private long gameId;
     private String latestVote;
+    private boolean isHost;
 
-    public PlayerDTO(long id, User user, String characterName, Boolean isAlive, Game game, String latestVote) {
+    public PlayerDTO(long id, String username, String characterName, boolean isAlive, long gameId, String latestVote, boolean isHost) {
         this.id = id;
-        this.username = user.getUserName();
+        this.username = username;
         this.characterName = characterName;
         this.isAlive = isAlive;
-        this.gameId = game.getId();
+        this.gameId = gameId;
         this.latestVote = latestVote;
+        this.isHost = isHost;
     }
 
     public PlayerDTO(Player player) {
@@ -31,6 +33,7 @@ public class PlayerDTO {
         this.characterName = player.getCharacterName();
         this.isAlive = player.getAlive();
         this.gameId = player.getGame().getId();
+        this.isHost = player.isHost();
 
         if (player.getLatestVote() != null){
             this.latestVote = player.getLatestVote().getUser().getUserName();

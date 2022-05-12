@@ -1,20 +1,19 @@
 package facades;
 
 import controller.VoteController;
+import dtos.GameDTO;
 import dtos.PlayerDTO;
 import entities.*;
 
 import javax.persistence.*;
 import java.util.*;
 
-import controller.GameController;
+import controller.CharacterController;
 
 public class GameFacade {
 
     private static EntityManagerFactory emf;
     private static GameFacade instance;
-    private GameController gc;
-    private VoteController vc;
 
     public GameFacade() {
     }
@@ -44,10 +43,10 @@ public class GameFacade {
         return em.find(Game.class, id);
     }
 
-    public Game createGame(User host) {
+    public Game createGame(String host, GameDTO gameDTO) {
         EntityManager em = emf.createEntityManager();
-        gc = new GameController();
-        Game game = gc.createGame(host);
+        User user = em.find(User.class, host);
+        Game game = new Game(user, gameDTO.getGamePin());
         NightRound nightRound = new NightRound(game);
 
         try {
@@ -115,12 +114,22 @@ public class GameFacade {
     public Player createPlayer(long gameId, Player player) {
         EntityManager em = emf.createEntityManager();
 
-        em.getTransaction().begin();
         Game game = em.find(Game.class, gameId);
 
+        for (Player gamePlayer: game.getPlayers()) {
+            if(player.getUser().getUserName().equals(gamePlayer.getUser().getUserName())){
+                return em.find(Player.class, gamePlayer.getId());
+            }
+        }
+        for (Player victim : game.getVictims()) {
+            if(player.getUser().getUserName().equals(victim.getUser().getUserName())){
+                return em.find(Player.class, victim.getId());
+            }
+        }
+
+        em.getTransaction().begin();
         player.setGame(game);
         em.persist(player);
-
         em.getTransaction().commit();
 
         return player;
@@ -262,6 +271,7 @@ public class GameFacade {
         em.getTransaction().begin();
         em.merge(nightRound);
         em.merge(nightRound.getGame());
+        em.merge(nightRound.getGame().getLatestVictim());
         em.getTransaction().commit();
 
         return nightRound;
@@ -276,6 +286,7 @@ public class GameFacade {
         em.getTransaction().begin();
         em.merge(dayRound);
         em.merge(dayRound.getGame());
+        em.merge(dayRound.getGame().getLatestVictim());
         em.getTransaction().commit();
 
         return dayRound;
@@ -301,7 +312,7 @@ public class GameFacade {
 
     public Player getVoteResult(long gameId) {
         EntityManager em = emf.createEntityManager();
-        vc = new VoteController();
+        VoteController vc = new VoteController();
 
         Game game = em.find(Game.class, gameId);
 
@@ -326,8 +337,7 @@ public class GameFacade {
         Game game = em.find(Game.class, gameId);
         Player playerToKill = em.find(Player.class, playerDTO.getId());
 
-        gc = new GameController(game);
-        gc.kill(playerToKill);
+        game.killPlayer(playerToKill);
 
         em.getTransaction().begin();
         em.merge(game);
@@ -340,7 +350,7 @@ public class GameFacade {
         EntityManager em = emf.createEntityManager();
 
         Game game = em.find(Game.class, gameId);
-        gc = new GameController(game);
+        CharacterController gc = new CharacterController(game);
 
         gc.characterAssigning(amountOfWerewolves);
 
@@ -353,11 +363,8 @@ public class GameFacade {
 
     public Boolean hasEnded(long gameId) {
         EntityManager em = emf.createEntityManager();
-
         Game game = em.find(Game.class, gameId);
-        gc = new GameController(game);
-
-        return gc.hasEnded();
+        return game.hasEnded();
     }
 
     public NightRound getCurrentNightRound(long gameId) {
@@ -384,6 +391,32 @@ public class GameFacade {
         } catch ( NoResultException | IllegalArgumentException e) {
             return null;
         }
+    }
+
+    public Game getGameByPin(long pin) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            TypedQuery<Game> query = em.createQuery("SELECT g FROM Game g WHERE g.gamePin = :pin", Game.class);
+            query.setParameter("pin", pin);
+
+            return query.getSingleResult();
+        } catch ( NoResultException | IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    public Player setPlayerHost(PlayerDTO playerDTO) {
+        EntityManager em = emf.createEntityManager();
+
+        Player player = em.find(Player.class, playerDTO.getId());
+        player.setHost(true);
+
+        em.getTransaction().begin();
+        em.merge(player);
+        em.getTransaction().commit();
+
+        return player;
     }
 
     public List<Rule> getAllRules() {
