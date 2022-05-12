@@ -402,6 +402,7 @@ public class GameFacade {
         {
             em.persist(rule);
         }
+
         em.getTransaction().commit();
     }
 }

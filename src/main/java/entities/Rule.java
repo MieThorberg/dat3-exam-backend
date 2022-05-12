@@ -19,12 +19,15 @@ public class Rule implements Serializable
     @Column(name = "rule")
     private String rule;
 
+
+
     public Rule()
     {
     }
 
     public Rule(String rule)
     {
+
         this.rule = rule;
     }
 
@@ -47,4 +50,6 @@ public class Rule implements Serializable
     {
         this.rule = rule;
     }
+
+
 }
