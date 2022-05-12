@@ -2,14 +2,16 @@ package entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "rules")
-public class Rules {
+public class Rule implements Serializable
+{
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(name = "id", nullable = false)
     private long id;
@@ -17,11 +19,11 @@ public class Rules {
     @Column(name = "rule")
     private String rule;
 
-    public Rules()
+    public Rule()
     {
     }
 
-    public Rules(String rule)
+    public Rule(String rule)
     {
         this.rule = rule;
     }

@@ -336,9 +336,10 @@ public class GameResource {
     }
 
     @GET
+    @Path("rules")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllRules() {
-        List<Rules> rules = GameFacade.getGameFacade(EMF).getAllRules();
+        List<Rule> rules = GameFacade.getGameFacade(EMF).getAllRules();
 
         return GSON.toJson(rules);
     }

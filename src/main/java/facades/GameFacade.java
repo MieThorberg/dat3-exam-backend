@@ -386,11 +386,22 @@ public class GameFacade {
         }
     }
 
-    public List<Rules> getAllRules() {
+    public List<Rule> getAllRules() {
         EntityManager em = emf.createEntityManager();
 
-        TypedQuery<Rules> query = em.createQuery("SELECT r FROM Rules r", Rules.class);
+        TypedQuery<Rule> query = em.createQuery("SELECT r FROM Rule r", Rule.class);
 
         return query.getResultList();
+    }
+
+    public void createRules(List<Rule> rules){
+        EntityManager em = emf.createEntityManager();
+
+        em.getTransaction().begin();
+        for (Rule rule : rules)
+        {
+            em.persist(rule);
+        }
+        em.getTransaction().commit();
     }
 }

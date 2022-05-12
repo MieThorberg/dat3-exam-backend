@@ -3,6 +3,7 @@ package utils;
 
 import java.util.List;
 import entities.*;
+import facades.GameFacade;
 import facades.UserFacade;
 
 import javax.persistence.EntityManager;
@@ -35,6 +36,23 @@ public class SetupTestUsers {
     player1.setGame(game);
     player2.setGame(game);
 
+    Rule rule1 = new Rule("Assemble at least 7 players. An odd number of players is best, but it isn’t mandatory for a game");
+    Rule rule2 = new Rule("The first phase of a game of Werewolf is the night round");
+    Rule rule3 = new Rule("The werewolves chooses who they want to kill during the night/discussion round");
+    Rule rule5 = new Rule("The discussion rounds lasts * min");
+    Rule rule4 = new Rule("When the werewolves make a decision and agree on a victim they vote");
+    Rule rule6 = new Rule("the voting rounds last * seconds or until all have voted");
+    Rule rule7 = new Rule("If the villagers kill all the werewolves they win the game");
+    Rule rule8 = new Rule("If the werewolves outnumber the villagers, they win the game");
+    List<Rule> rules = new ArrayList<>();
+    rules.add(rule1);
+    rules.add(rule2);
+    rules.add(rule3);
+    rules.add(rule4);
+    rules.add(rule5);
+    rules.add(rule6);
+    rules.add(rule7);
+    rules.add(rule8);
 
     NightRound round = new NightRound(game);
     DayRound round1 = new DayRound(game);
@@ -67,6 +85,7 @@ public class SetupTestUsers {
     em.persist(round1);
     em.getTransaction().commit();
     UserFacade.getUserFacade(emf).registerNewUser(user);
+    GameFacade.getGameFacade(emf).createRules(rules);
     System.out.println("PW: " + user.getUserPass());
     System.out.println("Testing user with OK password: " + user.verifyPassword("test123"));
     System.out.println("Testing user with wrong password: " + user.verifyPassword("test1"));

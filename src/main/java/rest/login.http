@@ -117,3 +117,6 @@ POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/created
 
 ###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/2/hasended
+
+###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/rules
