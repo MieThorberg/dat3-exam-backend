@@ -271,6 +271,7 @@ public class GameFacade {
         em.getTransaction().begin();
         em.merge(nightRound);
         em.merge(nightRound.getGame());
+        em.merge(nightRound.getGame().getLatestVictim());
         em.getTransaction().commit();
 
         return nightRound;
@@ -285,6 +286,7 @@ public class GameFacade {
         em.getTransaction().begin();
         em.merge(dayRound);
         em.merge(dayRound.getGame());
+        em.merge(dayRound.getGame().getLatestVictim());
         em.getTransaction().commit();
 
         return dayRound;
