@@ -1,18 +1,20 @@
 ###
 POST http://localhost:8080/ex_startcode_backend_war_exploded/api/info/newuser
 
-{"userName":"user2", "userPass":"test123"}
+{"userName":"BananaWolf", "userPass":"32"}
 
 ###
 POST http://localhost:8080/ex_startcode_backend_war_exploded/api/login
 
 {"username":"user2", "password":"test123"}
 
+###
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games
 
 ###
-POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/creategame
+POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/creategame/admin
 
-{"userName":"user", "userPass":"test123"}
+{"gamepin":"123456"}
 
 ###
 POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/8/createplayers
