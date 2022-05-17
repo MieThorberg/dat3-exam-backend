@@ -318,9 +318,17 @@ public class GameResource {
     @Path("{id}/assigncharacters")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String assignCharacters(@PathParam("id") long id) {
+    public String assignCharacters(@PathParam("id") long id, String data) {
+        System.out.println("data: " + data);
+        GameSettingDTO gameSettingDTO;
+        if (data.isEmpty()) {
+            gameSettingDTO = new GameSettingDTO();
+        } else {
+            gameSettingDTO = GSON.fromJson(data, GameSettingDTO.class);
+        }
+
         // TODO: receive a list with character roles and amount
-        List<Player> players = GameFacade.getGameFacade(EMF).assignCharacters(id, 1);
+        List<Player> players = GameFacade.getGameFacade(EMF).assignCharacters(id, gameSettingDTO.getAmountOfWerewolves(), gameSettingDTO.hasHunter());
         List<PlayerDTO> playerDTOS = PlayerDTO.getPlayerDTOs(players);
 
         return GSON.toJson(playerDTOS);
@@ -347,7 +355,7 @@ public class GameResource {
     @Path("{id}/setplayerhost")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String setPlayerHost(@PathParam("id") long id, String data){
+    public String setPlayerHost(@PathParam("id") long id, String data) {
         PlayerDTO playerDTO = GSON.fromJson(data, PlayerDTO.class);
         Player player = GameFacade.getGameFacade(EMF).setPlayerHost(playerDTO);
 

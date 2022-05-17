@@ -346,13 +346,12 @@ public class GameFacade {
         return playerToKill;
     }
 
-    public List<Player> assignCharacters(long gameId, int amountOfWerewolves) {
+    public List<Player> assignCharacters(long gameId, int amountOfWerewolves, boolean hasHunter) {
         EntityManager em = emf.createEntityManager();
 
         Game game = em.find(Game.class, gameId);
-        CharacterController gc = new CharacterController(game);
-
-        gc.characterAssigning(amountOfWerewolves);
+        CharacterController CC = new CharacterController(game);
+        CC.characterAssigning(amountOfWerewolves, hasHunter);
 
         em.getTransaction().begin();
         em.merge(game);

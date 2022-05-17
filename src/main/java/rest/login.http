@@ -17,12 +17,13 @@ POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/creategam
 {"gamepin":"123456"}
 
 ###
-POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/8/createplayers
+POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/createplayers
 
 [
 {"userName":"user", "userPass":"test123"},
 {"userName":"admin", "userPass":"test123"},
 {"userName":"user_admin", "userPass":"test123"}
+{"userName":"BananaWolf", "userPass":"32"}
 ]
 
 ###
@@ -31,7 +32,7 @@ POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/createp
 {"userName":"admin", "userPass":"test123"}
 
 ###
-GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3
 
 ###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games
@@ -98,6 +99,10 @@ GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/alivepla
 
 ###
 PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/assigncharacters
+
+{"amountOfWerewolves": "2",
+"hasHunter": "true"
+}
 
 ###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/rounds

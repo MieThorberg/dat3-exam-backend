@@ -14,7 +14,7 @@ public class CharacterController {
         this.game = game;
     }
 
-    public void characterAssigning(int amountOfWolves) {
+    public void characterAssigning(int amountOfWolves, boolean hasHunter) {
         // amount of player
         int amountOfPlayer = game.getPlayers().size();
 
@@ -49,6 +49,17 @@ public class CharacterController {
         //TODO:
         // assign other characters
         // remove players from the player list, an assign them there role, and then put them in the assign list;
+        if(hasHunter){
+            String hunterCharacter = "hunter";
+            int randomPicker = random.nextInt(game.getPlayers().size());
+
+            Player pickPlayer = game.getPlayers().get(randomPicker);
+            game.getPlayers().remove(randomPicker);
+
+            pickPlayer.setCharacterName(hunterCharacter);
+            assignedPlayers.add(pickPlayer);
+        }
+
 
         // assign villagers
         // assign the rest of the player list as villagers
