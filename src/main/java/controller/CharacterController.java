@@ -19,9 +19,11 @@ public class CharacterController {
         int amountOfPlayer = game.getPlayers().size();
 
         // check if the amount of werewolves makes sense, if not calculate a max amount of werewolves
-        if (amountOfWolves > amountOfPlayer) {
-            // todo: make better calculator for amount of werewolves
-            amountOfWolves = ((amountOfPlayer / 2) - 1);
+        if (amountOfWolves >= (amountOfPlayer / 2)) {
+            amountOfWolves = (int) (Math.ceil((double) amountOfPlayer / 2) - 1);
+        }
+        if(amountOfWolves <= 0) {
+            amountOfWolves = 1;
         }
 
         //TODO:
@@ -48,8 +50,10 @@ public class CharacterController {
 
         //TODO:
         // assign other characters
-        // remove players from the player list, an assign them there role, and then put them in the assign list;
-        if(hasHunter){
+        // remove players from
+        // the player list, an assign them there role, and then put them in the assign list;
+
+        if(hasHunter && amountOfPlayer >= 3){
             String hunterCharacter = "hunter";
             int randomPicker = random.nextInt(game.getPlayers().size());
 
