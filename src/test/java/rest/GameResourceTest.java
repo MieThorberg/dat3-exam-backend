@@ -11,12 +11,14 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Transient;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,21 +47,8 @@ class GameResourceTest {
         RestAssured.baseURI = SERVER_URL;
         RestAssured.port = SERVER_PORT;
         RestAssured.defaultParser = Parser.JSON;
-    }
 
-    @AfterAll
-    public static void closeTestServer() {
-        //System.in.read();
 
-        //Don't forget this, if you called its counterpart in @BeforeAll
-        EMF_Creator.endREST_TestWithDB();
-        httpServer.shutdownNow();
-    }
-
-    // Setup the DataBase (used by the test-server and this test) in a known state BEFORE EACH TEST
-    //TODO -- Make sure to change the EntityClass used below to use YOUR OWN (renamed) Entity class
-    @BeforeEach
-    public void setUp() {
         User user = new User("user", "test123");
         User admin = new User("admin", "test123");
         User both = new User("user_admin", "test123");
@@ -127,6 +116,22 @@ class GameResourceTest {
         }
     }
 
+    @AfterAll
+    public static void closeTestServer() {
+        //System.in.read();
+
+        //Don't forget this, if you called its counterpart in @BeforeAll
+        EMF_Creator.endREST_TestWithDB();
+        httpServer.shutdownNow();
+    }
+
+    // Setup the DataBase (used by the test-server and this test) in a known state BEFORE EACH TEST
+    //TODO -- Make sure to change the EntityClass used below to use YOUR OWN (renamed) Entity class
+    @BeforeEach
+    public void setUp() {
+
+    }
+
     @AfterEach
     void tearDown() {
         EntityManager em = emf.createEntityManager();
@@ -134,13 +139,13 @@ class GameResourceTest {
         try {
             em.getTransaction().begin();
 
-            em.createQuery("delete from DayRound").executeUpdate();
-            em.createQuery("delete from NightRound").executeUpdate();
-            em.createQuery("delete from Player ").executeUpdate();
-            em.createQuery("delete from Rule ").executeUpdate();
-            em.createQuery("delete from Game").executeUpdate();
-            em.createQuery("delete from User").executeUpdate();
-            em.createQuery("delete from Role").executeUpdate();
+//            em.createQuery("delete from DayRound").executeUpdate();
+//            em.createQuery("delete from NightRound").executeUpdate();
+//            em.createQuery("delete from Player ").executeUpdate();
+//            em.createQuery("delete from Rule ").executeUpdate();
+//            em.createQuery("delete from Game").executeUpdate();
+//            em.createQuery("delete from User").executeUpdate();
+//            em.createQuery("delete from Role").executeUpdate();
 
             em.getTransaction().commit();
         } finally {
@@ -148,37 +153,39 @@ class GameResourceTest {
         }
     }
 
-//    @Test
-//    void getAllGames() {
-//        given()
-//                .contentType("application/json")
-//                .when()
-//                .get("/games").then()
-//                .statusCode(200)
-//                .body("hostName", hasItem("admin"));
-//    }
+    @Transient
+    @Test
+    void getAllGames() {
+        given()
+                .contentType("application/json")
+                .when()
+                .get("/games").then()
+                .statusCode(200)
+                .body("hostName", hasItem("admin"));
+    }
 
-//    @Test
-//    void getGameById() {
-//        given()
-//                .contentType("application/json")
-//                .when()
-//                .get("/games/1").then()
-//                .statusCode(200)
-//                .body("hostName", equalTo("admin"));
-//    }
-//
-//    @Test
-//    void createGame() {
-//        String json = "{gamepin: \"12345\"}";
-//
-//        given()
-//                .contentType("application/json")
-//                .when().body(json)
-//                .post("/games/creategame/admin").then()
-//                .statusCode(200)
-//                .body("id", equalTo(2));
-//    }
+    @Transient
+    @Test
+    void getGameById() {
+        given()
+                .contentType("application/json")
+                .when()
+                .get("/games/1").then()
+                .statusCode(200)
+                .body("hostName", equalTo("admin"));
+    }
+
+    @Test
+    void createGame() {
+        String json = "{gamepin: \"12345\"}";
+
+        given()
+                .contentType("application/json")
+                .when().body(json)
+                .post("/games/creategame/admin").then()
+                .statusCode(200)
+                .body("id", equalTo(2));
+    }
 
 //    @Test
 //    void createNightRound() {
