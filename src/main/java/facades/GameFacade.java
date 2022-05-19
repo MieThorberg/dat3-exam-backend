@@ -82,6 +82,7 @@ public class GameFacade {
         EntityManager em = emf.createEntityManager();
 
         Game game = em.find(Game.class, gameId);
+        game.addDay();
 
         DayRound dayRound = new DayRound(game);
 
