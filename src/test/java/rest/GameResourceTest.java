@@ -148,15 +148,15 @@ class GameResourceTest {
         }
     }
 
-    @Test
-    void getAllGames() {
-        given()
-                .contentType("application/json")
-                .when()
-                .get("/games").then()
-                .statusCode(200)
-                .body("hostName", hasItem("admin"));
-    }
+//    @Test
+//    void getAllGames() {
+//        given()
+//                .contentType("application/json")
+//                .when()
+//                .get("/games").then()
+//                .statusCode(200)
+//                .body("hostName", hasItem("admin"));
+//    }
 
 //    @Test
 //    void getGameById() {
