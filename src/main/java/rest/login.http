@@ -58,18 +58,18 @@ PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/13/14/vote
 {"id":"4", "user":"admin","characterName":"null","isAlive":"1","game":"1","latestVote":"3"}
 
 ###
-PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/7/13/vote
+PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/52/212/vote
 
-{"id":"14"}
+{"id":"213"}
 
 ###
-GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/voteresult
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/52/voteresult
 
 ###
 PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/cleanvotes
 
 ###
-PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/7/rounds/nightroundresult
+PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/52/rounds/nightroundresult
 
 ###
 PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/20/rounds/dayroundresult
@@ -92,7 +92,7 @@ PUT http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/killplay
 {"id":"6"}
 
 ###
-GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/20/victims/latest
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/52/victims/latest
 
 ###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/1/victims
@@ -126,7 +126,7 @@ POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/createn
 POST http://localhost:8080/ex_startcode_backend_war_exploded/api/games/3/createdayround
 
 ###
-GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/2/hasended
+GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/51/hasended
 
 ###
 GET http://localhost:8080/ex_startcode_backend_war_exploded/api/games/rules

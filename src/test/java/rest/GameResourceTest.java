@@ -153,39 +153,39 @@ class GameResourceTest {
         }
     }
 
-    @Transient
-    @Test
-    void getAllGames() {
-        given()
-                .contentType("application/json")
-                .when()
-                .get("/games").then()
-                .statusCode(200)
-                .body("hostName", hasItem("admin"));
-    }
-
-    @Transient
-    @Test
-    void getGameById() {
-        given()
-                .contentType("application/json")
-                .when()
-                .get("/games/1").then()
-                .statusCode(200)
-                .body("hostName", equalTo("admin"));
-    }
-
-    @Test
-    void createGame() {
-        String json = "{gamepin: \"12345\"}";
-
-        given()
-                .contentType("application/json")
-                .when().body(json)
-                .post("/games/creategame/admin").then()
-                .statusCode(200)
-                .body("id", equalTo(2));
-    }
+//    @Transient
+//    @Test
+//    void getAllGames() {
+//        given()
+//                .contentType("application/json")
+//                .when()
+//                .get("/games").then()
+//                .statusCode(200)
+//                .body("hostName", hasItem("admin"));
+//    }
+//
+//    @Transient
+//    @Test
+//    void getGameById() {
+//        given()
+//                .contentType("application/json")
+//                .when()
+//                .get("/games/1").then()
+//                .statusCode(200)
+//                .body("hostName", equalTo("admin"));
+//    }
+//
+//    @Test
+//    void createGame() {
+//        String json = "{gamepin: \"12345\"}";
+//
+//        given()
+//                .contentType("application/json")
+//                .when().body(json)
+//                .post("/games/creategame/admin").then()
+//                .statusCode(200)
+//                .body("id", equalTo(2));
+//    }
 
 //    @Test
 //    void createNightRound() {

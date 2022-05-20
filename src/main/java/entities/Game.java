@@ -85,6 +85,9 @@ public class Game implements Serializable {
         int werewolves = 0;
 
         for (Player player : players) {
+            if (player.getCharacterName() == null){
+                player.setCharacterName("villager");
+            }
             if (player.getCharacterName().equals("werewolf")) {
                 werewolves++;
             }
