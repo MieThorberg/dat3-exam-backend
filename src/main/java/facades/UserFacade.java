@@ -1,6 +1,5 @@
 package facades;
 
-import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -43,30 +42,5 @@ public class UserFacade {
         }
         return user;
     }
-
-    public User registerNewUser(User user){
-        EntityManager em = emf.createEntityManager();
-        Role role = new Role("user");
-        user.addRole(role);
-
-        try
-        {
-            if (em.find(User.class, user.getUserName()) == null){
-                em.getTransaction().begin();
-                em.persist(user);
-                em.getTransaction().commit();
-            } else throw new Exception("User already exists :(");
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        } finally
-        {
-            em.close();
-        }
-        return user;
-    }
-
-    //ToDo: register admin, possibly change name and password
-
 
 }

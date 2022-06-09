@@ -16,7 +16,7 @@ public class Populator {
     public static void populate(){
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
     }
-    
+
     public static void main(String[] args) {
         populate();
     }

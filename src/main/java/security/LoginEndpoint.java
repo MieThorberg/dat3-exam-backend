@@ -74,7 +74,7 @@ public class LoginEndpoint {
             res.append(",");
         }
         String rolesAsString = res.length() > 0 ? res.substring(0, res.length() - 1) : "";
-        String issuer = "werewolf";
+        String issuer = "dat3-exam-backend";
 
         JWSSigner signer = new MACSigner(SharedSecret.getSharedKey());
         Date date = new Date();
