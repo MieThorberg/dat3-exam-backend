@@ -1,13 +1,11 @@
 package facades;
 
+import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import security.errorhandling.AuthenticationException;
 
-/**
- * @author lam@cphbusiness.dk
- */
 public class UserFacade {
 
     private static EntityManagerFactory emf;
@@ -16,11 +14,6 @@ public class UserFacade {
     private UserFacade() {
     }
 
-    /**
-     *
-     * @param _emf
-     * @return the instance of this facade.
-     */
     public static UserFacade getUserFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
@@ -43,4 +36,22 @@ public class UserFacade {
         return user;
     }
 
+    public User registerNewUser(User user) {
+        EntityManager em = emf.createEntityManager();
+        Role role = new Role("user");
+        user.addRole(role);
+
+        try {
+            if (em.find(User.class, user.getUserName()) == null) {
+                em.getTransaction().begin();
+                em.persist(user);
+                em.getTransaction().commit();
+            } else throw new Exception("User already exists");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return user;
+    }
 }
