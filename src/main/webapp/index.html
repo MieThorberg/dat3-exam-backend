@@ -1,10 +1,63 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>dat3-exam-backend</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h1>dat3-exam-backend</h1>
-    </body>
+<head>
+    <title>Exam-backend</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h1>Exam-backend</h1>
+
+<br>
+<h3>Demo</h3>
+<table>
+    <tr>
+        <th>Method</th>
+        <th>API endpoint</th>
+        <th>Description</th>
+        <th>Request body</th>
+        <th>Response body</th>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/api/demos</td>
+        <td>Get all demos</td>
+        <td>None</td>
+        <td>Set of demos</td>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/api/demos/id/{id}</td>
+        <td>Get demo by id</td>
+        <td>None</td>
+        <td>Demo</td>
+    </tr>
+    <tr>
+        <td>POST</td>
+        <td>/api/demos/create</td>
+        <td>Create new demo</td>
+        <td>Demo</td>
+        <td>Demo</td>
+    </tr>
+    <tr>
+        <td>PUT</td>
+        <td>/api/demos/update</td>
+        <td>Update demo</td>
+        <td>Demo</td>
+        <td>Demo</td>
+    </tr>
+    <tr>
+        <td>DELETE</td>
+        <td>/api/demos/delete/{id}</td>
+        <td>Delete demo</td>
+        <td>None</td>
+        <td>Demo</td>
+    </tr>
+</table>
+</body>
 </html>
