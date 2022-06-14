@@ -62,4 +62,15 @@ public class RentalResource {
                 .entity(GSON.toJson(FACADE.getTenantsFromHouseById(id)))
                 .build();
     }
+
+    @GET
+    @RolesAllowed({"user"})
+    @Path("rentalsfromtenant/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRentalByTenantName(@PathParam("name") String name) {
+        return Response
+                .ok()
+                .entity(GSON.toJson(FACADE.getRentalByTenantName(name)))
+                .build();
+    }
 }

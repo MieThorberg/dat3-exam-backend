@@ -108,4 +108,17 @@ public class RentalFacade {
         }
         return tenants;
     }
+
+    public Set<RentalDTO> getRentalByTenantName(String name) {
+        Set<RentalDTO> rentals;
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Rental> query = em.createQuery("SELECT t.rentals FROM Tenant t WHERE t.name =:name", Rental.class);
+            query.setParameter("name", name);
+            rentals = RentalDTO.getRentalDTOs(query.getResultList());
+        } finally {
+            em.close();
+        }
+        return rentals;
+    }
 }

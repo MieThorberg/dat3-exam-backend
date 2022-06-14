@@ -44,6 +44,7 @@ public class Populator {
 //        facade.create(rentalDTO);
 ////        em.getTransaction().commit();
         RentalFacade facade = RentalFacade.getRentalFacade(emf);
+        System.out.println(facade.getRentalByTenantName("t1"));
         System.out.println(facade.getTenantsFromHouseById(1));
     }
 
