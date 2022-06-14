@@ -18,7 +18,7 @@ public class HouseDTO {
         if(house.getId() != 0)
             this.id = house.getId();
         this.address = house.getAddress();
-        this.city = house.getAddress();
+        this.city = house.getCity();
         this.numberOfRooms = house.getNumberOfRooms();
     }
 

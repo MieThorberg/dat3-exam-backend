@@ -24,7 +24,7 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HouseResourceTest {
@@ -148,6 +148,38 @@ class HouseResourceTest {
                 .header("x-access-token", securityToken)
                 .when().get("/houses")
                 .then().log().body().statusCode(200);
+    }
+
+    @Test
+    public void testCreate() {
+        System.out.println("Testing create()");
+
+        String address4 = "address4";
+        String city4 = "city4";
+        int numberOfRooms4 = 4;
+
+        House house = new House(address4, city4, numberOfRooms4);
+        HouseDTO houseDTO = new HouseDTO(house);
+        String requestBody = GSON.toJson(houseDTO);
+
+        String expectedAddress = address4;
+        String expectedCity = city4;
+        int expectedNumberOfRooms = numberOfRooms4;
+
+        login("admin", "test");
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .and()
+                .body(requestBody)
+                .when()
+                .post("/houses/create")
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .body("address", equalTo(expectedAddress))
+                .body("city", equalTo(expectedCity))
+                .body("numberOfRooms", equalTo(expectedNumberOfRooms));
     }
 
     @Test
