@@ -18,8 +18,8 @@ public class TenantResource {
 
 
     @GET
-    @RolesAllowed({"admin"})
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"admin"})
     public Response getAll() {
         return Response
                 .ok()
