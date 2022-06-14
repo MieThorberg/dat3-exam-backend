@@ -85,9 +85,13 @@ class HouseResourceTest {
 
         try {
             em.getTransaction().begin();
+            em.createNamedQuery("Rental.deleteAllRows").executeUpdate();
+            em.createNamedQuery("House.deleteAllRows").executeUpdate();
+
+
             em.createQuery("delete from User").executeUpdate();
             em.createQuery("delete from Role").executeUpdate();
-            em.createNamedQuery("House.deleteAllRows").executeUpdate();
+
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
             User user = new User("user", "test");

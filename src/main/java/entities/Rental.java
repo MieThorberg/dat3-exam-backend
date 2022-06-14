@@ -29,15 +29,20 @@ public class Rental implements Serializable {
     @Column(name = "contactPerson")
     private String contactPerson;
 
+    @ManyToOne
+    @JoinColumn(name = "house_id")
+    private House house;
+
     public Rental() {
     }
 
-    public Rental(String startDate, String endDate, int priceAnnual, int deposit, String contactPerson) {
+    public Rental(String startDate, String endDate, int priceAnnual, int deposit, String contactPerson, House house) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.priceAnnual = priceAnnual;
         this.deposit = deposit;
         this.contactPerson = contactPerson;
+        this.house = house;
     }
 
     public long getId() {
@@ -86,5 +91,14 @@ public class Rental implements Serializable {
 
     public void setContactPerson(String contactPerson) {
         this.contactPerson = contactPerson;
+    }
+
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
+
     }
 }

@@ -1,7 +1,9 @@
 package rest;
 
 import com.google.gson.Gson;
+import dtos.HouseDTO;
 import dtos.RentalDTO;
+import entities.House;
 import entities.Rental;
 import entities.Role;
 import entities.User;
@@ -22,7 +24,7 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RentalResourceTest {
@@ -30,6 +32,7 @@ class RentalResourceTest {
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
     private static Rental r1, r2, r3;
+    private static House h1, h2, h3;
     private static final Gson GSON = new Gson();
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
@@ -83,9 +86,11 @@ class RentalResourceTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
+            em.createNamedQuery("Rental.deleteAllRows").executeUpdate();
             em.createQuery("delete from User").executeUpdate();
             em.createQuery("delete from Role").executeUpdate();
-            em.createNamedQuery("Rental.deleteAllRows").executeUpdate();
+            em.createNamedQuery("House.deleteAllRows").executeUpdate();
+
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
             User user = new User("user", "test");
@@ -95,16 +100,21 @@ class RentalResourceTest {
             User both = new User("user_admin", "test");
             both.addRole(userRole);
             both.addRole(adminRole);
-            r1 = new Rental("01-01-2001", "01-01-2002", 100, 100, "Alice");
-            r2 = new Rental("02-02-2002", "02-02-2003", 200, 200, "Bob");
-            r3 = new Rental("03-03-2003", "03-03-2004", 300, 300, "Charlie");
+            h1 = new House("address1", "city1", 1);
+            h2 = new House("address2", "city2", 2);
+            h3 = new House("address3", "city3", 3);
+            r1 = new Rental("01-01-2001", "01-01-2002", 100, 100, "Alice", h1);
+            r2 = new Rental("02-02-2002", "02-02-2003", 200, 200, "Bob", h2);
+            r3 = new Rental("03-03-2003", "03-03-2004", 300, 300, "Charlie", h3);
 
             em.persist(userRole);
             em.persist(adminRole);
             em.persist(user);
             em.persist(admin);
             em.persist(both);
-
+            em.persist(h1);
+            em.persist(h2);
+            em.persist(h3);
             em.persist(r1);
             em.persist(r2);
             em.persist(r3);
@@ -146,6 +156,49 @@ class RentalResourceTest {
                 .header("x-access-token", securityToken)
                 .when().get("/rentals")
                 .then().log().body().statusCode(200);
+    }
+
+    @Test
+    void testCreate() {
+        System.out.println("Testing create()");
+
+
+        String startDate = "04-04-2004";
+        String endDate = "04-04-2005";
+        int priceAnnual = 400;
+        int deposit = 400;
+        String contactPerson = "Dan";
+
+        Rental rental = new Rental(startDate, endDate, priceAnnual, deposit, contactPerson, h1);
+        RentalDTO rentalDTO = new RentalDTO(rental);
+        String requestBody = GSON.toJson(rentalDTO);
+
+        String expectedStartDate = startDate;
+        String expectedEndDate = endDate;
+        int expectedPriceAnnual = priceAnnual;
+        int expectedDeposit = deposit;
+        String expectedContactPerson = contactPerson;
+
+        login("admin", "test");
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .and()
+                .body(requestBody)
+                .when()
+                .post("/rentals/create")
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .body("id", notNullValue())
+                .body("startDate", equalTo(expectedStartDate))
+                .body("endDate", equalTo(expectedEndDate))
+                .body("priceAnnual", equalTo(expectedPriceAnnual))
+                .body("deposit", equalTo(expectedDeposit))
+                .body("contactPerson", equalTo(expectedContactPerson))
+                .body("house", hasEntry("address", "address1"))
+                .body("house", hasEntry("city", "city1"))
+                .body("house", hasEntry("numberOfRooms", 1));
     }
 
     @Test

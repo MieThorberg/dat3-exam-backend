@@ -1,6 +1,7 @@
 package facades;
 
 import dtos.RentalDTO;
+import entities.House;
 import entities.Rental;
 
 import javax.persistence.EntityManager;
@@ -24,6 +25,32 @@ public class RentalFacade {
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+
+    public RentalDTO create(RentalDTO rentalDTO) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            String startDate = rentalDTO.getStartDate();
+            String endDate = rentalDTO.getEndDate();
+            int priceAnnual = rentalDTO.getPriceAnnual();
+            int deposit = rentalDTO.getDeposit();
+            String contactPerson = rentalDTO.getContactPerson();
+            House house = em.find(House.class, rentalDTO.getHouse().getId());
+
+            Rental rental = new Rental(startDate, endDate, priceAnnual, deposit, contactPerson, house);
+
+            house.addRental(rental);
+            em.merge(house);
+
+            em.persist(rental);
+
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return rentalDTO;
     }
 
     public Set<RentalDTO> getAll() {
