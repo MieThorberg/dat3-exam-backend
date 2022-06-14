@@ -1,11 +1,9 @@
 package rest;
 
 import com.google.gson.Gson;
-import dtos.HouseDTO;
-import dtos.RentalDTO;
-import entities.House;
-import entities.Rental;
+import dtos.TenantDTO;
 import entities.Role;
+import entities.Tenant;
 import entities.User;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -27,10 +25,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.*;
 
-class HouseResourceTest {
+class TenantResourceTest {
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
-    private static House h1, h2, h3;
+    private static Tenant t1, t2, t3;
+    User user, user1, user2, admin, both;
     private static final Gson GSON = new Gson();
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
@@ -85,31 +84,37 @@ class HouseResourceTest {
 
         try {
             em.getTransaction().begin();
+            em.createNamedQuery("Tenant.deleteAllRows").executeUpdate();
             em.createQuery("delete from User").executeUpdate();
             em.createQuery("delete from Role").executeUpdate();
-            em.createNamedQuery("House.deleteAllRows").executeUpdate();
+
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
-            User user = new User("user", "test");
+            user = new User("user", "test");
             user.addRole(userRole);
-            User admin = new User("admin", "test");
+            user1 = new User("user1", "test");
+            user1.addRole(userRole);
+            user2 = new User("user2", "test");
+            user2.addRole(userRole);
+            admin = new User("admin", "test");
             admin.addRole(adminRole);
-            User both = new User("user_admin", "test");
+            both = new User("user_admin", "test");
             both.addRole(userRole);
             both.addRole(adminRole);
-            h1 = new House("address1", "city1", 1);
-            h2 = new House("address2", "city2", 2);
-            h3 = new House("address3", "city3", 3);
-
+            t1 = new Tenant(user, "11111111", "job1");
+            t2 = new Tenant(user1, "22222222", "job2");
+            t3 = new Tenant(user2, "33333333", "job1");
             em.persist(userRole);
             em.persist(adminRole);
             em.persist(user);
+            em.persist(user1);
+            em.persist(user2);
             em.persist(admin);
             em.persist(both);
 
-            em.persist(h1);
-            em.persist(h2);
-            em.persist(h3);
+            em.persist(t1);
+            em.persist(t2);
+            em.persist(t3);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -126,7 +131,7 @@ class HouseResourceTest {
         login("admin", "test");
         given()
                 .header("x-access-token", securityToken)
-                .when().get("/houses")
+                .when().get("/tenants")
                 .then().statusCode(200);
     }
 
@@ -136,7 +141,7 @@ class HouseResourceTest {
         login("admin", "test");
         given().log().all()
                 .header("x-access-token", securityToken)
-                .when().get("/houses")
+                .when().get("/tenants")
                 .then().statusCode(200);
     }
 
@@ -146,30 +151,30 @@ class HouseResourceTest {
         login("admin", "test");
         given()
                 .header("x-access-token", securityToken)
-                .when().get("/houses")
+                .when().get("/tenants")
                 .then().log().body().statusCode(200);
     }
 
     @Test
     void testGetAll() {
         System.out.println("Testing getAll()");
-        List<HouseDTO> houseDTOs;
+        List<TenantDTO> tenantDTOs;
         login("admin", "test");
-        houseDTOs = given()
+        tenantDTOs = given()
                 .contentType(ContentType.JSON)
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/houses")
+                .get("/tenants")
                 .then()
                 .extract()
                 .body()
                 .jsonPath()
-                .getList("", HouseDTO.class);
+                .getList("", TenantDTO.class);
 
-        HouseDTO houseDTO1 = new HouseDTO(h1);
-        HouseDTO houseDTO2 = new HouseDTO(h2);
-        HouseDTO houseDTO3 = new HouseDTO(h3);
+        TenantDTO tenantDTO1 = new TenantDTO(t1);
+        TenantDTO tenantDTO2 = new TenantDTO(t2);
+        TenantDTO tenantDTO3 = new TenantDTO(t3);
 
-        assertThat(houseDTOs, containsInAnyOrder(houseDTO1, houseDTO2, houseDTO3));
+        assertTrue(tenantDTOs.size() == 3);
     }
 }

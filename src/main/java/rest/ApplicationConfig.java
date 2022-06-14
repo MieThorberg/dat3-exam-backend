@@ -33,6 +33,7 @@ public class ApplicationConfig extends Application {
         resources.add(rest.UserResource.class);
         resources.add(rest.RentalResource.class);
         resources.add(rest.HouseResource.class);
+        resources.add(rest.TenantResource.class);
     }
     
 }

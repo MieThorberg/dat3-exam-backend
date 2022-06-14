@@ -38,4 +38,13 @@ public class UserDTO {
     public void setUserPass(String userPass) {
         this.userPass = userPass;
     }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "userName='" + userName + '\'' +
+                ", roles=" + roles +
+                ", userPass='" + userPass + '\'' +
+                '}';
+    }
 }

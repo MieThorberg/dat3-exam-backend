@@ -6,6 +6,7 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>entities.Rental</class>
         <class>entities.House</class>
+        <class>entities.Tenant</class>
         <!--    <class>entities.RenameMe</class>-->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>

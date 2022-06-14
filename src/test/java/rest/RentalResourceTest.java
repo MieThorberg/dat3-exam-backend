@@ -81,23 +81,23 @@ class RentalResourceTest {
     @BeforeEach
     void setUp() {
         EntityManager em = emf.createEntityManager();
-        Role userRole = new Role("user");
-        Role adminRole = new Role("admin");
-        User user = new User("user", "test");
-        user.addRole(userRole);
-        User admin = new User("admin", "test");
-        admin.addRole(adminRole);
-        User both = new User("user_admin", "test");
-        both.addRole(userRole);
-        both.addRole(adminRole);
-        r1 = new Rental("01-01-2001", "01-01-2002", 100, 100, "Alice");
-        r2 = new Rental("02-02-2002", "02-02-2003", 200, 200, "Bob");
-        r3 = new Rental("03-03-2003", "03-03-2004", 300, 300, "Charlie");
         try {
             em.getTransaction().begin();
             em.createQuery("delete from User").executeUpdate();
             em.createQuery("delete from Role").executeUpdate();
             em.createNamedQuery("Rental.deleteAllRows").executeUpdate();
+            Role userRole = new Role("user");
+            Role adminRole = new Role("admin");
+            User user = new User("user", "test");
+            user.addRole(userRole);
+            User admin = new User("admin", "test");
+            admin.addRole(adminRole);
+            User both = new User("user_admin", "test");
+            both.addRole(userRole);
+            both.addRole(adminRole);
+            r1 = new Rental("01-01-2001", "01-01-2002", 100, 100, "Alice");
+            r2 = new Rental("02-02-2002", "02-02-2003", 200, 200, "Bob");
+            r3 = new Rental("03-03-2003", "03-03-2004", 300, 300, "Charlie");
 
             em.persist(userRole);
             em.persist(adminRole);
