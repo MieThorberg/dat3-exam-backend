@@ -118,4 +118,18 @@ public class RentalDTO {
     public int hashCode() {
         return Objects.hash(id, startDate, endDate, priceAnnual, deposit, contactPerson, house, tenants);
     }
+
+    @Override
+    public String toString() {
+        return "RentalDTO{" +
+                "id=" + id +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", priceAnnual=" + priceAnnual +
+                ", deposit=" + deposit +
+                ", contactPerson='" + contactPerson + '\'' +
+                ", house=" + house +
+                ", tenants=" + tenants +
+                '}';
+    }
 }

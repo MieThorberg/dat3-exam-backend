@@ -1,9 +1,11 @@
 package facades;
 
 import dtos.RentalDTO;
+import dtos.TenantDTO;
 import entities.House;
 import entities.Rental;
 import entities.Tenant;
+import errorhandling.EntityNotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -78,5 +80,32 @@ public class RentalFacade {
             em.close();
         }
         return rentals;
+    }
+
+    public RentalDTO getById(long id) {
+        Rental r;
+        EntityManager em = getEntityManager();
+        try {
+            r = em.find(Rental.class, id);
+            if (r == null)
+                throw new EntityNotFoundException("Could not find a rental entity with id: " + id);
+        } finally {
+            em.close();
+        }
+        RentalDTO rentalDTO = new RentalDTO(r);
+        return rentalDTO;
+    }
+
+    public Set<TenantDTO> getTenantsFromHouseById(long id) {
+        Set<TenantDTO> tenants;
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Tenant> query = em.createQuery("SELECT r.tenants FROM Rental r WHERE r.house.id =:id", Tenant.class);
+            query.setParameter("id", id);
+            tenants = TenantDTO.getTenantDTOs(query.getResultList());
+        } finally {
+            em.close();
+        }
+        return tenants;
     }
 }

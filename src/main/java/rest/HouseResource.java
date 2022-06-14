@@ -27,6 +27,17 @@ public class HouseResource {
                 .build();
     }
 
+    @GET
+    @RolesAllowed({"admin"})
+    @Path("id/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getById(@PathParam("id") long id) {
+        return Response
+                .ok()
+                .entity(GSON.toJson(FACADE.getById(id)))
+                .build();
+    }
+
     @POST
     @Path("create")
     @RolesAllowed({"admin"})

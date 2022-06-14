@@ -24,26 +24,27 @@ import java.util.Set;
 public class Populator {
     public static void populate(){
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-        EntityManager em = emf.createEntityManager();
-
-//        em.getTransaction().begin();
-
-        House h = new House("h1", "h", 1);
-        Tenant t = new Tenant("t1", "t", "t");
-        t.setId(1);
-        h.setId(1);
-//        em.persist(h);
-//        em.persist(t);
-
-        Set<Tenant> tenants = new HashSet<>();
-        tenants.add(t);
-        Rental rental = new Rental("r", "r", 1, 1, "r", h, tenants);
-
+//        EntityManager em = emf.createEntityManager();
+//
+////        em.getTransaction().begin();
+//
+//        House h = new House("h1", "h", 1);
+//        Tenant t = new Tenant("t1", "t", "t");
+//        t.setId(1);
+//        h.setId(1);
+////        em.persist(h);
+////        em.persist(t);
+//
+//        Set<Tenant> tenants = new HashSet<>();
+//        tenants.add(t);
+//        Rental rental = new Rental("r", "r", 1, 1, "r", h, tenants);
+//
+//        RentalFacade facade = RentalFacade.getRentalFacade(emf);
+//        RentalDTO rentalDTO = new RentalDTO(rental);
+//        facade.create(rentalDTO);
+////        em.getTransaction().commit();
         RentalFacade facade = RentalFacade.getRentalFacade(emf);
-        RentalDTO rentalDTO = new RentalDTO(rental);
-        facade.create(rentalDTO);
-//        em.getTransaction().commit();
-
+        System.out.println(facade.getTenantsFromHouseById(1));
     }
 
     public static void main(String[] args) {

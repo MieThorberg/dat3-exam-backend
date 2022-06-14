@@ -6,6 +6,7 @@ import dtos.TenantDTO;
 import entities.House;
 import entities.Rental;
 import entities.Tenant;
+import errorhandling.EntityNotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -53,5 +54,19 @@ public class TenantFacade {
             em.close();
         }
         return tenants;
+    }
+
+    public TenantDTO getById(long id) {
+        Tenant t;
+        EntityManager em = getEntityManager();
+        try {
+            t = em.find(Tenant.class, id);
+            if (t == null)
+                throw new EntityNotFoundException("Could not find a tenant entity with id: " + id);
+        } finally {
+            em.close();
+        }
+        TenantDTO tenantDTO = new TenantDTO(t);
+        return tenantDTO;
     }
 }

@@ -4,6 +4,7 @@ import dtos.HouseDTO;
 import dtos.RentalDTO;
 import entities.House;
 import entities.Rental;
+import errorhandling.EntityNotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -52,6 +53,20 @@ public class HouseFacade {
             em.close();
         }
         return houses;
+    }
+
+    public HouseDTO getById(long id) {
+        House h;
+        EntityManager em = getEntityManager();
+        try {
+            h = em.find(House.class, id);
+            if (h == null)
+                throw new EntityNotFoundException("Could not find a house entity with id: " + id);
+        } finally {
+            em.close();
+        }
+        HouseDTO houseDTO = new HouseDTO(h);
+        return houseDTO;
     }
 
 }
