@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
+import errorhandling.EntityNotFoundException;
 import facades.UserFacade;
 import utils.EMF_Creator;
 
@@ -86,6 +87,7 @@ public class UserResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     @Path("allusers")
     public Response getAllUsers() {
         return Response
@@ -93,6 +95,17 @@ public class UserResource {
                 .entity(GSON.toJson(FACADE.getAllUsers()))
                 .build();
 
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
+    @Path("id/{id}")
+    public Response getUserById(@PathParam("id") String id) throws EntityNotFoundException {
+        return Response
+                .ok()
+                .entity(GSON.toJson(FACADE.getUserById(id)))
+                .build();
     }
 
 }

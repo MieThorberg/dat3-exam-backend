@@ -3,10 +3,12 @@ package facades;
 import dtos.UserDTO;
 import entities.Role;
 import entities.User;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 
+import errorhandling.EntityNotFoundException;
 import security.errorhandling.AuthenticationException;
 
 import java.util.HashSet;
@@ -67,12 +69,27 @@ public class UserFacade {
         EntityManager em = emf.createEntityManager();
         Set<UserDTO> users = new HashSet<>();
         try {
-            TypedQuery<User> query = em.createQuery ("select u from User u",entities.User.class);
+            TypedQuery<User> query = em.createQuery("select u from User u", entities.User.class);
             List<User> list = query.getResultList();
             list.forEach(user -> users.add(new UserDTO(user)));
         } finally {
             em.close();
         }
         return users;
+    }
+
+    public UserDTO getUserById(String id)  {
+        EntityManager em = emf.createEntityManager();
+        User user;
+        try {
+            TypedQuery<User> query = em.createQuery("select u from User u where u.userName =:id", entities.User.class);
+            query.setParameter("id", id);
+            user = query.getSingleResult();
+        } finally {
+            em.close();
+        }
+
+        UserDTO userDTO = new UserDTO(user);
+        return userDTO;
     }
 }
