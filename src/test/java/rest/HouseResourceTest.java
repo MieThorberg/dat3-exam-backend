@@ -89,6 +89,7 @@ class HouseResourceTest {
             em.createNamedQuery("House.deleteAllRows").executeUpdate();
 
 
+
             em.createQuery("delete from User").executeUpdate();
             em.createQuery("delete from Role").executeUpdate();
 

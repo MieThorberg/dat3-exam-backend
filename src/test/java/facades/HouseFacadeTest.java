@@ -36,6 +36,7 @@ class HouseFacadeTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
+            em.createNamedQuery("Rental.deleteAllRows").executeUpdate();
             em.createNamedQuery("House.deleteAllRows").executeUpdate();
             h1 = new House("address1", "city1", 1);
             h2 = new House("address2", "city2", 2);
