@@ -1,10 +1,10 @@
 package rest;
 
 import com.google.gson.Gson;
+import dtos.HouseDTO;
+import dtos.RentalDTO;
 import dtos.TenantDTO;
-import entities.Role;
-import entities.Tenant;
-import entities.User;
+import entities.*;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
@@ -22,14 +22,13 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TenantResourceTest {
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
     private static Tenant t1, t2, t3;
-    User user, user1, user2, admin, both;
     private static final Gson GSON = new Gson();
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
@@ -85,32 +84,27 @@ class TenantResourceTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Tenant.deleteAllRows").executeUpdate();
-//            em.createQuery("delete from User").executeUpdate();
-//            em.createQuery("delete from Role").executeUpdate();
+            em.createQuery("delete from User").executeUpdate();
+            em.createQuery("delete from Role").executeUpdate();
 
-//            Role userRole = new Role("user");
-//            Role adminRole = new Role("admin");
-//            user = new User("user", "test");
-//            user.addRole(userRole);
-//            user1 = new User("user1", "test");
-//            user1.addRole(userRole);
-//            user2 = new User("user2", "test");
-//            user2.addRole(userRole);
-//            admin = new User("admin", "test");
-//            admin.addRole(adminRole);
-//            both = new User("user_admin", "test");
-//            both.addRole(userRole);
-//            both.addRole(adminRole);
-            t1 = new Tenant("user", "11111111", "job1");
-            t2 = new Tenant("user1", "22222222", "job2");
-            t3 = new Tenant("user2", "33333333", "job1");
-//            em.persist(userRole);
-//            em.persist(adminRole);
-//            em.persist(user);
-//            em.persist(user1);
-//            em.persist(user2);
-//            em.persist(admin);
-//            em.persist(both);
+            Role userRole = new Role("user");
+            Role adminRole = new Role("admin");
+            User user = new User("user", "test");
+            user.addRole(userRole);
+            User admin = new User("admin", "test");
+            admin.addRole(adminRole);
+            User both = new User("user_admin", "test");
+            both.addRole(userRole);
+            both.addRole(adminRole);
+            t1 = new Tenant("name1", "phone1", "job1");
+            t2 = new Tenant("name1", "phone2", "job2");
+            t3 = new Tenant("name1", "phone3", "job3");
+
+            em.persist(userRole);
+            em.persist(adminRole);
+            em.persist(user);
+            em.persist(admin);
+            em.persist(both);
 
             em.persist(t1);
             em.persist(t2);
@@ -156,6 +150,39 @@ class TenantResourceTest {
     }
 
     @Test
+    public void testCreate() {
+//        System.out.println("Testing create()");
+//
+//        String name4 = "name4";
+//        String phone4 = "phone4";
+//        String job4 = "job4";
+//
+//
+//        Tenant tenant = new Tenant(name4, phone4, job4);
+//        TenantDTO tenantDTO = new TenantDTO(tenant);
+//        String requestBody = GSON.toJson(tenantDTO);
+//
+//        String expectedName = name4;
+//        String expectedPhone = phone4;
+//        String expectedJob = job4;
+//
+//        login("admin", "test");
+//        given()
+//                .contentType(ContentType.JSON)
+//                .header("x-access-token", securityToken)
+//                .and()
+//                .body(requestBody)
+//                .when()
+//                .post("/tenants/create")
+//                .then()
+//                .assertThat()
+//                .statusCode(200)
+//                .body("name", equalTo(expectedName))
+//                .body("phone", equalTo(expectedPhone))
+//                .body("job", equalTo(expectedJob));
+    }
+
+    @Test
     void testGetAll() {
         System.out.println("Testing getAll()");
         List<TenantDTO> tenantDTOs;
@@ -175,6 +202,6 @@ class TenantResourceTest {
         TenantDTO tenantDTO2 = new TenantDTO(t2);
         TenantDTO tenantDTO3 = new TenantDTO(t3);
 
-        assertTrue(tenantDTOs.size() == 3);
+        assertThat(tenantDTOs, containsInAnyOrder(tenantDTO1, tenantDTO2, tenantDTO3));
     }
 }
