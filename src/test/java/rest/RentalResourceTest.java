@@ -3,6 +3,8 @@ package rest;
 import com.google.gson.Gson;
 import dtos.RentalDTO;
 import entities.Rental;
+import entities.Role;
+import entities.User;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
@@ -39,6 +41,22 @@ class RentalResourceTest {
         return GrizzlyHttpServerFactory.createHttpServer(BASE_URI, rc);
     }
 
+    //This is how we hold on to the token after login, similar to that a client must store the token somewhere
+    private static String securityToken;
+
+    //Utility method to login and set the returned securityToken
+    private static void login(String role, String password) {
+        String json = String.format("{username: \"%s\", password: \"%s\"}", role, password);
+        securityToken = given()
+                .contentType("application/json")
+                .body(json)
+                //.when().post("/api/login")
+                .when().post("/login")
+                .then()
+                .extract().path("token");
+        //System.out.println("TOKEN ---> " + securityToken);
+    }
+
     @BeforeAll
     static void beforeAll() {
         //This method must be called before you request the EntityManagerFactory
@@ -63,12 +81,30 @@ class RentalResourceTest {
     @BeforeEach
     void setUp() {
         EntityManager em = emf.createEntityManager();
+        Role userRole = new Role("user");
+        Role adminRole = new Role("admin");
+        User user = new User("user", "test");
+        user.addRole(userRole);
+        User admin = new User("admin", "test");
+        admin.addRole(adminRole);
+        User both = new User("user_admin", "test");
+        both.addRole(userRole);
+        both.addRole(adminRole);
         r1 = new Rental("01-01-2001", "01-01-2002", 100, 100, "Alice");
         r2 = new Rental("02-02-2002", "02-02-2003", 200, 200, "Bob");
         r3 = new Rental("03-03-2003", "03-03-2004", 300, 300, "Charlie");
         try {
             em.getTransaction().begin();
+            em.createQuery("delete from User").executeUpdate();
+            em.createQuery("delete from Role").executeUpdate();
             em.createNamedQuery("Rental.deleteAllRows").executeUpdate();
+
+            em.persist(userRole);
+            em.persist(adminRole);
+            em.persist(user);
+            em.persist(admin);
+            em.persist(both);
+
             em.persist(r1);
             em.persist(r2);
             em.persist(r3);
@@ -85,7 +121,9 @@ class RentalResourceTest {
     @Test
     void testServerIsUp() {
         System.out.println("Testing is server UP");
+        login("admin", "test");
         given()
+                .header("x-access-token", securityToken)
                 .when().get("/rentals")
                 .then().statusCode(200);
     }
@@ -93,7 +131,9 @@ class RentalResourceTest {
     @Test
     void testLogRequest() {
         System.out.println("Testing logging request details");
+        login("admin", "test");
         given().log().all()
+                .header("x-access-token", securityToken)
                 .when().get("/rentals")
                 .then().statusCode(200);
     }
@@ -101,7 +141,9 @@ class RentalResourceTest {
     @Test
     void testLogResponse() {
         System.out.println("Testing logging response details");
+        login("admin", "test");
         given()
+                .header("x-access-token", securityToken)
                 .when().get("/rentals")
                 .then().log().body().statusCode(200);
     }
@@ -110,9 +152,10 @@ class RentalResourceTest {
     void testGetAll() {
         System.out.println("Testing getAll()");
         List<RentalDTO> rentalDTOs;
-
+        login("admin", "test");
         rentalDTOs = given()
                 .contentType(ContentType.JSON)
+                .header("x-access-token", securityToken)
                 .when()
                 .get("/rentals")
                 .then()

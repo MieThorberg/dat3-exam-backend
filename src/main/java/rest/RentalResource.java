@@ -18,7 +18,7 @@ public class RentalResource {
 
 
     @GET
-    @RolesAllowed({"admin", "user"})
+    @RolesAllowed({"admin"})
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         return Response
