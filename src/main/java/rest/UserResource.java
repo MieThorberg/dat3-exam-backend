@@ -83,4 +83,16 @@ public class UserResource {
                 .entity(GSON.toJson(FACADE.registerNewUser(user)))
                 .build();
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("allusers")
+    public Response getAllUsers() {
+        return Response
+                .ok()
+                .entity(GSON.toJson(FACADE.getAllUsers()))
+                .build();
+
+    }
+
 }
