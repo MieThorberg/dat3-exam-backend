@@ -28,7 +28,7 @@ public class HouseResource {
     }
 
     @GET
-    @RolesAllowed({"admin"})
+    @RolesAllowed({"admin", "user"})
     @Path("id/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") long id) {
