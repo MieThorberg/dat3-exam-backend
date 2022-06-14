@@ -14,9 +14,8 @@ public class Tenant implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_name")
-    private User user;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "phone")
     private String phone;
@@ -27,8 +26,8 @@ public class Tenant implements Serializable {
     public Tenant() {
     }
 
-    public Tenant(User user, String phone, String job) {
-        this.user = user;
+    public Tenant(String name, String phone, String job) {
+        this.name = name;
         this.phone = phone;
         this.job = job;
     }
@@ -41,12 +40,12 @@ public class Tenant implements Serializable {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public String getName() {
+        return name;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhone() {

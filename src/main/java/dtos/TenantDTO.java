@@ -17,7 +17,7 @@ public class TenantDTO {
     public TenantDTO(Tenant tenant) {
         if(tenant.getId() != 0)
             this.id = tenant.getId();
-        this.name = tenant.getUser().getUserName();
+        this.name = tenant.getName();
         this.phone = tenant.getPhone();
         this.job = tenant.getPhone();
     }
