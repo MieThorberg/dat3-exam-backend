@@ -1,6 +1,8 @@
 package rest;
 
 import com.google.gson.Gson;
+import dtos.HouseDTO;
+import dtos.TenantDTO;
 import facades.TenantFacade;
 import utils.EMF_Creator;
 
@@ -24,6 +26,19 @@ public class TenantResource {
         return Response
                 .ok()
                 .entity(GSON.toJson(FACADE.getAll()))
+                .build();
+    }
+
+    @POST
+    @Path("create")
+    @RolesAllowed({"admin"})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response create(String content) {
+        TenantDTO tenantDTO = GSON.fromJson(content, TenantDTO.class);
+        return Response
+                .ok()
+                .entity(GSON.toJson(FACADE.create(tenantDTO)))
                 .build();
     }
 }

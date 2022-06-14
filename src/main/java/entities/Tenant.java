@@ -2,6 +2,9 @@ package entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tenants")
@@ -22,6 +25,9 @@ public class Tenant implements Serializable {
 
     @Column(name = "job")
     private String job;
+
+    @ManyToMany (mappedBy = "tenants")
+    Set<Rental> rentals = new HashSet<>();
 
     public Tenant() {
     }
@@ -62,5 +68,21 @@ public class Tenant implements Serializable {
 
     public void setJob(String job) {
         this.job = job;
+    }
+
+    public Set<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(Set<Rental> rentals) {
+        this.rentals = rentals;
+    }
+
+   public void addRental(Rental rental) {
+        this.rentals.add(rental);
+    }
+
+    public void removeRental(Rental rental) {
+        this.rentals.remove(rental);
     }
 }

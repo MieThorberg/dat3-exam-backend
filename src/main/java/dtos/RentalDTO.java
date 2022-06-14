@@ -16,6 +16,7 @@ public class RentalDTO {
     private int deposit;
     private String contactPerson;
     private HouseDTO house;
+    private Set<TenantDTO> tenants;
 
     public RentalDTO(Rental rental) {
         if(rental.getId() != 0)
@@ -26,6 +27,7 @@ public class RentalDTO {
         this.deposit = rental.getDeposit();
         this.contactPerson = rental.getContactPerson();
         this.house = new HouseDTO(rental.getHouse());
+        this.tenants = TenantDTO.getTenantDTOs(rental.getTenants());
     }
 
     public static Set<RentalDTO> getRentalDTOs(List<Rental> rentals) {
@@ -96,16 +98,24 @@ public class RentalDTO {
         this.house = house;
     }
 
+    public Set<TenantDTO> getTenants() {
+        return tenants;
+    }
+
+    public void setTenants(Set<TenantDTO> tenants) {
+        this.tenants = tenants;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RentalDTO rentalDTO = (RentalDTO) o;
-        return id == rentalDTO.id && priceAnnual == rentalDTO.priceAnnual && deposit == rentalDTO.deposit && Objects.equals(startDate, rentalDTO.startDate) && Objects.equals(endDate, rentalDTO.endDate) && Objects.equals(contactPerson, rentalDTO.contactPerson) && Objects.equals(house, rentalDTO.house);
+        return id == rentalDTO.id && priceAnnual == rentalDTO.priceAnnual && deposit == rentalDTO.deposit && Objects.equals(startDate, rentalDTO.startDate) && Objects.equals(endDate, rentalDTO.endDate) && Objects.equals(contactPerson, rentalDTO.contactPerson) && Objects.equals(house, rentalDTO.house) && Objects.equals(tenants, rentalDTO.tenants);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, startDate, endDate, priceAnnual, deposit, contactPerson, house);
+        return Objects.hash(id, startDate, endDate, priceAnnual, deposit, contactPerson, house, tenants);
     }
 }

@@ -3,10 +3,12 @@ package facades;
 import dtos.RentalDTO;
 import entities.House;
 import entities.Rental;
+import entities.Tenant;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import java.util.HashSet;
 import java.util.Set;
 
 public class RentalFacade {
@@ -39,7 +41,20 @@ public class RentalFacade {
             String contactPerson = rentalDTO.getContactPerson();
             House house = em.find(House.class, rentalDTO.getHouse().getId());
 
-            Rental rental = new Rental(startDate, endDate, priceAnnual, deposit, contactPerson, house);
+            Set<Tenant> tenants = new HashSet<>();
+            rentalDTO.getTenants().forEach(
+                    tenant -> {
+                        Tenant t = em.find(Tenant.class, tenant.getId());
+                        tenants.add(t);
+                    }
+            );
+
+            Rental rental = new Rental(startDate, endDate, priceAnnual, deposit, contactPerson, house, tenants);
+
+            tenants.forEach(tenant -> {
+                tenant.addRental(rental);
+                em.merge(tenant);
+            });
 
             house.addRental(rental);
             em.merge(house);

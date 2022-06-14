@@ -1,7 +1,9 @@
 package facades;
 
+import dtos.HouseDTO;
 import dtos.RentalDTO;
 import dtos.TenantDTO;
+import entities.House;
 import entities.Rental;
 import entities.Tenant;
 
@@ -26,6 +28,19 @@ public class TenantFacade {
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+
+    public TenantDTO create(TenantDTO tenantDTO) {
+        Tenant t = new Tenant(tenantDTO.getName(), tenantDTO.getPhone(), tenantDTO.getJob());
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(t);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return tenantDTO;
     }
 
     public Set<TenantDTO> getAll() {

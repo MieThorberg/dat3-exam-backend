@@ -2,6 +2,8 @@ package entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "rentals")
@@ -33,16 +35,24 @@ public class Rental implements Serializable {
     @JoinColumn(name = "house_id")
     private House house;
 
+    @ManyToMany
+    @JoinTable(
+            name="rentals_tenants",
+            joinColumns=@JoinColumn(name="rental_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="tenant_id", referencedColumnName="id"))
+    private Set<Tenant> tenants;
+
     public Rental() {
     }
 
-    public Rental(String startDate, String endDate, int priceAnnual, int deposit, String contactPerson, House house) {
+    public Rental(String startDate, String endDate, int priceAnnual, int deposit, String contactPerson, House house, Set<Tenant> tenants) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.priceAnnual = priceAnnual;
         this.deposit = deposit;
         this.contactPerson = contactPerson;
         this.house = house;
+        this.tenants = tenants;
     }
 
     public long getId() {
@@ -100,5 +110,13 @@ public class Rental implements Serializable {
     public void setHouse(House house) {
         this.house = house;
 
+    }
+
+    public Set<Tenant> getTenants() {
+        return tenants;
+    }
+
+    public void setTenants(Set<Tenant> tenants) {
+        this.tenants = tenants;
     }
 }
