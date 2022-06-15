@@ -23,6 +23,7 @@
         <th>Description</th>
         <th>Request body</th>
         <th>Response body</th>
+        <th>Roles allowed</th>
     </tr>
     <tr>
         <td>GET</td>
@@ -30,8 +31,128 @@
         <td>Get all rentals</td>
         <td>None</td>
         <td>Set of rentals</td>
+        <td>admin only</td>
     </tr>
-
+    <tr>
+        <td>GET</td>
+        <td>/api/rentals/id/{id}</td>
+        <td>Get rental by id</td>
+        <td>None</td>
+        <td>Rental</td>
+        <td>admin only</td>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/api/rentals/tenantsfromhouse/{id}</td>
+        <td>Get tenants by id from a rental house</td>
+        <td>None</td>
+        <td>Set of tenants</td>
+        <td>admin only</td>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/api/rentals/rentalfromtenant/{name}</td>
+        <td>Get rentals by name from a tenant</td>
+        <td>None</td>
+        <td>Set of rentals</td>
+        <td>admin & user</td>
+    </tr>
+    <tr>
+        <td>POST</td>
+        <td>/api/rentals/create</td>
+        <td>Create rental</td>
+        <td>Rental</td>
+        <td>Rental</td>
+        <td>admin only</td>
+    </tr>
+    <tr>
+        <td>PUT</td>
+        <td>/api/rentals/update</td>
+        <td>Update rental</td>
+        <td>Rental</td>
+        <td>Rental</td>
+        <td>admin only</td>
+    </tr>
+    <tr>
+        <td>DELETE</td>
+        <td>/api/rentals/delete</td>
+        <td>Delete rental</td>
+        <td>None</td>
+        <td>Rental</td>
+        <td>admin only</td>
+    </tr>
+</table>
+<br>
+<h3>Tenant</h3>
+<table>
+    <tr>
+        <th>Method</th>
+        <th>API endpoint</th>
+        <th>Description</th>
+        <th>Request body</th>
+        <th>Response body</th>
+        <th>Roles allowed</th>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/api/tenants</td>
+        <td>Get all tenants</td>
+        <td>None</td>
+        <td>Set of tenants</td>
+        <td>admin only</td>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/api/tenants/id/{id}</td>
+        <td>Get tenant by id</td>
+        <td>None</td>
+        <td>Tenant</td>
+        <td>admin only</td>
+    </tr>
+    <tr>
+        <td>POST</td>
+        <td>/api/tenants/create</td>
+        <td>Create tenant</td>
+        <td>Tenant</td>
+        <td>Tenant</td>
+        <td>admin only</td>
+    </tr>
+</table>
+<br>
+<h3>House</h3>
+<table>
+    <tr>
+        <th>Method</th>
+        <th>API endpoint</th>
+        <th>Description</th>
+        <th>Request body</th>
+        <th>Response body</th>
+        <th>Roles allowed</th>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/api/houses</td>
+        <td>Get all houses</td>
+        <td>None</td>
+        <td>Set of rentals</td>
+        <td>admin only</td>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/api/houses/id/{id}</td>
+        <td>Get house by id</td>
+        <td>None</td>
+        <td>House</td>
+        <td>admin & user</td>
+    </tr>
+    <tr>
+        <td>POST</td>
+        <td>/api/houses/create</td>
+        <td>Create house</td>
+        <td>House</td>
+        <td>House</td>
+        <td>admin only</td>
+    </tr>
 </table>
 </body>
 </html>

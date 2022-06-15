@@ -70,6 +70,91 @@ public class RentalFacade {
         return rentalDTO;
     }
 
+    public RentalDTO update(RentalDTO rentalDTO) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            //get all tenants related to the rental
+            Set<Tenant> tenants = new HashSet<>();
+            rentalDTO.getTenants().forEach(
+                    tenant -> {
+                        tenants.add((em.find(Tenant.class, tenant.getId())));
+                    }
+            );
+
+            //get house related to the rental
+            House house = em.find(House.class, rentalDTO.getHouse().getId());
+
+            //rental before update
+            Rental currentRental = em.find(Rental.class, rentalDTO.getId());
+
+            //merging tenants to update their relation to rental
+            currentRental.getTenants().forEach(tenant -> {
+                tenant.removeRental(currentRental);
+                em.merge(tenant);
+            });
+
+            currentRental.getTenants().clear();
+
+            tenants.forEach(tenant -> {
+                currentRental.addTenant(tenant);
+                em.merge(tenant);
+            });
+
+            //merging house to update their relation to boat
+            if(!currentRental.getHouse().equals(house)) {
+                currentRental.getHouse().removeRental(currentRental);
+                em.merge(currentRental.getHouse());
+                currentRental.setHouse(house);
+            }
+
+            //saving boat
+            currentRental.setStartDate(rentalDTO.getStartDate());
+            currentRental.setEndDate(rentalDTO.getEndDate());
+            currentRental.setPriceAnnual(rentalDTO.getPriceAnnual());
+            currentRental.setDeposit(rentalDTO.getDeposit());
+            currentRental.setContactPerson(rentalDTO.getContactPerson());
+            em.merge(currentRental);
+
+            em.getTransaction().commit();
+
+        } finally {
+            em.close();
+        }
+        return rentalDTO;
+    }
+
+    public RentalDTO delete(long id) {
+        RentalDTO rentalDTO;
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            Rental rental = em.find(Rental.class, id);
+            if(rental == null) {
+                throw new EntityNotFoundException("Could not find a rental entity with id: " + id);
+            }
+            rentalDTO = new RentalDTO(rental);
+
+            rental.getTenants().forEach(tenant -> {
+                tenant.removeRental(rental);
+                em.merge(tenant);
+            });
+
+            rental.getTenants().clear();
+
+            rental.getHouse().removeRental(rental);
+
+            em.remove(rental);
+
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return rentalDTO;
+    }
+
     public Set<RentalDTO> getAll() {
         Set<RentalDTO> rentals;
         EntityManager em = getEntityManager();

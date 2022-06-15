@@ -64,13 +64,37 @@ public class RentalResource {
     }
 
     @GET
-    @RolesAllowed({"user"})
+    @RolesAllowed({"user", "admin"})
     @Path("rentalsfromtenant/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getRentalByTenantName(@PathParam("name") String name) {
         return Response
                 .ok()
                 .entity(GSON.toJson(FACADE.getRentalByTenantName(name)))
+                .build();
+    }
+
+    @PUT
+    @Path("/update")
+    @RolesAllowed({"admin"})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(String content) {
+        RentalDTO rentalDTO = GSON.fromJson(content, RentalDTO.class);
+        return Response
+                .ok()
+                .entity(GSON.toJson(FACADE.update(rentalDTO)))
+                .build();
+    }
+
+    @DELETE
+    @Path("/delete/{id}")
+    @RolesAllowed({"admin"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") long id) {
+        return Response
+                .ok()
+                .entity(GSON.toJson(FACADE.delete(id)))
                 .build();
     }
 }

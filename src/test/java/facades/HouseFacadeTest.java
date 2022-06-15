@@ -55,6 +55,22 @@ class HouseFacadeTest {
     }
 
     @Test
+    void testCreate() {
+        System.out.println("Testing create()");
+
+        House house = new House("address1", "city", 1);
+        HouseDTO houseDTO = new HouseDTO(house);
+
+        HouseDTO expected = houseDTO;
+        HouseDTO actual = facade.create(houseDTO);
+        assertEquals(expected, actual);
+
+        int expectedSize = 4;
+        int actualSize = facade.getAll().size();
+        assertEquals(expectedSize, actualSize);
+    }
+
+    @Test
     void testGetAll() {
         System.out.println("Testing getAll()");
 
@@ -67,5 +83,25 @@ class HouseFacadeTest {
 
         assertEquals(expected.size(), actual.size());
         assertTrue(actual.containsAll(expected));
+    }
+
+    @Test
+    void testGetById() {
+        System.out.println("Testing getById()");
+
+        long id1 = h1.getId();
+        HouseDTO expected1 = new HouseDTO(h1);
+        HouseDTO actual1 = facade.getById(id1);
+        assertEquals(expected1, actual1);
+
+        long id2 = h2.getId();
+        HouseDTO expected2 = new HouseDTO(h2);
+        HouseDTO actual2 = facade.getById(id2);
+        assertEquals(expected2, actual2);
+
+        long id3 = h3.getId();
+        HouseDTO expected3 = new HouseDTO(h3);
+        HouseDTO actual3 = facade.getById(id3);
+        assertEquals(expected3, actual3);
     }
 }

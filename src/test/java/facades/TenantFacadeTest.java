@@ -85,6 +85,22 @@ class TenantFacadeTest {
     }
 
     @Test
+    void testCreate() {
+        System.out.println("Testing create()");
+
+        Tenant tenant = new Tenant("name4", "phone4", "job4");
+        TenantDTO tenantDTO = new TenantDTO(tenant);
+
+        TenantDTO expected = tenantDTO;
+        TenantDTO actual = facade.create(tenantDTO);
+        assertEquals(expected, actual);
+
+        int expectedSize = 4;
+        int actualSize = facade.getAll().size();
+        assertEquals(expectedSize, actualSize);
+    }
+
+    @Test
     void testGetAll() {
         System.out.println("Testing getAll()");
 
@@ -98,5 +114,25 @@ class TenantFacadeTest {
         Set<TenantDTO> expected = tenantDTOs;
         Set<TenantDTO> actual = facade.getAll();
         assertEquals(expected.size(), actual.size());
+    }
+
+    @Test
+    void testGetById() {
+        System.out.println("Testing getById()");
+
+        long id1 = t1.getId();
+        TenantDTO expected1 = new TenantDTO(t1);
+        TenantDTO actual1 = facade.getById(id1);
+        assertEquals(expected1, actual1);
+
+        long id2 = t2.getId();
+        TenantDTO expected2 = new TenantDTO(t2);
+        TenantDTO actual2 = facade.getById(id2);
+        assertEquals(expected2, actual2);
+
+        long id3 = t3.getId();
+        TenantDTO expected3 = new TenantDTO(t3);
+        TenantDTO actual3 = facade.getById(id3);
+        assertEquals(expected3, actual3);
     }
 }

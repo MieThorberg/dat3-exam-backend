@@ -8,6 +8,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.*;
@@ -171,7 +172,6 @@ class RentalResourceTest {
     void testCreate() {
         System.out.println("Testing create()");
 
-
         String startDate = "04-04-2004";
         String endDate = "04-04-2005";
         int priceAnnual = 400;
@@ -212,6 +212,22 @@ class RentalResourceTest {
     }
 
     @Test
+    public void testDelete() {
+        System.out.println("Testing delete()");
+
+        String expectedContactPerson = "Alice";
+        login("admin", "test");
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .pathParam("id", r1.getId())
+                .delete("/rentals/delete/{id}")
+                .then()
+                .statusCode(200)
+                .body("contactPerson", equalTo(expectedContactPerson));
+    }
+
+    @Test
     void testGetAll() {
         System.out.println("Testing getAll()");
         List<RentalDTO> rentalDTOs;
@@ -232,4 +248,39 @@ class RentalResourceTest {
         RentalDTO rentalDTO3 = new RentalDTO(r3);
         assertThat(rentalDTOs, containsInAnyOrder(rentalDTO1, rentalDTO2, rentalDTO3));
     }
+
+    @Test
+    public void testGetById() {
+        System.out.println("Testing getById()");
+
+        String expectedContactPerson = "Alice";
+        login("admin", "test");
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .get("/rentals/id/{id}", r1.getId())
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("contactPerson", equalTo(expectedContactPerson));
+    }
+
+    @Test
+    public void testGetByNotExistingId() {
+        System.out.println("Testing getById() with not existing id");
+
+        int expectedCode = 404;
+        String expectedMessage = "Could not find a rental entity with id: 9999";
+        login("admin", "test");
+        given()
+                .contentType(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .get("/rentals/id/{id}", 9999)
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.NOT_FOUND_404.getStatusCode())
+                .body("code", equalTo(expectedCode))
+                .body("message", equalTo(expectedMessage));
+    }
+
 }

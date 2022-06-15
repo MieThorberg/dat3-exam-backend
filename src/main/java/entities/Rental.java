@@ -109,7 +109,7 @@ public class Rental implements Serializable {
 
     public void setHouse(House house) {
         this.house = house;
-
+        house.addRental(this);
     }
 
     public Set<Tenant> getTenants() {
@@ -118,5 +118,10 @@ public class Rental implements Serializable {
 
     public void setTenants(Set<Tenant> tenants) {
         this.tenants = tenants;
+    }
+
+    public void addTenant(Tenant tenant) {
+        this.tenants.add(tenant);
+        tenant.addRental(this);
     }
 }

@@ -150,39 +150,6 @@ class TenantResourceTest {
     }
 
     @Test
-    public void testCreate() {
-//        System.out.println("Testing create()");
-//
-//        String name4 = "name4";
-//        String phone4 = "phone4";
-//        String job4 = "job4";
-//
-//
-//        Tenant tenant = new Tenant(name4, phone4, job4);
-//        TenantDTO tenantDTO = new TenantDTO(tenant);
-//        String requestBody = GSON.toJson(tenantDTO);
-//
-//        String expectedName = name4;
-//        String expectedPhone = phone4;
-//        String expectedJob = job4;
-//
-//        login("admin", "test");
-//        given()
-//                .contentType(ContentType.JSON)
-//                .header("x-access-token", securityToken)
-//                .and()
-//                .body(requestBody)
-//                .when()
-//                .post("/tenants/create")
-//                .then()
-//                .assertThat()
-//                .statusCode(200)
-//                .body("name", equalTo(expectedName))
-//                .body("phone", equalTo(expectedPhone))
-//                .body("job", equalTo(expectedJob));
-    }
-
-    @Test
     void testGetAll() {
         System.out.println("Testing getAll()");
         List<TenantDTO> tenantDTOs;

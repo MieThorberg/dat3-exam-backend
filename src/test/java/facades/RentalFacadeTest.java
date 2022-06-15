@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.HouseDTO;
 import dtos.RentalDTO;
 import entities.House;
 import entities.Rental;
@@ -98,6 +99,59 @@ class RentalFacadeTest {
         int expectedSize = 4;
         int actualSize = facade.getAll().size();
         assertEquals(expectedSize, actualSize);
+    }
+
+    @Test
+    void testUpdate() {
+        System.out.println("Testing update()");
+
+        String newEndDay = "newName";
+        RentalDTO rentalDTO = new RentalDTO(r1);
+        rentalDTO.setId(r1.getId());
+        rentalDTO.setEndDate(newEndDay);
+
+        RentalDTO expected = rentalDTO;
+        RentalDTO actual = facade.update(rentalDTO);
+        assertEquals(expected, actual);
+
+        String expectedEndDay = newEndDay;
+        String actualEndDay = facade.getById(r1.getId()).getEndDate();
+        assertEquals(expectedEndDay, actualEndDay);
+    }
+
+    @Test
+    void testDelete() {
+        System.out.println("Testing delete()");
+
+        RentalDTO rentalDTO = new RentalDTO(r1);
+
+        RentalDTO expected = rentalDTO;
+        RentalDTO actual = facade.delete(r1.getId());
+        assertEquals(expected, actual);
+
+        int expectedSize = 2;
+        int actualSize = facade.getAll().size();
+        assertEquals(expectedSize, actualSize);
+    }
+
+    @Test
+    void testGetById() {
+        System.out.println("Testing getById()");
+
+        long id1 = r1.getId();
+        RentalDTO expected1 = new RentalDTO(r1);
+        RentalDTO actual1 = facade.getById(id1);
+        assertEquals(expected1, actual1);
+
+        long id2 = r2.getId();
+        RentalDTO expected2 = new RentalDTO(r2);
+        RentalDTO actual2 = facade.getById(id2);
+        assertEquals(expected2, actual2);
+
+        long id3 = r3.getId();
+        RentalDTO expected3 = new RentalDTO(r3);
+        RentalDTO actual3 = facade.getById(id3);
+        assertEquals(expected3, actual3);
     }
 
     @Test
